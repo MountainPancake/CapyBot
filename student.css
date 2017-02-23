@@ -1,6 +1,4 @@
-html, body {
-  overflow-x: hidden; /* Prevent scroll on narrow devices */
-}
+html, body {overflow-x: hidden;} /* Prevent scroll on narrow devices */
 
 /* Space out content a bit */
 body {
@@ -9,9 +7,7 @@ body {
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
+.header, .marketing, .footer {
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -76,4 +72,20 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+/* Navbar */
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
 }
