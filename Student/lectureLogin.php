@@ -1,7 +1,7 @@
 <?php
-
-$_GET["lecturePin"];
-header("Location: student.html");
+session_start();
+$_SESSION["lecturePin"] = $_GET["lecturePin"];
+header("Location: student.php");
 
 
 ?>
