@@ -30,7 +30,6 @@
                             <ul class="nav masthead-nav">
                                 <li class="active"><a href="#">Log in</a></li>
                                 <li><a href="#">About</a></li>
-                                <li><a href="Student/student_notLoggedIn.html">KLIKK HER</a></li>
                             </ul>
                         </nav>
                     </div>
