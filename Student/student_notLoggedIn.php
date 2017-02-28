@@ -37,14 +37,13 @@
             </ul>
         </nav>
 
-        <a href="student.html" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
+        <a href="student_notLoggedIn.html" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
         </div>
 
         <!-- Body -->
 
         <div class="jumbotron">
             <h1 style="font-size:50px;">Sign in to lecture</h1>
-
             <form action="lectureLogin.php" method="get" class="">
                 <input type="text" placeholder="Lecture pin" name="lecturePin" class="code" style="color:black;">
                 <input type="submit" class="btn btn-lg btn-success signin knapp" value="Submit">
