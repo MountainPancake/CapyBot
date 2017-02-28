@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +45,7 @@
         </div>
 
         <!-- Body -->
-
+        <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?></h1>
         <div class="jumbotron">
             <h1 class="question" style="font-size:50px;">Question</h1>
 
