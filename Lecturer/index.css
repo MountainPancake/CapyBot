@@ -13,10 +13,6 @@ a, a:focus, a:hover {
     height: 80%;
 }
 
-.form-signin {
-    width: 70%;
-    margin: auto;
-}
 
 /* Custom default button */
 .btn-default, .btn-default:hover, .btn-default:focus {
@@ -73,25 +69,6 @@ body {
   margin-bottom: 10px;
 }
 
-.masthead-nav > li {
-  display: inline-block;
-}
-.masthead-nav > li + li {
-  margin-left: 20px;
-}
-.masthead-nav > li > a {
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 16px;
-}
-.masthead-nav > li > a:hover, .masthead-nav > li > a:focus {
-  background-color: transparent;
-}
-
-.masthead-nav > .active > a, .masthead-nav > .active > a:hover, .masthead-nav > .active > a:focus {
-  color: #fff;
-  font-weight: bold;
-}
 
 @media (min-width: 768px) {
   .masthead-brand {
@@ -102,11 +79,6 @@ body {
   }
 }
 
-
-/*
- * Cover
- */
-
 .cover {
   padding: 0 20px;
 }
@@ -115,20 +87,6 @@ body {
   font-weight: bold;
 }
 
-
-/*
- * Footer
- */
-
-.mastfoot {
-  color: #999; /* IE8 proofing */
-  color: rgba(255,255,255,.5);
-}
-
-
-/*
- * Affix and center
- */
 
 @media (min-width: 768px) {
   /* Pull out the header and footer */
