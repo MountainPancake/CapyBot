@@ -27,21 +27,21 @@ session_start();
         <div class="header clearfix">
 
         <!-- Static navbar -->
-        <nav class="navbar-default">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
-                <li class="active"><a href="#">Lecture <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Questions <span class="badge">4</badge></a></li>
-                <li><a href="#">Profile</a></li>
-            </ul>
-        </nav>
+            <nav class="navbar-default">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
+                    <li class="active"><a href="#">Lecture <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Questions <span class="badge">4</badge></a></li>
+                    <li><a href="#">Profile</a></li>
+                </ul>
+            </nav>
 
-        <a href="student.html" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
+            <a href="student.html" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
         </div>
 
         <!-- Body -->
@@ -79,7 +79,7 @@ session_start();
                     <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                 </form>
                 <br />
-                
+
            </div>
        </div>
 
