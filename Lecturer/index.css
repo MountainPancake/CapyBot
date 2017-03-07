@@ -37,14 +37,6 @@ a, a:focus, a:hover {
 }
 
 
-/* Custom default button */
-.btn-default, .btn-default:hover, .btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
-}
-
 html, body {
   height: 100%;
   background-color: #142952;
