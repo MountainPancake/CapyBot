@@ -13,14 +13,11 @@ if ($con->connect_error) {
 }else{
   echo "Connected very successfully<br>";
 }
-
-echo "Helluuuuu<br>";
 $query = "SELECT * FROM User";
-echo "Helluuuuu<br>";
 $result = mysqli_query($con, $query);
-$row = mysqli_fetch_row($result);
-echo "Helluuuuu<br>";
-echo "This person is a ".(!$row[3]?"student":"lecturer");
-
+while($row = mysqli_fetch_row($result)){
+  echo "This person is a ".(!$row[3]?"lecturer":"student")."<br>";
+  echo $row[1];
+};
 ?>
 </html>
