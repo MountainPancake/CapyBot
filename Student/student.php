@@ -37,7 +37,7 @@ session_start();
                 <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
                     <li class="active"><a href="#">Lecture <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Questions <span class="badge">4</badge></a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="#" onclick="openProfile()">Profile</a></li>
                 </ul>
             </nav>
 
@@ -45,41 +45,43 @@ session_start();
         </div>
 
         <!-- Body -->
-        <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?></h1>
-        <div class="jumbotron">
-            <h1 class="question" style="font-size:50px;">Question</h1>
+        <div id="student_body">
+            <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?></h1>
+            <div class="jumbotron">
+                <h1 class="question" style="font-size:50px;">Question</h1>
 
-            <ul class="list-group answers">
-                <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
-                <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
-                <button type="button" class="btn btn-lg btn-primary list-group-item answer">Answer</button>
-            </ul>
-        </div>
+                <ul class="list-group answers">
+                    <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
+                    <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
+                    <button type="button" class="btn btn-lg btn-primary list-group-item answer">Answer</button>
+                </ul>
+            </div>
 
-        <div class="row marketing">
-            <div class="col-lg-12">
+            <div class="row marketing">
+                <div class="col-lg-12">
 
-                <h3>Give feedback</h3>
+                    <h3>Give feedback</h3>
 
-                <div class="" style="width:100%">
-                    <button type="button" class="btn btn-lg btn-primary knapp">Slow down</button>
-                    <button type="button" class="btn btn-lg btn-primary knapp">Speed up</button>
-                    <button type="button" class="btn btn-lg btn-primary knapp">Something</button>
-                </div>
+                    <div class="" style="width:100%">
+                        <button type="button" class="btn btn-lg btn-primary knapp">Slow down</button>
+                        <button type="button" class="btn btn-lg btn-primary knapp">Speed up</button>
+                        <button type="button" class="btn btn-lg btn-primary knapp">Something</button>
+                    </div>
 
-                <h3>Lecture progress</h3>
+                    <h3>Lecture progress</h3>
 
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"><span class="sr-only">60% Complete</span></div>
-                </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"><span class="sr-only">60% Complete</span></div>
+                    </div>
 
-                <h3>Ask question</h3>
-                <form class="" >
-                    <input type="text" class="form-control" placeholder="?">
-                    <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
-                </form>
-                <br />
+                    <h3>Ask question</h3>
+                    <form class="" >
+                        <input type="text" class="form-control" placeholder="?">
+                        <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
+                    </form>
+                    <br />
 
+               </div>
            </div>
        </div>
 
@@ -97,5 +99,6 @@ session_start();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
+    <script src="student.js"></script>
 </body>
 </html>
