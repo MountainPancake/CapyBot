@@ -35,8 +35,8 @@ session_start();
                     <span class="icon-bar"></span>
                 </button>
                 <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
-                    <li class="active"><a href="#">Lecture <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Questions <span class="badge">4</badge></a></li>
+                    <li class="active"><a href="#" onclick="openLecture()">Lecture <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#" onclick="openQuestions()">Questions <span class="badge">4</badge></a></li>
                     <li><a href="#" onclick="openProfile()">Profile</a></li>
                 </ul>
             </nav>
@@ -92,8 +92,7 @@ session_start();
 
     </footer>
 
-    </div>
-
+  </div>
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->

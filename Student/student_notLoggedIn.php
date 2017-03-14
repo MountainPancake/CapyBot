@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
             </button>
             <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
-                <li class="active"><a href="#">Sign in <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#" onclick="openSignIn()">Sign in <span class="sr-only">(current)</span></a></li>
                 <li><a href="#" onclick="openProfile()">Profile</a></li>
             </ul>
         </nav>
@@ -59,7 +59,6 @@
     </footer>
 
     </div>
-
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
