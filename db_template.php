@@ -16,8 +16,9 @@ if ($con->connect_error) {
 $query = "SELECT * FROM User";
 $result = mysqli_query($con, $query);
 while($row = mysqli_fetch_row($result)){
+  echo $row[1]."<br>";
   echo "This person is a ".(!$row[3]?"lecturer":"student")."<br>";
-  echo $row[1];
+  echo "<br>";
 };
 ?>
 </html>
