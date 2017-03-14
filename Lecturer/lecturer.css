@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  background-color: #142952;
+}
+
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
 a, a:focus, a:hover {
   color: #fff;
 }
@@ -36,17 +47,28 @@ a, a:focus, a:hover {
     border-style: none;
 }
 
-
-html, body {
-  height: 100%;
-  background-color: #142952;
+.formText {
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
 }
 
-body {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+.liste {
+    font-size: 20pt;
+    list-style-type: none;
+    text-align: left;
+    font-style: italic;
+    line-height: 30pt;
 }
+
+
+
+
+
+
+
+
+
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {

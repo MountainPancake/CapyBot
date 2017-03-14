@@ -8,7 +8,7 @@
         <title>Capybot</title>
 
         <link href="../bootstrap.css" rel="stylesheet">
-        <link href="index.css" rel="stylesheet">
+        <link href="lecturer.css" rel="stylesheet">
 
         <style type="text/css">
 
@@ -54,16 +54,19 @@
                     <div class="col-md-5">
 
                         <form action="createLecturer.php">
-                            First name:<br/>
-                            <input type="text" placeholder="First name" name="fname" class="form-control"><br/>
-                            Last name:<br/>
-                            <input type="text" placeholder="Last name" name="lname"><br/>
-                            Email:<br/>
-                            <input type="text" placeholder="name@domain.com" name="email"><br/>
-                            University:<br/>
-                            <input type="text" placeholder="School" name="email"><br/>
-                            Password:<br/>
-                            <input type="password" placeholder="*******" name="psw"><br/>
+                            <p class="formText">First name:</p>
+                            <input type="text" placeholder="First name" name="fname" class="form-control" required><br/>
+                            <p class="formText">Last name:</p>
+                            <input type="text" placeholder="Last name" name="lname" class="form-control" required><br/>
+                            <p class="formText">Email:</p>
+                            <input type="email" placeholder="name@domain.com" name="email" class="form-control" required><br/>
+                            <p class="formText">University:</p>
+                            <select name="uni" class="form-control" required>
+                                <option value="ntnu">NTNU</option>
+                                <option value="other">Other</option>
+                            </select></br>
+                            <p class="formText">Password:</p>
+                            <input type="password" placeholder="*******" name="psw" class="form-control" required><br/>
                             <br/>
                             <button type="submit" class="btn btn-primary btn-lg">Create user!</button>
                         </form>
@@ -74,9 +77,13 @@
                     </div>
 
                     <div class="col-md-5">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <ul class="liste">
+                            <li>Create a free user!</li>
+                            <li>Add subjects!</li>
+                            <li>Create lectures!</li>
+                            <li>Ask questions!</li>
+                            <li>Learn!</li>
+                        </ul>
 
                     </div>
                 </div>
