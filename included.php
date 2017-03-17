@@ -1,45 +1,62 @@
 <?php
 
-function foo(){
-  $servername = "mysql.stud.ntnu.no";
-  $username = "capybotpu";
-  $password = "1234";
-  $dbname = "capybotpu_db";
-  // Create connection
-  $con = mysqli_connect($servername, $username, $password, $dbname);
+class Database{
+  public $con;
 
-  // Check connection
-  if (!$con) {
-      die("Connection failed: ");
-  }else{
-    echo "Connected very successfully<br>";
+  function __construct(){
+    $this->connect();
   }
-  return $con;
-}
 
-function printAllUsers($con){
-  $con = foo();
-  $query = "SELECT * FROM User";
-  $result = mysqli_query($con, $query);
-  while($row = mysqli_fetch_row($result)){
-    echo $row[1]."<br>";
-    echo "This person is a ".(!$row[3]?"lecturer":"student")."<br>";
-    echo "<br>";
-  };
-}
+  function __destruct(){
+    $this->disconnect();
+  }
 
-function addUser($name, $email, $is_student){
-	$con = foo();
-	$sql = "INSERT INTO `User` (`ID`, `name`, `e_mail`, `is_student`)
-	VALUES (NULL,". $name.",". $email.",". $is_student.")";
-  echo $sql;
-	if (mysqli_query($con, $sql)){
-		echo "New guy successfully added";
-	}
-	else{
-		echo "Failed to insert new guy";
-	}
-  echo "<br>";
-}
+  function connect(){
+    $servername = "mysql.stud.ntnu.no";
+    $username = "capybotpu";
+    $password = "1234";
+    $dbname = "capybotpu_db";
+    // Create connection
+    $this->con = mysqli_connect($servername, $username, $password, $dbname);
+    // Check connection
+    if (!$this->con) {
+        die("Connection failed: ");
+    }else{
+      echo "Connected very successfully<br>";
+    }
+  }
 
+  function disconnect(){
+    mysqli_close($this->con);
+  }
+//Inserts
+  function insertUser($name, $email, $is_student){
+  	$sql = "INSERT INTO User (ID, name, e_mail, is_student)
+  	VALUES (NULL, '$name' ,'$email','$is_student')";
+
+    return mysqli_query($this->con, $sql);
+  }
+
+  function insertLecture($lecturer_mail,$date,$time){
+    $sql = "INSERT INTO Lecture (ID, lecturer_mail, date_time)
+  	VALUES (NULL, '$lecturer_mail','$date $time')";
+    echo $sql;
+    return mysqli_query($this->con, $sql);
+  }
+
+
+//Getters
+  function getUserByMail($mail){
+  }
+
+//Misc
+  function printAllUsers(){
+    $query = "SELECT name, is_student FROM User";
+    $result = mysqli_query($this->con, $query);
+    while($row = mysqli_fetch_assoc($result)){
+      echo $row["name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
+    };
+  }
+
+}
 ?>
