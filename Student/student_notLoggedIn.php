@@ -32,12 +32,12 @@
                 <span class="icon-bar"></span>
             </button>
             <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
-                <li class="active"><a href="#" onclick="openSignIn()">Sign in <span class="sr-only">(current)</span></a></li>
-                <li><a href="#" onclick="openProfile()">Profile</a></li>
+                <li class="active" id="activeSignIn"><a href="#" onclick="openSignIn()">Sign in <span class="sr-only">(current)</span></a></li>
+                <li id="activeProfile"><a href="#" onclick="openProfile()">Profile</a></li>
             </ul>
         </nav>
 
-        <a href="student_notLoggedIn.html" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
+        <a href="student_notLoggedIn.php" class="capybot"><h3 class="text-muted capybot">capybot</h3></a>
         </div>
 
         <!-- Body -->

@@ -11,28 +11,27 @@
     <link href="student.css" rel="stylesheet">
 
     <style type="text/css">
-
+        .jumbotron {padding: 25px;}
+        .signin {margin-top: 15px; font-weight: bold;}
     </style>
 </head>
 
 <body>
-    <!-- Body -->
-        <div id="profile_body">
-            <center>
-                <img src="../emptyProfilePic.gif" alt="Placeholder" class="profilbilde" style="width: 150px;"/>
-                <div id="description" float: center;>
-                    <!--hentes fra database?-->
-                    <h3>FRIDE SKARSETH</h3>
-                    <!--hentes fra database?-->
-                    <h3>1450 nerdpoint</h3>
-                    <h4>CAPYBARA </h4>
-                </div>
-            </center>
+        <!-- Body -->
+        <div id="student_body">
+            <div class="jumbotron">
+                <h1 style="font-size:50px;">Sign in to lecture</h1>
+                <form action="lectureLogin.php" method="get" class="">
+                    <input type="text" placeholder="Lecture pin" name="lecturePin" class="code" style="color:black;">
+                    <input type="submit" class="btn btn-lg btn-success signin knapp" value="Submit">
+                </form>
+            </div>
         </div>
+    </div>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
-
+    <script src="student.js"></script>
 </body>
 </html>
