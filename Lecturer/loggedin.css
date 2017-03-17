@@ -59,6 +59,31 @@ body {
     font-weight: bold;
 }
 
+.menuTitle {
+    color: white;
+}
+
+
+/* Menu top */
+
+
+.navbar-inverse > li > a {
+  color: white;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.navbar-collapse > li > a:focus,
+.navbar-collapse > li > a:hover {
+    background-color: #142952;
+    font-weight: bold;
+}
+
+/*  --------   */
+
+
 
 
 .main {
