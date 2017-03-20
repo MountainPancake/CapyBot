@@ -33,7 +33,7 @@
             </button>
             <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
                 <li class="active" id="activeSignIn"><a href="#" onclick="openSignIn()">Sign in <span class="sr-only">(current)</span></a></li>
-                <li id="activeProfile"><a href="#" onclick="openProfile()">Profile</a></li>
+                <li id="activeProfile_notLoggedIn"><a href="#" onclick="openProfile_notLoggedIn()">Profile</a></li>
             </ul>
         </nav>
 

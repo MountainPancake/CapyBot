@@ -184,3 +184,11 @@ body {
   padding-bottom: 25px;
   margin: 10px;
 }
+
+#profile_body {
+  text-align: center;
+}
+
+th, td {
+    padding: 15px;
+}
