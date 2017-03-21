@@ -46,10 +46,26 @@ session_start();
 
         <!-- Body -->
         <div id="student_body">
-            <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?></h1>
+            <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
             <p>
                 Dato: <span id="dato"></span>
+            </p>
+
+            <p>
+                Tid: <span id="time"></span>
+            </p>
+
+            <p>
+                Responses: <span id="responses"></span>
+            </p>
+
+            <p>
+                SubjectID: <span id="subjectID"></span>
+            </p>
+
+            <p>
+                Subject: <span id="subject"></span>
             </p>
 
             <div class="jumbotron">

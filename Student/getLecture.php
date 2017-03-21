@@ -10,5 +10,5 @@
   $jsonLecture = json_encode($lecture);
 
   echo $jsonLecture;
-  
+
 ?>
