@@ -11,6 +11,20 @@ class Database{
     $this->disconnect();
   }
 
+  function createStudentUser($email, $firstname, $lastname, $university, $password){
+    insertUser($email, $password, $firstname, $lastname, $university, 1);
+  }
+
+  function createLecturerUser($email, $password, $firstname, $lastname, $university){
+    insertUser($email, $password, $firstname, $lastname, $university, 0);
+  }
+
+  function login($email, $password){
+    $sql = "SELECT email, password FROM User
+    WHERE email = '$email' and password = '$password";
+    return mysql_query($this->con, $sql);
+  }
+
   function connect(){
     $servername = "mysql.stud.ntnu.no";
     $username = "capybotpu";
@@ -30,9 +44,9 @@ class Database{
     mysqli_close($this->con);
   }
 //Inserts
-  function insertUser($first_name, $last_name, $email, $is_student){
+  function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
   	$sql = "INSERT INTO User (ID, name, e_mail, is_student)
-  	VALUES (NULL, '$first_name', '$last_name','$email','$is_student')";
+  	VALUES (NULL, '$email' ,, $password','$firstname', '$lastname',  '$university', '$is_student')";
 
     return mysqli_query($this->con, $sql);
   }
@@ -45,16 +59,17 @@ class Database{
   }
 
 
+
 //Getters
   function getUserByMail($mail){
   }
 
 //Misc
   function printAllUsers(){
-    $query = "SELECT first_name, last_name, is_student FROM User";
+    $query = "SELECT name, is_student FROM User";
     $result = mysqli_query($this->con, $query);
     while($row = mysqli_fetch_assoc($result)){
-      echo $row["first_name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
+      echo $row["name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
     };
   }
 
