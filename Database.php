@@ -47,6 +47,9 @@ class Database{
 
 //Getters
   function getUserByMail($mail){
+    $sql = "SELECT * FROM User WHERE e_mail = '$mail'";
+    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
+    return $assoc_array;
   }
 
 //Misc
