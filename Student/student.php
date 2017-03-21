@@ -19,7 +19,7 @@ session_start();
     </style>
 </head>
 
-<body>
+<body onload="update()">
     <div class="container">
 
         <!-- Header -->
@@ -47,6 +47,11 @@ session_start();
         <!-- Body -->
         <div id="student_body">
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?></h1>
+
+            <p>
+                Dato: <span id="dato"></span>
+            </p>
+
             <div class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
@@ -65,7 +70,8 @@ session_start();
                     <div class="" style="width:100%">
                         <button type="button" class="btn btn-lg btn-primary knapp">Slow down</button>
                         <button type="button" class="btn btn-lg btn-primary knapp">Speed up</button>
-                        <button type="button" class="btn btn-lg btn-primary knapp">Something</button>
+                        <button type="button" class="btn btn-lg btn-primary knapp">Too hard</button>
+                        <button type="button" class="btn btn-lg btn-primary knapp">Too easy</button>
                     </div>
 
                     <h3>Lecture progress</h3>
@@ -99,5 +105,6 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
     <script src="student.js"></script>
+    <script src="lectureUpdate.js"></script>
 </body>
 </html>
