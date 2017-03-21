@@ -30,9 +30,9 @@ class Database{
     mysqli_close($this->con);
   }
 //Inserts
-  function insertUser($name, $email, $is_student){
+  function insertUser($first_name, $last_name, $email, $is_student){
   	$sql = "INSERT INTO User (ID, name, e_mail, is_student)
-  	VALUES (NULL, '$name' ,'$email','$is_student')";
+  	VALUES (NULL, '$first_name', '$last_name','$email','$is_student')";
 
     return mysqli_query($this->con, $sql);
   }
@@ -51,10 +51,10 @@ class Database{
 
 //Misc
   function printAllUsers(){
-    $query = "SELECT name, is_student FROM User";
+    $query = "SELECT first_name, last_name, is_student FROM User";
     $result = mysqli_query($this->con, $query);
     while($row = mysqli_fetch_assoc($result)){
-      echo $row["name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
+      echo $row["first_name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
     };
   }
 
