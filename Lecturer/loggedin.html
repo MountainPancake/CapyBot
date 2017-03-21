@@ -33,7 +33,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><button class="btn-success btn" style="margin-top:7px;" onclick="loadDoc()">+ Create lecture</button></li>
+                    <li><button class="btn-success btn" style="margin-top:7px;" onclick="createLecture()">+ Create lecture</button></li>
                     <li><a href="#">Dashboard</a></li>
                 </ul>
             </div>
@@ -66,29 +66,10 @@
 
                 <h1 class="page-header">Title</h1>
                 <h2 class="sub-header">Section title</h2>
-                <div id="hei">
-                    <p>
-                        bla bla
-                    </p>
-                </div>
 
             </div>
         </div>
     </div>
-
-    <script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    console.log(this.readyState, this.status);
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("hei").innerHTML = XMLHttp.responseText;
-    }
-  };
-  xhttp.open("POST", "test.txt", true);
-  xhttp.send();
-}
-</script>
 
 
     <!-- JavaScript -->
