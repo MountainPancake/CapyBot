@@ -51,13 +51,41 @@
                 <!-- Main -->
 
                 <div class="inner cover" id="inner">
+                    <div class="col-md-5">
 
-                    <h1 style="font-size: 72pt;">capybot</h1>
-                    <br />
-                    <p style="font-style: italic; font-size: 35pt;">Our mission is to let students and teachers connect in a new way during lectures, to make them more rewardig and fun!</p>
+                        <form action="createLecturer.php">
+                            <p class="formText">First name:</p>
+                            <input type="text" placeholder="First name" name="fname" class="form-control" required><br/>
+                            <p class="formText">Last name:</p>
+                            <input type="text" placeholder="Last name" name="lname" class="form-control" required><br/>
+                            <p class="formText">Email:</p>
+                            <input type="email" placeholder="name@domain.com" name="email" class="form-control" required><br/>
+                            <p class="formText">University:</p>
+                            <select name="uni" class="form-control" required>
+                                <option value="ntnu">NTNU</option>
+                                <option value="other">Other</option>
+                            </select></br>
+                            <p class="formText">Password:</p>
+                            <input type="password" placeholder="*******" name="psw" class="form-control" required><br/>
+                            <br/>
+                            <button type="submit" class="btn btn-primary btn-lg">Create user!</button>
+                        </form>
 
-                    <a href="CreateuserLecturer.html"><button type="button" class="btn btn-lg btn-primary">Create free user!</button></a>
+                    </div>
+                    <div class="col-md-2">
 
+                    </div>
+
+                    <div class="col-md-5">
+                        <ul class="liste">
+                            <li>Create a free user!</li>
+                            <li>Add subjects!</li>
+                            <li>Create lectures!</li>
+                            <li>Ask questions!</li>
+                            <li>Learn!</li>
+                        </ul>
+
+                    </div>
                 </div>
 
                 <!-- Footer -->

@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  background-color: #142952;
+}
+
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
 a, a:focus, a:hover {
   color: #fff;
 }
@@ -13,25 +24,51 @@ a, a:focus, a:hover {
     height: 80%;
 }
 
-
-/* Custom default button */
-.btn-default, .btn-default:hover, .btn-default:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
-  background-color: #fff;
-  border: 1px solid #fff;
+.footerp {
+    cursor: default;
 }
 
-html, body {
-  height: 100%;
-  background-color: #142952;
+.switch-link:hover {
+    cursor: pointer;
+    font-weight: bold;
 }
 
-body {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+.navbar-default {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    border-style: none;
 }
+
+.navbar-form {
+    border-style: none;
+}
+
+#navbar {
+    border-style: none;
+}
+
+.formText {
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.liste {
+    font-size: 20pt;
+    list-style-type: none;
+    text-align: left;
+    font-style: italic;
+    line-height: 30pt;
+}
+
+
+
+
+
+
+
+
+
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
@@ -51,23 +88,11 @@ body {
   margin-left: auto;
 }
 
-/* Padding for spacing */
+
 .inner {
   padding: 30px;
 }
 
-
-/*
- * Header
- */
- .masthead {
-     height:100%;
- }
-
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 
 @media (min-width: 768px) {
@@ -114,6 +139,22 @@ body {
   .masthead,
   .mastfoot,
   .cover-container {
-    width: 700px;
+    width: 950px;
+  }
+}
+/*
+@media (min-width: 1100px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 1050px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 1250px;
   }
 }
