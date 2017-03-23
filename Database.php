@@ -12,11 +12,11 @@ class Database{
   }
 
   function createStudentUser($email, $firstname, $lastname, $university, $password){
-    insertUser($email, $password, $firstname, $lastname, $university, 1);
+    return insertUser($email, $password, $firstname, $lastname, $university, 1);
   }
 
   function createLecturerUser($email, $password, $firstname, $lastname, $university){
-    insertUser($email, $password, $firstname, $lastname, $university, 0);
+    return insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
   function login($email, $password){
@@ -45,8 +45,8 @@ class Database{
   }
 //Inserts
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
-  	$sql = "INSERT INTO User (ID, name, e_mail, is_student)
-  	VALUES (NULL, '$email' ,, $password','$firstname', '$lastname',  '$university', '$is_student')";
+  	$sql = "INSERT INTO User (ID, e_mail, password, first_name, last_name, university, is_student)
+  	VALUES (NULL, '$email' , $password','$firstname', '$lastname',  '$university', '$is_student')";
 
     return mysqli_query($this->con, $sql);
   }
@@ -69,10 +69,10 @@ class Database{
 
 //Misc
   function printAllUsers(){
-    $query = "SELECT name, is_student FROM User";
+    $query = "SELECT first_name as name, is_student as student FROM User";
     $result = mysqli_query($this->con, $query);
     while($row = mysqli_fetch_assoc($result)){
-      echo $row["name"]." This person is a ".(!$row["is_student"]?"lecturer":"student")."<br>";
+      echo $row["name"]." This person is a ".(!$row["student"]?"lecturer":"student")."<br>";
     };
   }
 

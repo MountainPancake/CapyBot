@@ -8,7 +8,7 @@ $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,"http://folk.ntnu.no/hzsvela/CapyBot/userLogin.php");
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS,
-            "email=hetland@capcap.com&&password=1234");
+            "email=alg@dat.com&&password=1234");
 
 // in real life you should use something like:
 // curl_setopt($ch, CURLOPT_POSTFIELDS,
@@ -22,5 +22,9 @@ $server_output = curl_exec ($ch);
 curl_close ($ch);
 
 echo $server_output;
+
+include Database.php;
+$db = new Database();
+echo $db->printAllUsers();
 
 ?>
