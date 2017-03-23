@@ -139,18 +139,21 @@ function openQuestions(){
     };
     xhttp.open("GET", "questions.html", true);
     xhttp.send();
+
+    //Kaller oppdateringene
+    updateQuestions();
 }
-/*
+
 function updateQuestions(){
 
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            document.getElementById("questions").innerHTML = myObj.questions;
+            document.getElementById("question").innerHTML = myObj.question;
         }
       };
 
       xmlhttp.open("GET", "getQuestions.php?q=", true);
       xmlhttp.send();
-}*/
+}
