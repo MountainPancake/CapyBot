@@ -1,3 +1,4 @@
+//Åpner siden Sign In
 function openSignIn(){
     var activeSignIn = document.getElementById("activeSignIn");
 
@@ -14,6 +15,9 @@ function openSignIn(){
     xhttp.send();
 }
 
+
+
+//Åpner siden Lecture og oppdaterer den onclick!
 function openLecture(){
     var activeLecture = document.getElementById("activeLecture");
 
@@ -29,8 +33,38 @@ function openLecture(){
     };
     xhttp.open("GET", "student.html", true);
     xhttp.send();
+
+    //Kaller oppdateringene
+    updateLecture();
 }
 
+function updateLecture(){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          document.getElementById("pin").innerHTML = myObj.PIN;
+          /*document.getElementById("dato").innerHTML = myObj.date;
+          time = JSON.stringify(myObj.time);
+          document.getElementById("time").innerHTML = myObj.time;*/
+
+          document.getElementById("subject").innerHTML = myObj.subjectID + " " + myObj.subject;
+
+          document.getElementById("slowDown").innerHTML = myObj.responses[0];
+          document.getElementById("speedUp").innerHTML = myObj.responses[1];
+          document.getElementById("tooHard").innerHTML = myObj.responses[2];
+          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+      }
+    };
+
+    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.send();
+}
+
+
+
+//Åpner siden Profile og oppdaterer den onclick!
 function openProfile() {
     var activeProfile = document.getElementById("activeProfile");
 
@@ -46,8 +80,30 @@ function openProfile() {
     };
     xhttp.open("GET", "profile.html", true);
     xhttp.send();
+
+    //Kaller oppdateringene
+    updateProfile();
 }
 
+function updateProfile(){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          document.getElementById("name").innerHTML = myObj.firstName + " " + myObj.lastName;
+          document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+          document.getElementById("rank").innerHTML = myObj.rank;
+      }
+    };
+
+    xmlhttp.open("GET", "getProfile.php?q=", true);
+    xmlhttp.send();
+}
+
+
+
+//Åpner siden Profile_notLoggedIn og oppdaterer den onclick!
 function openProfile_notLoggedIn() {
     var activeProfile_notLoggedIn = document.getElementById("activeProfile_notLoggedIn");
 
@@ -64,6 +120,10 @@ function openProfile_notLoggedIn() {
     xhttp.send();
 }
 
+
+
+
+//Åpner siden Questions og oppdaterer den onclick!
 function openQuestions(){
     var activeQuestions = document.getElementById("activeQuestions");
 
@@ -80,3 +140,17 @@ function openQuestions(){
     xhttp.open("GET", "questions.html", true);
     xhttp.send();
 }
+/*
+function updateQuestions(){
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("questions").innerHTML = myObj.questions;
+        }
+      };
+
+      xmlhttp.open("GET", "getQuestions.php?q=", true);
+      xmlhttp.send();
+}*/

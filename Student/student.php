@@ -102,6 +102,5 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
     <script src="student.js"></script>
-    <script src="studentUpdates.js"></script>
 </body>
 </html>

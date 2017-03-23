@@ -205,6 +205,7 @@ padding: 8px;
 
 tr:nth-child(even) {
 background-color: #dddddd;
+}
 
 #subjectID {
     text-align: center;
