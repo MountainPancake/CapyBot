@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,8 +68,8 @@
 
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="main">
 
-                <h1 class="page-header">Title</h1>
-                <h2 class="sub-header">Section title</h2>
+                <h1 class="page-header">Name: <?php echo "$_SESSION["firstName"] $_SESSION["lastName"]" ; ?> </h1>
+                <h2 class="sub-header">...</h2>
 
             </div>
         </div>
