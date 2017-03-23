@@ -1,0 +1,14 @@
+<?php
+session_start();
+include 'Database.php';
+
+$email = $_POST["email"];
+$password = $_POST["password"];
+
+$db = new Database();
+$assoc_array = $db->login($email,$password);
+$_SESSION["email"] = $assoc_array["e_mail"];
+$_SESSION["firstName"] = $assoc_array["first_name"];
+$_SESSION["lastName"] = $assoc_array["last_name"];
+
+?>
