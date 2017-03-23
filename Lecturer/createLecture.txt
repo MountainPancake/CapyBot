@@ -1,0 +1,2 @@
+<h1 class="page-header">Create new lecture</h1>
+<h2 class="sub-header">Sup</h2>
