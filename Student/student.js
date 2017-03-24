@@ -68,7 +68,7 @@ function updateLecture(){
 function openProfile() {
     var activeProfile = document.getElementById("activeProfile");
 
-    activeProfile.className = "active";
+    activeProfile.className = "active" + "collapsed";
     activeLecture.className = "";
     activeQuestions.className = "";
 
