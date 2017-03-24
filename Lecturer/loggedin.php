@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +38,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><button class="btn-success btn" style="margin-top:7px;" onclick="createLecture()">+ Create lecture</button></li>
                     <li><a href="#">Dashboard</a></li>
+                    <li><a><?php echo $_SESSION["email"]; ?></a></li>
                 </ul>
             </div>
         </div>
@@ -66,7 +70,6 @@
 
                 <h1 class="page-header">Title</h1>
                 <h2 class="sub-header">Section title</h2>
-
             </div>
         </div>
     </div>

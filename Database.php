@@ -11,12 +11,12 @@ class Database{
     $this->disconnect();
   }
 
-  function createStudentUser($email, $firstname, $lastname, $university, $password){
-    return insertUser($email, $password, $firstname, $lastname, $university, 1);
+  function createStudentUser($email, $password, $firstname, $lastname, $university){
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
   }
 
   function createLecturerUser($email, $password, $firstname, $lastname, $university){
-    return insertUser($email, $password, $firstname, $lastname, $university, 0);
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
   function login($email, $password){
@@ -47,8 +47,7 @@ class Database{
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
   	$sql = "INSERT INTO User (ID, e_mail, password, first_name, last_name, university, is_student)
   	VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+    mysqli_query($this->con, $sql);
   }
 
   function insertLecture($lecturer_mail,$date,$time){
