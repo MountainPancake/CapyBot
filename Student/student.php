@@ -21,17 +21,18 @@ session_start();
 
     <script>
 
-        // show/hide the menu when examples is clicked
-        $("#dropdown-menu").on("click", function () {
-            $("#navbar").toggle();
+        /* show the menu onclick
+            $(".navbar-toggle").on("click", function () {
+                $("#dropdown-menu").toggle();
+            });
+        */
+        // hide the menu onclick
+        $(window).on("click", function(){
+          $("#navbar").on("click", function(){
+              $("#navbar").hide();
+          });
         });
 
-        // hide the menu when an exmple is clicked
-        $(window).click(function() {
-            $("#dropdown-menu").on("click", function(){
-                $("#navbar").hide();
-            });
-        });
     </script>
 
 </head>
