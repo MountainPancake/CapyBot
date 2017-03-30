@@ -15,8 +15,8 @@ session_start();
     <link href="student.css" rel="stylesheet">
 
     <style type="text/css">
-
     </style>
+
 </head>
 
 <body onload="updateLecture()">
@@ -37,6 +37,7 @@ session_start();
                 <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
                     <li class="active" id="activeLecture"><a href="#" onclick="openLecture()">Lecture <span class="sr-only">(current)</span></a></li>
                     <li id="activeQuestions"><a href="#" onclick="openQuestions()">Questions <span class="badge">4</badge></a></li>
+                    <li id="activeHighscore"><a href="#" onclick="openHighscore()">Highscore</a></li>
                     <li id="activeProfile"><a href="#" onclick="openProfile()">Profile</a></li>
                 </ul>
             </nav>

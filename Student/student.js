@@ -24,6 +24,7 @@ function openLecture(){
     activeLecture.className = "active";
     activeProfile.className = "";
     activeQuestions.className = "";
+    activeHighscore.className = "";
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -71,6 +72,7 @@ function openProfile() {
     activeProfile.className = "active" + "collapsed";
     activeLecture.className = "";
     activeQuestions.className = "";
+    activeHighscore.className = "";
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -130,6 +132,7 @@ function openQuestions(){
     activeQuestions.className = "active";
     activeProfile.className = "";
     activeLecture.className ="";
+    activeHighscore.className = "";
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -157,3 +160,39 @@ function updateQuestions(){
       xmlhttp.open("GET", "getQuestions.php?q=", true);
       xmlhttp.send();
 }
+
+//Åpner siden Highscore og oppdaterer den onclick!
+function openHighscore(){
+    var activeHighscore = document.getElementById("activeHighscore");
+
+    activeHighscore.className = "active";
+    activeQuestions.className = "";
+    activeProfile.className = "";
+    activeLecture.className ="";
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("student_body").innerHTML = this.responseText;
+        }
+    };
+    xhttp.open("GET", "highscore.html", true);
+    xhttp.send();
+
+    //Kaller oppdateringene
+    //updateHighscore();
+}
+/*
+function updateHighscore(){
+
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("highscore").innerHTML = myObj.question;
+        }
+      };
+
+      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.send();
+}*/
