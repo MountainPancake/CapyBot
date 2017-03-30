@@ -66,10 +66,6 @@ a, a:focus, a:hover {
 
 
 
-
-
-
-
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
   display: table;
@@ -123,11 +119,11 @@ a, a:focus, a:hover {
     position: fixed;
     bottom: 0;
   }
-  /* Start the vertical centering */
+
   .site-wrapper-inner {
     vertical-align: middle;
   }
-  /* Handle the widths */
+
   .masthead,
   .mastfoot,
   .cover-container {
