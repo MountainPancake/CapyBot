@@ -116,7 +116,6 @@ body {
 }
 
 /* Navbar */
-
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
@@ -170,12 +169,12 @@ body {
     background: #fff;
 }
 
-/*Question-box*/
-
+/*Headers in student*/
 .student_headers {
   text-align: center;
 }
 
+/*Question-box*/
 .arrow-up {
   width: 0;
   height: 0;
@@ -197,6 +196,8 @@ body {
   text-align: center;
 }
 
+
+/* Highscore tabell */
 th, td {
     padding: 15px;
 }

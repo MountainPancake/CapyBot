@@ -2,6 +2,7 @@
 function openSignIn(){
     var activeSignIn = document.getElementById("activeSignIn");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeSignIn.className = "active";
     activeProfile_notLoggedIn.className = "";
 
@@ -21,6 +22,7 @@ function openSignIn(){
 function openLecture(){
     var activeLecture = document.getElementById("activeLecture");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeLecture.className = "active";
     activeProfile.className = "";
     activeQuestions.className = "";
@@ -36,7 +38,7 @@ function openLecture(){
     xhttp.send();
 
     //Kaller oppdateringene
-    updateLecture();
+    //updateLecture();
 }
 
 function updateLecture(){
@@ -69,6 +71,7 @@ function updateLecture(){
 function openProfile() {
     var activeProfile = document.getElementById("activeProfile");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeProfile.className = "active" + "collapsed";
     activeLecture.className = "";
     activeQuestions.className = "";
@@ -109,6 +112,7 @@ function updateProfile(){
 function openProfile_notLoggedIn() {
     var activeProfile_notLoggedIn = document.getElementById("activeProfile_notLoggedIn");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeProfile_notLoggedIn.className = "active";
     activeSignIn.className = "";
 
@@ -129,6 +133,7 @@ function openProfile_notLoggedIn() {
 function openQuestions(){
     var activeQuestions = document.getElementById("activeQuestions");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeQuestions.className = "active";
     activeProfile.className = "";
     activeLecture.className ="";
@@ -165,6 +170,7 @@ function updateQuestions(){
 function openHighscore(){
     var activeHighscore = document.getElementById("activeHighscore");
 
+    //setter klassen "active" aktiv hos gjeldene funksjon
     activeHighscore.className = "active";
     activeQuestions.className = "";
     activeProfile.className = "";

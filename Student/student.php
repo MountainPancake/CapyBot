@@ -17,6 +17,23 @@ session_start();
     <style type="text/css">
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script>
+
+        // show/hide the menu when examples is clicked
+        $("#dropdown-menu").on("click", function () {
+            $("#navbar").toggle();
+        });
+
+        // hide the menu when an exmple is clicked
+        $(window).click(function() {
+            $("#dropdown-menu").on("click", function(){
+                $("#navbar").hide();
+            });
+        });
+    </script>
+
 </head>
 
 <body onload="updateLecture()">
@@ -27,7 +44,7 @@ session_start();
         <div class="header clearfix">
 
         <!-- Static navbar -->
-            <nav class="navbar-default">
+            <nav id="dropdown-menu" class="navbar-default">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
