@@ -50,11 +50,14 @@ class Database{
     mysqli_query($this->con, $sql);
   }
 
-  function insertLecture($lecturer_mail,$date,$time){
-    $sql = "INSERT INTO Lecture (ID, lecturer_mail, date_time)
-  	VALUES (NULL, '$lecturer_mail','$date $time')";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+  function insertLecture($lecturer_mail,$category_name,$date,$time){
+    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_mail`, `category_name`, `date`, `time`)
+    VALUES (NULL, '$lecturer_mail', '$category_name', '$date', '$time')";
+    if(mysqli_query($this->con, $sql)){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
@@ -65,6 +68,7 @@ class Database{
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
   }
+
 
 //Misc
   function printAllUsers(){
