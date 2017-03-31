@@ -186,19 +186,22 @@ function openHighscore(){
     xhttp.send();
 
     //Kaller oppdateringene
-    //updateHighscore();
+    updateHighscore();
 }
-/*
+
 function updateHighscore(){
 
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            document.getElementById("highscore").innerHTML = myObj.question;
+            document.getElementById("place").innerHTML = myObj.place;
+            document.getElementById("nickname").innerHTML = myObj.nickname;
+            document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+            document.getElementById("rank").innerHTML = myObj.rank;
         }
       };
 
       xmlhttp.open("GET", "getHighscore.php?q=", true);
       xmlhttp.send();
-}*/
+}
