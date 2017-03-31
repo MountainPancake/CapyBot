@@ -19,21 +19,21 @@ session_start();
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
+    <!--
     <script>
 
-        /* show the menu onclick
-            $(".navbar-toggle").on("click", function () {
-                $("#dropdown-menu").toggle();
-            });
-        */
-        // hide the menu onclick
         $(window).on("click", function(){
           $("#navbar").on("click", function(){
+              $("#dropdown-menu").toggle();
+          });
+
+          $("#activeQuestions").on("click", function(){
               $("#navbar").hide();
           });
         });
 
     </script>
+    -->
 
 </head>
 
