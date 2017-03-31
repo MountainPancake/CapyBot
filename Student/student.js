@@ -159,12 +159,15 @@ function updateQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
             document.getElementById("question").innerHTML = myObj.question;
+            document.getElementById("upvotes").innerHTML = myObj.upvotes;
         }
       };
 
       xmlhttp.open("GET", "getQuestions.php?q=", true);
       xmlhttp.send();
 }
+
+
 
 //Åpner siden Highscore og oppdaterer den onclick!
 function openHighscore(){
