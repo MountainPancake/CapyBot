@@ -19,21 +19,16 @@ session_start();
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
-    <!--
     <script>
-
         $(window).on("click", function(){
-          $("#navbar").on("click", function(){
-              $("#dropdown-menu").toggle();
-          });
-
-          $("#activeQuestions").on("click", function(){
-              $("#navbar").hide();
-          });
+            $("#navbar").on("click", function(){
+                $("#navbar").collapse('hide');
+            });
+            $("#dropdown-menu").on("click", function(){
+                $("#navbar").collapse('toggle');
+            });
         });
-
     </script>
-    -->
 
 </head>
 
@@ -46,8 +41,8 @@ session_start();
         <div class="header clearfix">
 
         <!-- Static navbar -->
-            <nav id="dropdown-menu" class="navbar-default">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <nav class="navbar-default">
+                <button id="dropdown-menu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
