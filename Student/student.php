@@ -38,6 +38,7 @@ session_start();
 </head>
 
 <body onload="updateLecture()">
+
     <div class="container">
 
         <!-- Header -->
@@ -70,6 +71,27 @@ session_start();
 
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
+
+            <p>
+                Dato: <span id="dato"></span>
+            </p>
+
+            <p>
+                Tid: <span id="time"></span>
+            </p>
+
+            <p>
+                Responses: <span id="responses"></span>
+            </p>
+
+            <p>
+                SubjectID: <span id="subjectID"></span>
+            </p>
+
+            <p>
+                Subject: <span id="subject"></span>
+            </p>
+
             <div class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
@@ -86,10 +108,12 @@ session_start();
                     <h3>Give feedback</h3>
 
                     <div class="" style="width:100%">
+                      
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+
                     </div>
 
                     <h3>Lecture progress</h3>
@@ -121,5 +145,6 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
     <script src="student.js"></script>
+    <script src="lectureUpdate.js"></script>
 </body>
 </html>

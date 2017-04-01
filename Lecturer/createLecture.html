@@ -1,0 +1,42 @@
+<!-- main -->
+
+                <h1 class="page-header">Create new lecture</h1>
+
+                <form action="createLecture.php" method="POST">
+                    <div class="form-group">
+                        <label for="chooseSubject">First, choose which subject the lecture belongs to</label>
+                        <select id="chooseSubject" name="category" class="form-control chooseSubject" onchange="showContent()">
+                            <option selected="selected" disabled="disabled">Choose subject</option>
+                            <option>TDT4100</option>
+                            <option>IT1901</option>
+                        </select>
+                        <small id="info" class="form-text text-muted">If you can't find the subject you're looking for, go to "manage subjects" and add it first.</small>
+                    </div>
+                    <div id="moreContent">
+
+                        <div class="form-group">
+                            <label for="chooseName">Choose a name for the lecture</label>
+                            <input id="chooseName" type="text" name="name" placeholder="Lecture name" class="form-control"></input>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="chooseDate">When is the lecture?</label>
+                            <input id="chooseDate" type="date" name="date" placeholder="dd.mm.yyyy" class="form-control"></input>
+                        </div>
+
+                        <div id="chooseTime" class="form-group">
+                            <label for="chooseTime">What time is the lecture?</label>
+                            <input type="time" name="time" placeholder="xx:xx"  class="form-control"></input>
+                        </div>
+
+                        <button type="submit" name="submit" class="btn btn-success">Save</button>
+
+                    </form>
+
+                    </div>
+
+                <div id="lectureCreated" class="alert alert-success" role="alert"><strong>Yay!</strong> Your lecture was created successfully.</div>
+                <div id="lectureError" class="alert alert-danger" role="alert"><strong>Hmm, something went wrong..</strong> Check that your info is correct and try resubmitting.</div>
+
+            </div>
+        </div>
