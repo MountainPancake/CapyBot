@@ -200,8 +200,7 @@ function updateHighscore(){
             myObj = JSON.parse(this.responseText);
             document.getElementById("place").innerHTML = myObj.place;
             document.getElementById("nickname").innerHTML = myObj.nickname;
-            document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-            document.getElementById("rank").innerHTML = myObj.rank;
+            document.getElementById("points").innerHTML = myObj.points;
         }
       };
 
@@ -209,6 +208,7 @@ function updateHighscore(){
       xmlhttp.send();
 }
 
+//Kollapser Navigationbar når man klikker på linkene i menyen
 /*
 function collapseNavbar(){
 
