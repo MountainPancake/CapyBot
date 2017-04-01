@@ -208,3 +208,8 @@ function updateHighscore(){
       xmlhttp.open("GET", "getHighscore.php?q=", true);
       xmlhttp.send();
 }
+
+/*
+function collapseNavbar(){
+
+}*/
