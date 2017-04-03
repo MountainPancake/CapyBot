@@ -11,12 +11,12 @@ class Database{
     $this->disconnect();
   }
 
-  function createStudentUser($email, $firstname, $lastname, $university, $password){
-    return insertUser($email, $password, $firstname, $lastname, $university, 1);
+  function createStudentUser($email, $password, $firstname, $lastname, $university){
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
   }
 
   function createLecturerUser($email, $password, $firstname, $lastname, $university){
-    return insertUser($email, $password, $firstname, $lastname, $university, 0);
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
   function login($email, $password){
@@ -47,15 +47,17 @@ class Database{
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
   	$sql = "INSERT INTO User (ID, e_mail, password, first_name, last_name, university, is_student)
   	VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+    mysqli_query($this->con, $sql);
   }
 
-  function insertLecture($lecturer_mail,$date,$time){
-    $sql = "INSERT INTO Lecture (ID, lecturer_mail, date_time)
-  	VALUES (NULL, '$lecturer_mail','$date $time')";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+  function insertLecture($lecturer_mail,$category_name,$date,$time){
+    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_mail`, `category_name`, `date`, `time`)
+    VALUES (NULL, '$lecturer_mail', '$category_name', '$date', '$time')";
+    if(mysqli_query($this->con, $sql)){
+      return true;
+    }else{
+      return false;
+    }
   }
 
 
@@ -66,6 +68,7 @@ class Database{
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
   }
+
 
 //Misc
   function printAllUsers(){
