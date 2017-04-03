@@ -33,11 +33,7 @@ class Database{
     // Create connection
     $this->con = mysqli_connect($servername, $username, $password, $dbname);
     // Check connection
-    if (!$this->con) {
-        die("Connection failed: ");
-    }else{
-      echo "Connected very successfully<br>";
-    }
+    return isset($this->con);
   }
 
   function disconnect(){
@@ -47,7 +43,12 @@ class Database{
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
   	$sql = "INSERT INTO User (ID, e_mail, password, first_name, last_name, university, is_student)
   	VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-    mysqli_query($this->con, $sql);
+    if(mysqli_query($this->con, $sql)){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   function insertLecture($lecturer_mail,$category_name,$date,$time){
