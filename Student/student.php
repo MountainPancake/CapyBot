@@ -15,11 +15,25 @@ session_start();
     <link href="student.css" rel="stylesheet">
 
     <style type="text/css">
-
     </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script>
+        $(window).on("click", function(){
+            $("#navbar").on("click", function(){
+                $("#navbar").collapse('hide');
+            });
+            $("#dropdown-menu").on("click", function(){
+                $("#navbar").collapse('toggle');
+            });
+        });
+    </script>
+
 </head>
 
-<body onload="update()">
+<body onload="updateLecture()">
+
     <div class="container">
 
         <!-- Header -->
@@ -28,7 +42,7 @@ session_start();
 
         <!-- Static navbar -->
             <nav class="navbar-default">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button id="dropdown-menu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -37,6 +51,7 @@ session_start();
                 <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
                     <li class="active" id="activeLecture"><a href="#" onclick="openLecture()">Lecture <span class="sr-only">(current)</span></a></li>
                     <li id="activeQuestions"><a href="#" onclick="openQuestions()">Questions <span class="badge">4</badge></a></li>
+                    <li id="activeHighscore"><a href="#" onclick="openHighscore()">Highscore</a></li>
                     <li id="activeProfile"><a href="#" onclick="openProfile()">Profile</a></li>
                 </ul>
             </nav>
@@ -46,7 +61,11 @@ session_start();
 
         <!-- Body -->
         <div id="student_body">
+
+            <h3 id="subject"></h3>
+
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
+
 
             <p>
                 Dato: <span id="dato"></span>
@@ -84,10 +103,12 @@ session_start();
                     <h3>Give feedback</h3>
 
                     <div class="" style="width:100%">
-                        <button type="button" class="btn btn-lg btn-primary knapp">Slow down</button>
-                        <button type="button" class="btn btn-lg btn-primary knapp">Speed up</button>
-                        <button type="button" class="btn btn-lg btn-primary knapp">Too hard</button>
-                        <button type="button" class="btn btn-lg btn-primary knapp">Too easy</button>
+                      
+                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
+                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
+                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
+                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+
                     </div>
 
                     <h3>Lecture progress</h3>
@@ -111,11 +132,9 @@ session_start();
 
     <footer class="footer">
         <p>&copy; Capybaras are cool, inc.</p>
-
     </footer>
 
   </div>
-
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

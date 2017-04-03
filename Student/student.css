@@ -58,11 +58,28 @@ body {
   border-top: 1px solid #142952;
 }
 
+#profile_body {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#highscore_body {
+  padding-bottom: 30px;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
     max-width: 730px;
   }
+  #profile_body {
+    padding-top: 0px;
+    padding-bottom: 30px;
+  }
+  #highscore_body {
+    padding-bottom: 30px;
+  }
+
 }
 .container-narrow > hr {
   margin: 30px 0;
@@ -108,7 +125,6 @@ body {
 }
 
 /* Navbar */
-
 .theme-dropdown .dropdown-menu {
   position: static;
   display: block;
@@ -162,12 +178,12 @@ body {
     background: #fff;
 }
 
-/*Question-box*/
-
-.questheader {
+/*Headers in student*/
+.student_headers {
   text-align: center;
 }
 
+/*Question-box*/
 .arrow-up {
   width: 0;
   height: 0;
@@ -189,6 +205,8 @@ body {
   text-align: center;
 }
 
+
+/* Highscore tabell */
 th, td {
     padding: 15px;
 }
@@ -198,10 +216,15 @@ width: 100%;
 }
 
 td, th {
-border: 1px solid #dddddd;
+border: 1px solid #e7e7e7;
 text-align: left;
 padding: 8px;
 }
 
 tr:nth-child(even) {
-background-color: #dddddd;
+background-color: #e7e7e7;
+}
+
+#subjectID {
+    text-align: center;
+}
