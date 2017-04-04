@@ -1,5 +1,4 @@
 <?php
-
   $lecture->PIN = 1234;
   $lecture->date = "2017-03-20";
   $lecture->time = "15:00:42";
@@ -10,5 +9,4 @@
   $jsonLecture = json_encode($lecture);
 
   echo $jsonLecture;
-
 ?>
