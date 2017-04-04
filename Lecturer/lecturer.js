@@ -48,28 +48,30 @@ function showContent(){
 /*    What happens when you click the "save" button when creating a new lecture    */
 
 function addLecture(){
-    var chooseName = document.getElementById("chooseName");
-    var chooseDate = document.getElementById("chooseDate");
-    var chooseTime = document.getElementById("chooseTime");
+    var category = document.getElementById("category").value;
+    var chooseName = document.getElementById("chooseName").value;
+    var chooseDate = document.getElementById("chooseDate").value;
+    var chooseTime = document.getElementById("chooseTime").value;
 
     var created = document.getElementById("lectureCreated");
     var error = document.getElementById("lectureError");
 
     /*    Check that input-values are valid    */
 
-    if (validTitle(chooseName.value==false)) {
+    if (validTitle(chooseName==false)) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. You need to choose a title for you lecture.";
+        console.log("!!!!");
         return false;
     }
 
-    else if (validDate(chooseDate.value==false)) {
+    if (validDate(chooseDate==false)) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. The date is not valid.";
         return false;
     }
 
-    else if (validTime(chooseTime.value==false)) {
+    if (validTime(chooseTime==false)) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. The time is not valid.";
         return false;
@@ -78,23 +80,24 @@ function addLecture(){
     /*    If they are valid, run create lecture PHP-file   */
 
     else {
-        var category = $('#category').val();
-        var name = $('#name').val();
-        var date = $('#date').val();
-        var time = $('#time').val();
-
-        var dataString = 'category=' + category + 'name=' + name + '&date=' + date + '&time=' + time;
+        console.log("hdebhwhld");
+        var dataString = 'category=' + category + '&name=' + name + '&date=' + date + '&time=' + time;
 
         $.ajax({
             type: "POST",
             url: "createLecture.php",
             data: dataString,
-            success: function() {
-                alert('');
-                $('#dialog-message').dialog('open');
+            success: function(text) {
+                if (text=="success"){
+                    alert("hei");
+                }
+            }
+        });
     }
 
+    return false;
 }
+
 
 /*    Checking that values are legal when creating a lecture     */
 
@@ -106,14 +109,14 @@ function validTitle(name) {
 }
 
 function validDate(date) {
-    if (name == "") {
+    if (date == "") {
         return false;
     }
     else {return true;}
 }
 
 function validTime(time) {
-    if (name == "") {
+    if (time == "") {
         return false;
     }
     else {return true;}
