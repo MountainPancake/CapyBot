@@ -54,17 +54,18 @@ function addLecture(){
     var error = document.getElementById("lectureError");
 
     if(chooseName.innerHTML == "") {
-        error.style.display == "block";
+        error.style.display = "block";
+        error.innerHTML = "<stong>Lecture not created.</strong> You need to choose a title for you lecture.";
+
         created.style.display = "none";
-        console.log("error");
-        return;
+        return false;
     }
 
     else {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                error.style.display == "none";
+                error.style.display = "none";
                 created.style.display = "block";
             }
         };

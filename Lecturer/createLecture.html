@@ -2,7 +2,7 @@
 
                 <h1 class="page-header">Create new lecture</h1>
 
-                <form onsubmit="addLecture()">
+                <form onsubmit="return addLecture()">
                     <div class="form-group">
                         <label for="chooseSubject">First, choose which subject the lecture belongs to</label>
                         <select id="chooseSubject" name="category" class="form-control chooseSubject" onchange="showContent()">
@@ -15,7 +15,7 @@
                     <div id="moreContent">
 
                         <div class="form-group">
-                            <label for="chooseName">Choose a name for the lecture</label>
+                            <label for="chooseName">Choose a title for the lecture</label>
                             <input id="chooseName" type="text" name="name" placeholder="Lecture name" class="form-control"></input>
                         </div>
 
@@ -35,8 +35,8 @@
 
                     </div>
 
-                <div id="lectureCreated" class="alert alert-success" role="alert"><strong>Yay!</strong> Your lecture was created successfully.</div>
-                <div id="lectureError" class="alert alert-danger" role="alert"><strong>Hmm, something went wrong..</strong> Check that your info is correct and try resubmitting.</div>
+                <div id="lectureCreated" class="alert alert-success" role="alert" style="margin-top:10px;"><strong>Yay!</strong> Your lecture was created successfully.</div>
+                <div id="lectureError" class="alert alert-danger" role="alert" style="margin-top:10px;"><strong>Hmm, something went wrong..</strong> Check that your info is correct and try resubmitting.</div>
 
             </div>
         </div>
