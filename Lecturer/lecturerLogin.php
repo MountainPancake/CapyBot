@@ -13,8 +13,8 @@ if($assocUserArray){
   $_SESSION["email"] = $assocUserArray["e_mail"];
   $_SESSION["firstName"] = $assocUserArray["first_name"];
   $_SESSION["lastName"] = $assocUserArray["last_name"];
-  header("Location: loggedin.php");
+  header("Location: loggedIn.php");
 }else{
-  header("Location: lecturerindex.html");
+  header("Location: lecturerIndex.html");
 }
 ?>
