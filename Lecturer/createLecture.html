@@ -2,7 +2,7 @@
 
                 <h1 class="page-header">Create new lecture</h1>
 
-                <form action="createLecture.php" method="POST">
+                <form onsubmit="addLecture()">
                     <div class="form-group">
                         <label for="chooseSubject">First, choose which subject the lecture belongs to</label>
                         <select id="chooseSubject" name="category" class="form-control chooseSubject" onchange="showContent()">

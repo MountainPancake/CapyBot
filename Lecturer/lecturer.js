@@ -43,3 +43,34 @@ function showContent(){
     moreContent.style.display = "block";
 
 }
+
+
+/*    What happens when you click the "save" button when creating a new lecture    */
+
+function addLecture(){
+    var chooseName = document.getElementById("chooseName");
+
+    var created = document.getElementById("lectureCreated");
+    var error = document.getElementById("lectureError");
+
+    if(chooseName.innerHTML == "") {
+        error.style.display == "block";
+        created.style.display = "none";
+        console.log("error");
+        return;
+    }
+
+    else {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                error.style.display == "none";
+                created.style.display = "block";
+            }
+        };
+        xhttp.open("POST", "createLecture.php", true);
+        xhttp.send();
+    }
+
+
+}
