@@ -59,8 +59,10 @@ function openLecture(){
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    /*updateLecture();
+    //updateLecture();
+}
 
+/*
     function updateLecture(){
 
         //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
@@ -79,8 +81,9 @@ function openLecture(){
 
         xmlhttp.open("GET", "getLecture.php?q=", true);
         xmlhttp.send();
-    }*/
-}
+    }
+*/
+
 
 
 //Åpner siden Profile og oppdaterer den onclick!
@@ -226,9 +229,3 @@ function collapseNavbar(){
   });
 
 }
-
-//Kollapser Navigationbar når man klikker på linkene i menyen
-/*
-function collapseNavbar(){
-
-}*/

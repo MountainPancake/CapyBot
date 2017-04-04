@@ -18,11 +18,11 @@ session_start();
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!--<script src="collapseNavbar.js"></script>-->
 
 </head>
 
-<body onload="openLecture()">
-
+<body onload="openLecture">
     <div class="container">
 
         <!-- Header -->
@@ -84,14 +84,15 @@ session_start();
                     </div>
 
                     <h3>Ask question</h3>
-                    <form class="" >
-                        <input type="text" class="form-control" placeholder="?">
+                    <form method="post" action="insertPost.php" class="" >
+                        <input type="text" name="question" class="form-control" placeholder="?">
                         <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                     </form>
                     <br />
 
                </div>
            </div>
+
        </div>
 
       <!-- Footer -->
@@ -106,6 +107,5 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
     <script src="student.js"></script>
-    <script src="lectureUpdate.js"></script>
 </body>
 </html>
