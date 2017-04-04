@@ -18,22 +18,13 @@ session_start();
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  
+    <!--<script src="collapseNavbar.js"></script>-->
 
-    <script>
-        $(window).on("click", function(){
-            $("#navbar").on("click", function(){
-                $("#navbar").collapse('hide');
-            });
-            $("#dropdown-menu").on("click", function(){
-                $("#navbar").collapse('toggle');
-            });
-        });
-    </script>
 
 </head>
 
-<body onload="updateLecture()">
-
+<body onload="openLecture">
     <div class="container">
 
         <!-- Header -->
@@ -66,27 +57,6 @@ session_start();
 
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
-
-            <p>
-                Dato: <span id="dato"></span>
-            </p>
-
-            <p>
-                Tid: <span id="time"></span>
-            </p>
-
-            <p>
-                Responses: <span id="responses"></span>
-            </p>
-
-            <p>
-                SubjectID: <span id="subjectID"></span>
-            </p>
-
-            <p>
-                Subject: <span id="subject"></span>
-            </p>
-
             <div class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
@@ -104,28 +74,27 @@ session_start();
 
                     <div class="" style="width:100%">
 
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+                        </p>
 
-                    </div>
-
-                    <h3>Lecture progress</h3>
-
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"><span class="sr-only">60% Complete</span></div>
                     </div>
 
                     <h3>Ask question</h3>
-                    <form class="" >
-                        <input type="text" class="form-control" placeholder="?">
+                    <form method="post" action="insertPost.php" class="" >
+                        <input type="text" name="question" class="form-control" placeholder="?">
                         <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                     </form>
                     <br />
 
                </div>
            </div>
+
        </div>
 
       <!-- Footer -->
@@ -140,6 +109,5 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>  <!-- Menu -->
     <script src="student.js"></script>
-    <script src="lectureUpdate.js"></script>
 </body>
 </html>

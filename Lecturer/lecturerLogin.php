@@ -10,11 +10,11 @@ echo "$email $password<br>";
 $db = new Database();
 $assocUserArray = $db->login($email,$password);
 if($assocUserArray){
-  $_SESSION["email"] = $assocUserArray["e_mail"];
+  $_SESSION["email"] = $assocUserArray["email"];
   $_SESSION["firstName"] = $assocUserArray["first_name"];
   $_SESSION["lastName"] = $assocUserArray["last_name"];
-  header("Location: loggedin.php");
+  header("Location: loggedIn.php");
 }else{
-  header("Location: lecturerindex.html");
+  header("Location: lecturerIndex.html");
 }
 ?>
