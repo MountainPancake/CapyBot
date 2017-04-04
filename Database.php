@@ -103,6 +103,16 @@ function deleteLectureByID($ID){
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
   }
+
+  function getPostsByLectureID($lecture_ID){
+    $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
+    $result = mysqli_query($this->con, $sql);
+    $postsArray;
+    while($row = mysqli_fetch_assoc($result)){
+      $postsArray[$row["ID"]] = $row;
+    }
+    return json_encode($postsArray);
+  }
 //Misc
   function printAllUsers(){
     $query = "SELECT first_name as name, is_student as student FROM User";
