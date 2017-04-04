@@ -18,17 +18,7 @@ session_start();
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
-    <script>
-        $(window).on("click", function(){
-            $("#navbar").on("click", function(){
-                $("#navbar").collapse('hide');
-            });
-            $("#dropdown-menu").on("click", function(){
-                $("#navbar").collapse('toggle');
-            });
-        });
-    </script>
+    <script src="collapseNavbar.js"></script>
 
 </head>
 
@@ -66,27 +56,6 @@ session_start();
 
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
-
-            <p>
-                Dato: <span id="dato"></span>
-            </p>
-
-            <p>
-                Tid: <span id="time"></span>
-            </p>
-
-            <p>
-                Responses: <span id="responses"></span>
-            </p>
-
-            <p>
-                SubjectID: <span id="subjectID"></span>
-            </p>
-
-            <p>
-                Subject: <span id="subject"></span>
-            </p>
-
             <div class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
@@ -103,11 +72,15 @@ session_start();
                     <h3>Give feedback</h3>
 
                     <div class="" style="width:100%">
-                      
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+                        </p>
 
                     </div>
 

@@ -207,9 +207,3 @@ function updateHighscore(){
       xmlhttp.open("GET", "getHighscore.php?q=", true);
       xmlhttp.send();
 }
-
-//Kollapser Navigationbar når man klikker på linkene i menyen
-/*
-function collapseNavbar(){
-
-}*/
