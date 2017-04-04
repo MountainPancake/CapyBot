@@ -58,8 +58,8 @@ function openLecture(){
     xhttp.open("GET", "student.html", true);
     xhttp.send();
 
-    //Kaller oppdateringene
-    updateLecture();
+    //Kaller oppdateringene fra database
+    /*updateLecture();
 
     function updateLecture(){
 
@@ -79,7 +79,7 @@ function openLecture(){
 
         xmlhttp.open("GET", "getLecture.php?q=", true);
         xmlhttp.send();
-    }
+    }*/
 }
 
 
@@ -103,7 +103,7 @@ function openProfile() {
     xhttp.open("GET", "profile.html", true);
     xhttp.send();
 
-    //Kaller oppdateringene
+    //Kaller oppdateringene fra database
     updateProfile();
 
     function updateProfile(){
@@ -146,7 +146,7 @@ function openQuestions(){
     xhttp.open("GET", "questions.html", true);
     xhttp.send();
 
-    //Kaller oppdateringene
+    //Kaller oppdateringene fra database
     updateQuestions();
 
     function updateQuestions(){
@@ -188,7 +188,7 @@ function openHighscore(){
     xhttp.open("GET", "highscore.html", true);
     xhttp.send();
 
-    //Kaller oppdateringene
+    //Kaller oppdateringene fra database
     updateHighscore();
 
     function updateHighscore(){
@@ -215,7 +215,7 @@ function openHighscore(){
 collapseNavbar();
 function collapseNavbar(){
 
-  //Gjemmer og viser menyen igjen ettersom hvor man klikker   
+  //Gjemmer og viser menyen igjen ettersom hvor man klikker
   $(window).on("click", function(){
       $("#navbar").on("click", function(){
           $("#navbar").collapse('hide');
