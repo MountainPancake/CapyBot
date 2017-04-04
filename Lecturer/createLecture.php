@@ -2,7 +2,7 @@
 include '../Database.php';
 
 $lecturer_mail = $_POST["email"];
-$category_name = $_POST["category"];
+$category = $_POST["category"];
 $date = $_POST["date"];
 $time = $_POST["time"];
 

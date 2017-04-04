@@ -26,10 +26,6 @@ label {
     display:none;
 }
 
-#lectureCreated{
-    display: none;
-}
-
 #lectureError{
     display: none;
 }

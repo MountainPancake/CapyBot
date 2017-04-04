@@ -103,7 +103,7 @@ session_start();
                     <h3>Give feedback</h3>
 
                     <div class="" style="width:100%">
-                      
+
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
                         <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
