@@ -11,7 +11,7 @@ body {
   border: 0;
 }
 
-/* create lecture form */
+/* create lecture - form */
 
 .chooseSubject {
 
@@ -24,6 +24,10 @@ label {
 
 #moreContent{
     display:none;
+}
+
+#lectureError{
+    display: none;
 }
 
 
