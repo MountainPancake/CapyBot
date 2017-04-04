@@ -34,12 +34,12 @@
                         </button>
 
                         <div id="navbar" class="navbar-collapse collapse navbar-right">
-                            <form class="navbar-form">
+                            <form class="navbar-form" action="lecturerLogin.php" method="post">
                                 <div class="form-group">
-                                    <input type="text" placeholder="Email" class="form-control">
+                                    <input type="text" name="email" placeholder="Email" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" placeholder="Password" class="form-control">
+                                    <input type="password" name="password" placeholder="Password" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-success">Sign in</button>
                             </form>
@@ -55,18 +55,18 @@
 
                         <form action="createLecturerUser.php" method="POST">
                             <p class="formText">First name:</p>
-                            <input type="text" placeholder="First name" name="fname" class="form-control" required><br/>
+                            <input type="text" placeholder="First name" name="firstName" class="form-control" required><br/>
                             <p class="formText">Last name:</p>
-                            <input type="text" placeholder="Last name" name="lname" class="form-control" required><br/>
+                            <input type="text" placeholder="Last name" name="lastName" class="form-control" required><br/>
                             <p class="formText">Email:</p>
                             <input type="email" placeholder="name@domain.com" name="email" class="form-control" required><br/>
                             <p class="formText">University:</p>
-                            <select name="uni" class="form-control" required>
+                            <select name="university" class="form-control" required>
                                 <option value="ntnu">NTNU</option>
                                 <option value="other">Other</option>
                             </select></br>
                             <p class="formText">Password:</p>
-                            <input type="password" placeholder="*******" name="psw" class="form-control" required><br/>
+                            <input type="password" placeholder="*******" name="password" class="form-control" required><br/>
                             <br/>
                             <button type="submit" class="btn btn-primary btn-lg">Create user!</button>
                         </form>
