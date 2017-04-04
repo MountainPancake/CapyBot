@@ -48,7 +48,7 @@ function showContent(){
 /*    What happens when you click the "save" button when creating a new lecture    */
 
 function addLecture(){
-    var category = document.getElementById("category").value;
+    var category = document.getElementById("chooseSubject").value;
     var chooseName = document.getElementById("chooseName").value;
     var chooseDate = document.getElementById("chooseDate").value;
     var chooseTime = document.getElementById("chooseTime").value;
@@ -61,7 +61,6 @@ function addLecture(){
     if (validTitle(chooseName==false)) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. You need to choose a title for you lecture.";
-        console.log("!!!!");
         return false;
     }
 
@@ -80,24 +79,25 @@ function addLecture(){
     /*    If they are valid, run create lecture PHP-file   */
 
     else {
-        console.log("hdebhwhld");
-        var dataString = 'category=' + category + '&name=' + name + '&date=' + date + '&time=' + time;
+        event.preventDefault();
+        var dataString = 'category=' + category + '&name=' + chooseName + '&date=' + chooseDate + '&time=' + chooseTime;
 
         $.ajax({
             type: "POST",
             url: "createLecture.php",
             data: dataString,
             success: function(text) {
-                if (text=="success"){
-                    alert("hei");
-                }
+                alert(text);
+                lectureSuccessful();
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
             }
+
         });
     }
 
-    return false;
 }
-
 
 /*    Checking that values are legal when creating a lecture     */
 
@@ -120,4 +120,17 @@ function validTime(time) {
         return false;
     }
     else {return true;}
+}
+
+/*    Switching pages when a lecture is created successfully     */
+
+function lectureSuccessful() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("POST", "lectureCreated.html", true);
+    xhttp.send();
 }
