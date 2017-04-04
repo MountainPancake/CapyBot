@@ -61,13 +61,29 @@ class Database{
     }
   }
 
+  function getLecturesByMail($mail){
+    $sql = "SELECT Title, date, time, category_name FROM Lecture where lecturer_mail = '$mail'";
+    $assoc_array = mysqli_fetch_assoc(mysql_query($this->con, $sql)); 
+    return $assoc_array;
+  }
+
+
+  function getLecturesByMailAndCategory($mail, $category){
+    echo "<br>in function";
+    $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$mail' AND category_name = '$category'";
+    $result = mysqli_query($this->con, $query);
+    while ($row = mysqli_fetch_assoc($result)){
+      echo $row["lecturer_mail"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
+    }
+  }
+
 
 
 //Getters
   function getUserByMail($mail){
-    $sql = "SELECT * FROM User WHERE e_mail = '$mail'";
+    $sql = "SELECT first_name FROM User WHERE e_mail = '$mail'";
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+    return $assoc_array['first_name'];
   }
 
 
