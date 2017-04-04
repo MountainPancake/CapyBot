@@ -226,3 +226,9 @@ function collapseNavbar(){
   });
 
 }
+
+//Kollapser Navigationbar når man klikker på linkene i menyen
+/*
+function collapseNavbar(){
+
+}*/
