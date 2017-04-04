@@ -87,7 +87,6 @@ function addLecture(){
             url: "createLecture.php",
             data: dataString,
             success: function(text) {
-                alert(text);
                 lectureSuccessful();
             },
             error: function(jqXHR, exception) {
