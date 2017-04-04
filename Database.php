@@ -51,9 +51,9 @@ class Database{
     }
   }
 
-  function insertLecture($lecturer_email,$category_name,$date,$time){
-    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_email`, `category_name`, `date`, `time`)
-    VALUES (NULL, '$lecturer_email', '$category_name', '$date', '$time')";
+  function insertLecture($lecturer_email,$category_name,$date,$time,$title){
+    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_email`, `category_name`, `date`, `time`, `title`)
+    VALUES (NULL, '$lecturer_email', '$category_name', '$date', '$time', '$title')";
     return mysqli_query($this->con, $sql);
   }
 
