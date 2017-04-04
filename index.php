@@ -61,7 +61,7 @@
 
           <div class="mastfoot">
               <div class="inner">
-                  <p>Are you a lecturer? Go to <a href="Lecturer/lecturerindex.html">become-a-capybara.com</a></p>
+                  <p>Are you a lecturer? Go to <a href="Lecturer/lecturerIndex.html">become-a-capybara.com</a></p>
               </div>
           </div>
 
