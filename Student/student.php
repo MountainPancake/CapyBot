@@ -18,26 +18,11 @@ session_start();
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-
-    <!--
-    <script>
-
-        $(window).on("click", function(){
-          $("#navbar").on("click", function(){
-              $("#dropdown-menu").toggle();
-          });
-
-          $("#activeQuestions").on("click", function(){
-              $("#navbar").hide();
-          });
-        });
-
-    </script>
-    -->
+    <!--<script src="collapseNavbar.js"></script>-->
 
 </head>
 
-<body onload="updateLecture()">
+<body onload="openLecture()">
 
     <div class="container">
 
@@ -46,8 +31,8 @@ session_start();
         <div class="header clearfix">
 
         <!-- Static navbar -->
-            <nav id="dropdown-menu" class="navbar-default">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <nav class="navbar-default">
+                <button id="dropdown-menu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -71,27 +56,6 @@ session_start();
 
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
-
-            <p>
-                Dato: <span id="dato"></span>
-            </p>
-
-            <p>
-                Tid: <span id="time"></span>
-            </p>
-
-            <p>
-                Responses: <span id="responses"></span>
-            </p>
-
-            <p>
-                SubjectID: <span id="subjectID"></span>
-            </p>
-
-            <p>
-                Subject: <span id="subject"></span>
-            </p>
-
             <div class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
@@ -108,18 +72,16 @@ session_start();
                     <h3>Give feedback</h3>
 
                     <div class="" style="width:100%">
-                      
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
-                        <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
 
-                    </div>
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="slowDown"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="speedUp"></span></button>
+                        </p>
+                        <p>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooHard"></span></button>
+                            <button type="button" class="btn btn-lg btn-primary knapp"><span id="tooEasy"></span></button>
+                        </p>
 
-                    <h3>Lecture progress</h3>
-
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"><span class="sr-only">60% Complete</span></div>
                     </div>
 
                     <h3>Ask question</h3>
