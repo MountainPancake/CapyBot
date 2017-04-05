@@ -218,14 +218,23 @@ function openHighscore(){
 collapseNavbar();
 function collapseNavbar(){
 
-  //Gjemmer og viser menyen igjen ettersom hvor man klikker
-  $(window).on("click", function(){
-      $("#navbar").on("click", function(){
-          $("#navbar").collapse('hide');
-      });
-      $("#dropdown-menu").on("click", function(){
-          $("#navbar").collapse('toggle');
-      });
-  });
+    //Gjemmer og viser menyen igjen ettersom hvor man klikker
+    $(window).on("click", function(){
+        $("#navbar").on("click", function(){
+            $("#navbar").collapse('hide');
+        });
+        $("#dropdown-menu").on("click", function(){
+            $("#navbar").collapse('toggle');
+        });
+    });
 
 }
+
+
+//Viderefører til questions-siden til student, med det nye spørsmålet!
+/*
+insertPost(){
+
+
+
+}*/
