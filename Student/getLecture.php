@@ -8,7 +8,7 @@
   $lecture->responses = ["Slow down","Speed up", "Too hard","Too easy"];
   $lecture->category = $dbLecture["category"];
 
-  $jsonLecture = json_encode($lecture);
+  $jsonLecture = json_encode($dbLecture);
 
   echo $jsonLecture;
 ?>

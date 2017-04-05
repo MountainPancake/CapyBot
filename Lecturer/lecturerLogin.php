@@ -5,10 +5,8 @@ include '../Database.php';
 $email = $_POST["email"];
 $password = $_POST["password"];
 
-echo "$email $password<br>";
-
 $db = new Database();
-$assocUserArray = $db->login($email,$password);
+$assocUserArray = $db->getUserByEmailAndPassword($email,$password);
 if($assocUserArray){
   $_SESSION["email"] = $assocUserArray["email"];
   $_SESSION["firstName"] = $assocUserArray["first_name"];
