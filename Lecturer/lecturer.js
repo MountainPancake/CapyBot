@@ -8,7 +8,7 @@ function getSubjects() {
     */
 }
 
-/*    Content for overview menu option. Switches main body content using AJAX form the overview.html file    */
+/*    Switches main body content using AJAX from the overview.html file    */
 
 function overview() {
 
@@ -22,6 +22,8 @@ function overview() {
     xhttp.send();
 }
 
+/*    Switches main body content using AJAX from the manageSubjects.html file    */
+
 function manageSubjects() {
 
     var xhttp = new XMLHttpRequest();
@@ -33,6 +35,8 @@ function manageSubjects() {
     xhttp.open("POST", "manageSubjects.html", true);
     xhttp.send();
 }
+
+/*    Switches main body content using AJAX from the statistics.html file    */
 
 function statistics() {
 

@@ -57,9 +57,9 @@
 
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li class="active"><a onclick="overview()">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a onclick="manageSubjects()">Manage subjects</a></li>
-                    <li><a href="#">Statistics</a></li>
+                    <li class="active" onclick="overview()"><a>Overview</a></li>
+                    <li onclick="manageSubjects()"><a>Manage subjects</a></li>
+                    <li onclick="statistics()"><a>Statistics</a></li>
                 </ul>
                 <h3 class="menuTitle">Subjects</h3>
                 <ul class="nav nav-sidebar">
