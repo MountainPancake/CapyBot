@@ -3,5 +3,5 @@ session_start();
 require '../Database.php';
 $db = new Database();
 $posts = $db->getPostsByLectureID($_SESSION["lecturePin"]);
-echo $posts;
+echo json_encode($posts);
 ?>
