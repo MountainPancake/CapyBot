@@ -153,22 +153,37 @@ function openQuestions(){
     insertPost();
 }
 
-//Viderefører til questions-siden til student, med det nye spørsmålet!
+//Viderefører til questions-siden til student, med nye spørsmål
 function insertPost(){
 
-    var xmlhttp = new XMLHttpRequest();
+    var obj, dbParam, xmlhttp, myObj, x, questions = "", upvotes, quest, result;
+    obj = { "table":"text", "limit":15 };
+    obj = { "table":"upvotes", "limit":15 };
+    dbParam = JSON.stringify(obj);
+    xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
-          question = myObj[0];
-          upvotes = myObj[2];
-          if(upvotes == 0){
+          for (x in myObj) {
+              questions = myObj[x].text;
+              upvotes = myObj[x].upvotes;
+
+              document.getElementById("question").innerHTML = questions;
+              document.getElementById("upvotes").innerHTML = upvotes
+
+              $("#questbox").each(function() {
+                  $(this).clone().appendTo('#quest').val($(this).val());
+              });
+
+          }
+
+          /*if(upvotes == 0){
               document.getElementById("question").innerHTML = myObj.question;
               document.getElementById("upvotes").innerHTML = myObj.upvotes;
           }else{
               document.getElementById("new_question").innerHTML = myObj.question;
               document.getElementById("new_upvotes").innerHTML = myObj.upvotes;
-          }
+          }*/
       }
     };
 
