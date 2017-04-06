@@ -24,7 +24,7 @@ session_start();
 
 </head>
 
-<body onload="openLecture">
+<body onload="openLecture();">
     <div class="container">
 
         <!-- Header -->
@@ -57,7 +57,7 @@ session_start();
 
             <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
 
-            <div class="jumbotron">
+            <div id="lecturer_quest" class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>
 
                 <ul class="list-group answers">

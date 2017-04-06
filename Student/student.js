@@ -59,30 +59,33 @@ function openLecture(){
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    //updateLecture();
+    updateLecture();
 }
 
-/*
-    function updateLecture(){
+function updateLecture(){
 
-        //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              myObj = JSON.parse(this.responseText);
-              document.getElementById("pin").innerHTML = myObj.PIN;
-              document.getElementById("subject").innerHTML = myObj.subjectID + " " + myObj.subject;
-              document.getElementById("slowDown").innerHTML = myObj.responses[0];
-              document.getElementById("speedUp").innerHTML = myObj.responses[1];
-              document.getElementById("tooHard").innerHTML = myObj.responses[2];
-              document.getElementById("tooEasy").innerHTML = myObj.responses[3];
-          }
-        };
+    //Synliggjøre/gjemme question-box ut i fra om lecturer har stillt spørsmål eller ikke
+    /*if(){
+        $("#lecturer_quest").hide();
+    }*/
 
-        xmlhttp.open("GET", "getLecture.php?q=", true);
-        xmlhttp.send();
-    }
-*/
+    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          document.getElementById("pin").innerHTML = myObj.PIN;
+          document.getElementById("subject").innerHTML = myObj.category;
+          document.getElementById("slowDown").innerHTML = myObj.responses[0];
+          document.getElementById("speedUp").innerHTML = myObj.responses[1];
+          document.getElementById("tooHard").innerHTML = myObj.responses[2];
+          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+      }
+    };
+
+    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.send();
+}
 
 
 
