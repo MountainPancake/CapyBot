@@ -86,8 +86,7 @@ session_start();
                     </div>
 
                     <h3>Ask question</h3>
-                    <!--<form method="post" action="#" onsubmit="return insertPost()">-->
-                    <form method="post" action="insertPost.php">
+                    <form method="post" action="insertPost.php" onsubmit="return openQuestions()">
                         <input type="text" name="question" class="form-control" placeholder="?">
                         <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                     </form>

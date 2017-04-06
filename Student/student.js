@@ -116,9 +116,9 @@ function openProfile() {
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
               myObj = JSON.parse(this.responseText);
-              document.getElementById("name").innerHTML = myObj.firstName + " " + myObj.lastName;
-              document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-              document.getElementById("rank").innerHTML = myObj.rank;
+              document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
+              //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+              //document.getElementById("rank").innerHTML = myObj.rank;
           }
         };
 
@@ -156,6 +156,7 @@ function openQuestions(){
 //Viderefører til questions-siden til student, med nye spørsmål
 function insertPost(){
 
+
     var obj, dbParam, xmlhttp, myObj, x, questions = "", upvotes, quest, result;
     obj = { "table":"text", "limit":15 };
     obj = { "table":"upvotes", "limit":15 };
@@ -171,19 +172,19 @@ function insertPost(){
               document.getElementById("question").innerHTML = questions;
               document.getElementById("upvotes").innerHTML = upvotes
 
-              $("#questbox").each(function() {
-                  $(this).clone().appendTo('#quest').val($(this).val());
+              $("#questbox").each(function(){
+                  $(this).clone().appendTo("#new_quest").val($(this).val());
               });
 
+              //Må sammenlignes mot alle spørsmål som finnes i #questbox diven
+              //fra før og legge til på rett plass dersom det er færre enn 5 spm
+              //der eller den har flere upvotes enn de som ligger der
+              if(upvotes != 0){
+                  $("#questbox").each(function() {
+                      $(this).clone().insertBefore("#quest").val($(this).val());
+                  });
+              }
           }
-
-          /*if(upvotes == 0){
-              document.getElementById("question").innerHTML = myObj.question;
-              document.getElementById("upvotes").innerHTML = myObj.upvotes;
-          }else{
-              document.getElementById("new_question").innerHTML = myObj.question;
-              document.getElementById("new_upvotes").innerHTML = myObj.upvotes;
-          }*/
       }
     };
 
