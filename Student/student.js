@@ -150,23 +150,24 @@ function openQuestions(){
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    updateQuestions();
+    insertPost();
+}
 
-    function updateQuestions(){
+//Viderefører til questions-siden til student, med det nye spørsmålet!
+function insertPost(){
 
-          //Henter ut innholdet i "getQuestions.php", splitter det opp og legger det inn i forskjellige id
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myObj = JSON.parse(this.responseText);
-                document.getElementById("question").innerHTML = myObj.question;
-                document.getElementById("upvotes").innerHTML = myObj.upvotes;
-            }
-          };
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          document.getElementById("question").innerHTML = myObj.question;
+          document.getElementById("upvotes").innerHTML = myObj.upvotes;
+      }
+    };
 
-          xmlhttp.open("GET", "getQuestions.php?q=", true);
-          xmlhttp.send();
-    }
+    xmlhttp.open("GET", "getQuestions.php?q=", true);
+    xmlhttp.send();
+
 }
 
 
@@ -229,12 +230,3 @@ function collapseNavbar(){
     });
 
 }
-
-
-//Viderefører til questions-siden til student, med det nye spørsmålet!
-/*
-insertPost(){
-
-
-
-}*/
