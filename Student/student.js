@@ -160,7 +160,7 @@ function openQuestions(){
 function insertPost(){
 
 
-    var obj, dbParam, xmlhttp, myObj, x, questions = "", upvotes, quest, result;
+    var obj, dbParam, xmlhttp, myObj, x, questions, upvotes, quest, result;
     obj = { "table":"text", "limit":15 };
     obj = { "table":"upvotes", "limit":15 };
     dbParam = JSON.stringify(obj);
@@ -168,25 +168,29 @@ function insertPost(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
+
           for (x in myObj) {
               questions = myObj[x].text;
               upvotes = myObj[x].upvotes;
 
               document.getElementById("question").innerHTML = questions;
-              document.getElementById("upvotes").innerHTML = upvotes
+              document.getElementById("upvotes").innerHTML = upvotes;
 
-              $("#questbox").each(function(){
-                  $(this).clone().appendTo("#new_quest").val($(this).val());
+              var parentDiv = document.getElementById("questbox").parentNode;
+              var newNode = document.getElementById("questbox");
+
+              $(parentDiv).each(function(){
+                  $(this).clone().insertBefore(newNode).val($(this).val());
               });
-
+              /*
               //Må sammenlignes mot alle spørsmål som finnes i #questbox diven
               //fra før og legge til på rett plass dersom det er færre enn 5 spm
               //der eller den har flere upvotes enn de som ligger der
               if(upvotes != 0){
-                  $("#questbox").each(function() {
-                      $(this).clone().insertBefore("#quest").val($(this).val());
+                  $(parentDiv).each(function(){
+                      $(this).clone().insertBefore(newNode).val($(this).val());
                   });
-              }
+              }*/
           }
       }
     };
