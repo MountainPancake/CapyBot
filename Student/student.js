@@ -59,30 +59,33 @@ function openLecture(){
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    //updateLecture();
+    updateLecture();
 }
 
-/*
-    function updateLecture(){
+function updateLecture(){
 
-        //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              myObj = JSON.parse(this.responseText);
-              document.getElementById("pin").innerHTML = myObj.PIN;
-              document.getElementById("subject").innerHTML = myObj.subjectID + " " + myObj.subject;
-              document.getElementById("slowDown").innerHTML = myObj.responses[0];
-              document.getElementById("speedUp").innerHTML = myObj.responses[1];
-              document.getElementById("tooHard").innerHTML = myObj.responses[2];
-              document.getElementById("tooEasy").innerHTML = myObj.responses[3];
-          }
-        };
+    //Synliggjøre/gjemme question-box ut i fra om lecturer har stillt spørsmål eller ikke
+    /*if(){
+        $("#lecturer_quest").hide();
+    }*/
 
-        xmlhttp.open("GET", "getLecture.php?q=", true);
-        xmlhttp.send();
-    }
-*/
+    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          document.getElementById("pin").innerHTML = myObj.PIN;
+          document.getElementById("subject").innerHTML = myObj.category;
+          document.getElementById("slowDown").innerHTML = myObj.responses[0];
+          document.getElementById("speedUp").innerHTML = myObj.responses[1];
+          document.getElementById("tooHard").innerHTML = myObj.responses[2];
+          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+      }
+    };
+
+    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.send();
+}
 
 
 
@@ -116,9 +119,9 @@ function openProfile() {
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
               myObj = JSON.parse(this.responseText);
-              document.getElementById("name").innerHTML = myObj.firstName + " " + myObj.lastName;
-              document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-              document.getElementById("rank").innerHTML = myObj.rank;
+              document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
+              //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+              //document.getElementById("rank").innerHTML = myObj.rank;
           }
         };
 
@@ -150,23 +153,51 @@ function openQuestions(){
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    updateQuestions();
+    insertPost();
+}
 
-    function updateQuestions(){
+//Viderefører til questions-siden til student, med nye spørsmål
+function insertPost(){
 
-          //Henter ut innholdet i "getQuestions.php", splitter det opp og legger det inn i forskjellige id
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myObj = JSON.parse(this.responseText);
-                document.getElementById("question").innerHTML = myObj.question;
-                document.getElementById("upvotes").innerHTML = myObj.upvotes;
-            }
-          };
 
-          xmlhttp.open("GET", "getQuestions.php?q=", true);
-          xmlhttp.send();
-    }
+    var obj, dbParam, xmlhttp, myObj, x, questions, upvotes, quest, result;
+    obj = { "table":"text", "limit":15 };
+    obj = { "table":"upvotes", "limit":15 };
+    dbParam = JSON.stringify(obj);
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+
+          for (x in myObj) {
+              questions = myObj[x].text;
+              upvotes = myObj[x].upvotes;
+
+              document.getElementById("question").innerHTML = questions;
+              document.getElementById("upvotes").innerHTML = upvotes;
+
+              var parentDiv = document.getElementById("questbox").parentNode;
+              var newNode = document.getElementById("questbox");
+
+              $(parentDiv).each(function(){
+                  $(this).clone().insertBefore(newNode).val($(this).val());
+              });
+              /*
+              //Må sammenlignes mot alle spørsmål som finnes i #questbox diven
+              //fra før og legge til på rett plass dersom det er færre enn 5 spm
+              //der eller den har flere upvotes enn de som ligger der
+              if(upvotes != 0){
+                  $(parentDiv).each(function(){
+                      $(this).clone().insertBefore(newNode).val($(this).val());
+                  });
+              }*/
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getPostsForLecture.php?q=", true);
+    xmlhttp.send();
+
 }
 
 
@@ -218,14 +249,14 @@ function openHighscore(){
 collapseNavbar();
 function collapseNavbar(){
 
-  //Gjemmer og viser menyen igjen ettersom hvor man klikker
-  $(window).on("click", function(){
-      $("#navbar").on("click", function(){
-          $("#navbar").collapse('hide');
-      });
-      $("#dropdown-menu").on("click", function(){
-          $("#navbar").collapse('toggle');
-      });
-  });
+    //Gjemmer og viser menyen igjen ettersom hvor man klikker
+    $(window).on("click", function(){
+        $("#navbar").on("click", function(){
+            $("#navbar").collapse('hide');
+        });
+        $("#dropdown-menu").on("click", function(){
+            $("#navbar").collapse('toggle');
+        });
+    });
 
 }
