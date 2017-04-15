@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  background-color: #142952;
+}
+
+body {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
 a, a:focus, a:hover {
   color: #fff;
 }
@@ -13,9 +24,48 @@ a, a:focus, a:hover {
     height: 80%;
 }
 
-.form-signin {
+.signInBox {
+    border: 2px solid white;
+    overflow: hidden;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.signInText {
+    display: inline-block;
+    padding: 10px;
+    font-size: 15px;
+    width: 20%;
+}
+
+.helpText {
+    font-size: 12px;
+    float: right;
+    padding: 5px;
+}
+
+.signInForm {
+    display: inline-block;
+    padding: 10px;
     width: 70%;
-    margin: auto;
+}
+
+#logIn {
+    display: block;
+}
+
+#createUser {
+    display: none;
+}
+
+
+.footer {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+.footer a {
+  font-weight: 400;
 }
 
 /* Custom default button */
@@ -24,17 +74,6 @@ a, a:focus, a:hover {
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: #fff;
   border: 1px solid #fff;
-}
-
-html, body {
-  height: 100%;
-  background-color: #142952;
-}
-
-body {
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
@@ -61,49 +100,6 @@ body {
 }
 
 
-/*
- * Header
- */
-
-.masthead-brand {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.masthead-nav > li {
-  display: inline-block;
-}
-.masthead-nav > li + li {
-  margin-left: 20px;
-}
-.masthead-nav > li > a {
-  padding-right: 0;
-  padding-left: 0;
-  font-size: 16px;
-}
-.masthead-nav > li > a:hover, .masthead-nav > li > a:focus {
-  background-color: transparent;
-}
-
-.masthead-nav > .active > a, .masthead-nav > .active > a:hover, .masthead-nav > .active > a:focus {
-  color: #fff;
-  font-weight: bold;
-}
-
-@media (min-width: 768px) {
-  .masthead-brand {
-    float: left;
-  }
-  .masthead-nav {
-    float: right;
-  }
-}
-
-
-/*
- * Cover
- */
-
 .cover {
   padding: 0 20px;
 }
@@ -112,46 +108,19 @@ body {
   font-weight: bold;
 }
 
-
-/*
- * Footer
- */
-
-.mastfoot {
-  color: #999; /* IE8 proofing */
-  color: rgba(255,255,255,.5);
-}
-
-
-/*
- * Affix and center
- */
-
 @media (min-width: 768px) {
-  /* Pull out the header and footer */
-  .masthead {
-    position: fixed;
-    top: 0;
-  }
-  .mastfoot {
-    position: fixed;
-    bottom: 0;
-  }
-  /* Start the vertical centering */
+
   .site-wrapper-inner {
     vertical-align: middle;
   }
-  /* Handle the widths */
-  .masthead,
-  .mastfoot,
+
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
   }
 }
 
 @media (min-width: 992px) {
-  .masthead,
-  .mastfoot,
+
   .cover-container {
     width: 700px;
   }
