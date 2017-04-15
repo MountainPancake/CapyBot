@@ -11,6 +11,24 @@ body {
   border: 0;
 }
 
+/* create lecture - form */
+
+.chooseSubject {
+
+}
+
+label {
+    font-weight: normal;
+    font-size: 150%;
+}
+
+#moreContent{
+    display:none;
+}
+
+#lectureError{
+    display: none;
+}
 
 
 /* nav sidebar */
