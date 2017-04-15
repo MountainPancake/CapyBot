@@ -20,33 +20,52 @@
     <body>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
-
             <div class="cover-container">
-
-                <!--Menu -->
-
-                <div class="masthead clearfix">
-                    <div class="inner">
-                        <h3 class="masthead-brand">capybot</h3>
-                        <nav>
-                            <ul class="nav masthead-nav">
-                                <li class="active"><a href="#">Log in</a></li>
-                                <li><a href="#">About</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                </div>
-
                 <div class="inner cover">
 
+                    <h1>capybot</h1>
+                    <br />
+
                     <div class="logodiv">
-                        <img src="https://www.rpnation.com/applications/core/interface/imageproxy/imageproxy.php?img=http://www.immersion-3d.com/wp-content/uploads/2015/12/image-placeholder-500x500.jpg&key=0ddfae04ccb068e86c16d3e5440d10f708df6d63518a9d31b655ef3d3abe1e15" alt="Placeholder" class="logo" />
+                        <img src="http://piq.codeus.net/static/media/userpics/piq_93433_400x400.png" alt="Placeholder" class="logo" />
                     </div>
 
                     <!-- Sign in -->
 
-                    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">
+                    <div class="signInBox" id="logIn">
+
+                        <form>
+
+                            <p class="signInText">Email:</p>
+                            <input type="text" name="email" placeholder="Email" class="form-control signInForm" required>
+                            <br/>
+                            <p class="signInText">Password:</p>
+                            <input type="password" name=password placeholder="********" class="form-control signInForm" required>
+                            <br/>
+                            <button type="submit" class="btn btn-success btn-lg">Sign in!</button>
+                            <br /><br />
+                        </form>
+
+                        <button onclick="createNewUser()" class="btn btn-primary btn-sm" style="float:left; margin-left:20px;">No account? Click here to create one!</button>
+
+                    </div>
+
+                    <div class="signInBox" id="createUser">
+
+                        <form>
+                            <p class="signInText">Username: *</p>
+                            <input type="text" placeholder="Username" name="username" class="form-control signInForm" required><br/>
+                            <p class="signInText">Email:</p>
+                            <input type="email" placeholder="name@domain.com" name="email" class="form-control signInForm" required><br/>
+                            <p class="signInText">Password:</p>
+                            <input type="password" placeholder="*******" name="password" class="form-control signInForm" required>
+                            <br/>
+                            <button type="submit" class="btn btn-success btn-lg">Create user!</button>
+                            <br /><br />
+                        </form>
+
+                        <button onclick="signInClick()" class="btn btn-primary btn-sm" style="float:left; margin-left:20px;">Already have an account?</button>
+                        <p class="helpText">* Your username will be visible to other users</p>
 
                     </div>
 
@@ -54,23 +73,22 @@
 
           <!-- Footer -->
 
-          <div class="mastfoot">
+          <div class="footer">
               <div class="inner">
                   <p>Are you a lecturer? Go to <a href="Lecturer/lecturerindex.html">become-a-capybara.com</a></p>
               </div>
           </div>
 
+
         </div>
-
       </div>
-
     </div>
 
 
-    <!-- Bootstrap core JavaScript -->
+    <!-- JavaScript -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>  <!-- Google sign in -->
-    <script src="bootstrap.min.js"></script>  <!-- Menu -->
+    <script src="bootstrap.min.js"></script>
+    <script src="index.js"></script>  <!-- Menu -->
  </body>
 </html>
