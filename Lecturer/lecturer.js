@@ -8,6 +8,48 @@ function getSubjects() {
     */
 }
 
+/*    Switches main body content using AJAX from the overview.html file    */
+
+function overview() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("POST", "overview.html", true);
+    xhttp.send();
+}
+
+/*    Switches main body content using AJAX from the manageSubjects.html file    */
+
+function manageSubjects() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("POST", "manageSubjects.html", true);
+    xhttp.send();
+}
+
+/*    Switches main body content using AJAX from the statistics.html file    */
+
+function statistics() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+    xhttp.open("POST", "statistics.html", true);
+    xhttp.send();
+}
+
 
 /*    Changes main content when clicking on "create lecture" button    */
 
@@ -21,7 +63,6 @@ function createLecture() {
     Should be all the categories for the given lecturer
 
     BTW: <option selected="selected" disabled="disabled">Choose subject</option> needs to be the first option!!
-
     */
 
     var xhttp = new XMLHttpRequest();
