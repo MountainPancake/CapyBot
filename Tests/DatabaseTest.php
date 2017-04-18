@@ -42,11 +42,12 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
     $date = "1814-05-17";
     $categories = array("eidsvoll","grunnlov");
     $time = 140000;
+    $title = "grunnlov pt.";
     $insertedIDs = [];
     //Inserting new Lecture-rows
     foreach ($categories as $category) {
       $time += 2000;
-      $isInserted = $this->db->insertLecture($lecturer_email,$category,$date,$time);
+      $isInserted = $this->db->insertLecture($lecturer_email,$category,$date,$time,$title);
       array_push($insertedIDs, mysqli_insert_id($this->db->con));
       $this->assertTrue($isInserted);
     }
