@@ -51,7 +51,7 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       $this->assertTrue($isInserted);
     }
     //Fetching Lectures back ot check existence
-    $insertedLectures = json_decode($this->db->getLecturesByEmail($lecturer_email),true);
+    $insertedLectures = $this->db->getLecturesByEmail($lecturer_email),true;
     $i = 0;
     //Asserting that correct info was inserted along with deleting the created lectures
     foreach ($insertedLectures as $lecture) {
