@@ -53,9 +53,7 @@ session_start();
         <!-- Body -->
         <div id="student_body">
 
-            <h3 id="subject"></h3>
-
-            <h1>Lecture: <?php echo $_SESSION["lecturePin"]; ?> <span id="pin"></span></h1>
+            <h1 id="subject">Hei</h1>
 
             <div id="lecturer_quest" class="jumbotron">
                 <h1 class="question" style="font-size:50px;">Question</h1>

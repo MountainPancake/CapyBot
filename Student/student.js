@@ -74,8 +74,7 @@ function updateLecture(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
-          document.getElementById("pin").innerHTML = myObj.PIN;
-          document.getElementById("subject").innerHTML = myObj.category;
+          document.getElementById("subject").innerHTML = myObj.name;
           document.getElementById("slowDown").innerHTML = myObj.responses[0];
           document.getElementById("speedUp").innerHTML = myObj.responses[1];
           document.getElementById("tooHard").innerHTML = myObj.responses[2];
@@ -158,46 +157,29 @@ function openQuestions(){
 
 //Viderefører til questions-siden til student, med nye spørsmål
 function insertPost(){
-
-
-    var obj, dbParam, xmlhttp, myObj, x, questions, upvotes, quest, result;
+    var obj, dbParam, xmlhttp, top_quest;
+    // *** Grab the parent element just once, no need to keep looking it up in the loop
+    top_quest = document.getElementById("top_quest");
     obj = { "table":"text", "limit":15 };
-    obj = { "table":"upvotes", "limit":15 };
     dbParam = JSON.stringify(obj);
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          myObj = JSON.parse(this.responseText);
-
-          for (x in myObj) {
-              questions = myObj[x].text;
-              upvotes = myObj[x].upvotes;
-
-              document.getElementById("question").innerHTML = questions;
-              document.getElementById("upvotes").innerHTML = upvotes;
-
-              var parentDiv = document.getElementById("questbox").parentNode;
-              var newNode = document.getElementById("questbox");
-
-              $(parentDiv).each(function(){
-                  $(this).clone().insertBefore(newNode).val($(this).val());
-              });
-              /*
-              //Må sammenlignes mot alle spørsmål som finnes i #questbox diven
-              //fra før og legge til på rett plass dersom det er færre enn 5 spm
-              //der eller den har flere upvotes enn de som ligger der
-              if(upvotes != 0){
-                  $(parentDiv).each(function(){
-                      $(this).clone().insertBefore(newNode).val($(this).val());
-                  });
-              }*/
-          }
+          var myObj = JSON.parse(this.responseText);
+          Object.keys(myObj).forEach(function(key) {
+              var entry = myObj[key];
+              // Get the first .questbox and clone it
+              var clone = top_quest.querySelector(".questbox").cloneNode(true);
+              // Set the question and upvotes
+              clone.querySelector(".question").innerHTML = entry.text;
+              clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+              // Append the clone at the top
+              top_quest.insertBefore(clone, top_quest.firstChild);
+          });
       }
     };
-
     xmlhttp.open("GET", "getPostsForLecture.php?q=", true);
     xmlhttp.send();
-
 }
 
 
