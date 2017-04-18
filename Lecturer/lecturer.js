@@ -50,9 +50,10 @@ function manageSubjects() {
             document.getElementById("main").innerHTML = xhttp.responseText;
         }
     };
+
     getSubjects();
 
-    xhttp.open("POST", "manageSubjects2.html", true);
+    xhttp.open("POST", "manageSubjects3.html", true);
     xhttp.send();
 }
 
@@ -65,13 +66,20 @@ function getSubjects() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(JSON.parse(this.responseText));
 
+            if (this.responseText==null || this.responseText==""){
+                var ingenFagDiv = document.getElementById("ingenFagDiv");
+                ingenFagDiv.className = "alert alert-info";
+                var text = document.createTextNode("You don't have any subjects yet! Create one below :)")
+                ingenFagDiv.appendChild(text);
+            }
+
             var subjects = document.getElementById("mySubjects");
 
             for (x in myObj) {
                 subject = myObj[x].name;
 
                 var listElement = document.createElement("li");
-                listElement.className = "list-group-item";
+                listElement.className = "subjectList";
                 var text = document.createTextNode(subject);
                 listElement.appendChild(text);
                 subjects.appendChild(listElement);
@@ -116,8 +124,6 @@ function createLecture() {
     xhttp.send();
 }
 
-
-
 function getDropDown() {
 
     var xhttp = new XMLHttpRequest();
@@ -129,7 +135,6 @@ function getDropDown() {
 
             for (x in myObj) {
                 subject = myObj[x].name;
-
                 var optionElement = document.createElement("option");
                 optionElement.text = subject;
                 chooseSubject.appendChild(optionElement);
@@ -139,7 +144,6 @@ function getDropDown() {
 
     xhttp.open("POST", "getSubjects.php", true);
     xhttp.send();
-
 }
 
 
