@@ -94,7 +94,18 @@ function deleteLectureByID($ID){
   function getUserByEmail($email){
     $sql = "SELECT * FROM User WHERE email = '$email'";
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
+    echo $assoc_array;
     return $assoc_array;
+  }
+
+  function getCategoriesByEmail($email){
+    $sql = "SELECT name FROM Category where lecturer_email = '$email'";
+    $result = mysqli_query($this->con, $sql);
+    $categoriesArray;
+    while($row = mysqli_fetch_assoc($result)){
+      $categoriesArray[$row["name"]] = $row;
+    }
+    return json_encode($categoriesArray);
   }
 
 

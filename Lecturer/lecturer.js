@@ -1,11 +1,29 @@
-/*   Gets all subjects for the lecturer logged in    */
+/*   Get subjects for menu    */
 
-function getSubjects() {
-    /*  TO DO:
+function getMenu() {
 
-    When the body of the page loads, the given lecurers' subjects should appear in the left-side menu (id=subjects)
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(JSON.parse(this.responseText));
 
-    */
+            var subjects = document.getElementById("subjectMenu");
+
+            for (x in myObj) {
+                subject = myObj[x].name;
+
+                var listElement = document.createElement("li");
+                listElement.className = "menuSubject";
+                var text = document.createTextNode(subject);
+                listElement.appendChild(text);
+                subjects.appendChild(listElement);
+            }
+        }
+      };
+
+    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.send();
+
 }
 
 /*    Switches main body content using AJAX from the overview.html file    */
@@ -32,8 +50,38 @@ function manageSubjects() {
             document.getElementById("main").innerHTML = xhttp.responseText;
         }
     };
-    xhttp.open("POST", "manageSubjects.html", true);
+    getSubjects();
+
+    xhttp.open("POST", "manageSubjects2.html", true);
     xhttp.send();
+}
+
+/*   Gets all subjects for the lecturer logged in    */
+
+function getSubjects() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(JSON.parse(this.responseText));
+
+            var subjects = document.getElementById("mySubjects");
+
+            for (x in myObj) {
+                subject = myObj[x].name;
+
+                var listElement = document.createElement("li");
+                listElement.className = "list-group-item";
+                var text = document.createTextNode(subject);
+                listElement.appendChild(text);
+                subjects.appendChild(listElement);
+            }
+        }
+      };
+
+    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.send();
+
 }
 
 /*    Switches main body content using AJAX from the statistics.html file    */
@@ -55,24 +103,43 @@ function statistics() {
 
 function createLecture() {
 
-    var chooseSubject = document.getElementById("chooseSubject");
-
-    /*  TO DO:
-
-    Write code for getting the option values to go in "choose subject".
-    Should be all the categories for the given lecturer
-
-    BTW: <option selected="selected" disabled="disabled">Choose subject</option> needs to be the first option!!
-    */
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("main").innerHTML = xhttp.responseText;
         }
     };
+
+    getDropDown();
+
     xhttp.open("POST", "createLecture.html", true);
     xhttp.send();
+}
+
+
+
+function getDropDown() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(JSON.parse(this.responseText));
+
+            var chooseSubject = document.getElementById("chooseSubject");
+
+            for (x in myObj) {
+                subject = myObj[x].name;
+
+                var optionElement = document.createElement("option");
+                optionElement.text = subject;
+                chooseSubject.appendChild(optionElement);
+            }
+        }
+      };
+
+    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.send();
+
 }
 
 
@@ -99,25 +166,25 @@ function addLecture(){
 
     /*    Check that input-values are valid    */
 
-    if (validTitle(chooseName==false)) {
+    if (validTitle(chooseName)==false) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. You need to choose a title for you lecture.";
         return false;
     }
 
-    if (validDate(chooseDate==false)) {
+    if (validDate(chooseDate)==false) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. The date is not valid.";
         return false;
     }
 
-    if (validTime(chooseTime==false)) {
+    if (validTime(chooseTime)==false) {
         error.style.display = "block";
         error.innerHTML = "Lecture not created. The time is not valid.";
         return false;
     }
 
-    /*    If they are valid, run create lecture PHP-file   */
+    /*    If they are valid, run create lecture PHP-script   */
 
     else {
         event.preventDefault();
@@ -139,28 +206,6 @@ function addLecture(){
 
 }
 
-/*    Checking that values are legal when creating a lecture     */
-
-function validTitle(name) {
-    if (name == "") {
-        return false;
-    }
-    else {return true;}
-}
-
-function validDate(date) {
-    if (date == "") {
-        return false;
-    }
-    else {return true;}
-}
-
-function validTime(time) {
-    if (time == "") {
-        return false;
-    }
-    else {return true;}
-}
 
 /*    Switching pages when a lecture is created successfully     */
 
@@ -173,4 +218,29 @@ function lectureSuccessful() {
     };
     xhttp.open("POST", "lectureCreated.html", true);
     xhttp.send();
+}
+
+
+
+/*    Checking that values are legal when creating a lecture     */
+
+function validTitle(name) {
+    if (name == "") {
+        return false;
+    }
+    else {return true;}
+}
+
+function validDate(date) {
+    if (date.length != 10) {
+        return false;
+    }
+    else {return true;}
+}
+
+function validTime(time) {
+    if (time.length != 5) {
+        return false;
+    }
+    else {return true;}
 }
