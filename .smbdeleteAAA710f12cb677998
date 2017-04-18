@@ -7,7 +7,7 @@ $password = $_POST["password"];
 
 $db = new Database();
 $assoc_array = $db->login($email,$password);
-$_SESSION["email"] = $assoc_array["e_mail"];
+$_SESSION["email"] = $assoc_array["email"];
 $_SESSION["firstName"] = $assoc_array["first_name"];
 $_SESSION["lastName"] = $assoc_array["last_name"];
 
