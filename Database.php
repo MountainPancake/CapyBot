@@ -106,7 +106,7 @@ class Database{
   }
 
   function insertResponseType($text, $lecture_id){
-      $sql = "INSERT INTO Response_Types ('Text', lecture_id)
+      $sql = "INSERT INTO Response_Types (Text, lecture_id)
       VALUES ('$text','$lecture_id')";
       return mysqli_query($this->con, $sql);
   }
@@ -123,6 +123,25 @@ class Database{
 
   function deleteResponseTypeByLectureIDAndText($lecture_id, $text){
     $sql = "DELETE FROM Response_Types WHERE lecture_id = '$lecture_id' and text = '$text'";
+    return mysqli_query($this->con, $sql);
+  }
+
+
+  function insertResponse($lecture_ID, $response_type){
+    $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
+    VALUES ($lecture_ID, $response_type, CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getReponseCount($lecure_ID, $response_type){
+    $sql = "SELECT COUNT(response_type) FROM Response
+    WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'";
+    $result = mysqli_query($this->con, $sql);
+    return $result;
+  }
+
+  function deleteAllResponsesByLectureID($lecture_ID){
+    $sql = "DELETE FROM Response WHERE lecture_ID = '$lecture_ID'";
     return mysqli_query($this->con, $sql);
   }
 
