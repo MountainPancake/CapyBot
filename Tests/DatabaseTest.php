@@ -129,11 +129,10 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
     $responses = ["Too slow" => 5, "Too fast" => 2,"Too flippin complicated bruv" => 100];
     foreach ($responses as $responseType => $count) {
       for($i = 0; $i < $count; $i++){
-        $inserted = $this->db->insertResponse($lectureID,$responseType);
-        $this->assertTrue($inserted);
+        $this->db->insertResponse($lectureID,$responseType);
       }
       $actualCount = $this->db->getResponseCount($lectureID,$responseType);
-      $this->assertEquals($actualCount,$count);
+      $this->assertEquals($count,$actualCount);
     }
     $deleted = $this->db->deleteAllResponsesByLectureID($lectureID);
     $this->assertTrue($deleted);

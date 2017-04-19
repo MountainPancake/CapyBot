@@ -129,23 +129,17 @@ class Database{
     return $responseTypesArray;
   }
 
-  function deleteResponseTypeByLectureIDAndText($lecture_id, $text){
-    $sql = "DELETE FROM Response_Types WHERE lecture_id = '$lecture_id' and text = '$text'";
-    return mysqli_query($this->con, $sql);
-  }
-
-
   function insertResponse($lecture_ID, $response_type){
     $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
-    VALUES ($lecture_ID, $response_type, CURRENT_TIMESTAMP)";
+    VALUES ('$lecture_ID', '$response_type', CURRENT_TIMESTAMP)";
     return mysqli_query($this->con, $sql);
   }
 
-  function getReponseCount($lecure_ID, $response_type){
-    $sql = "SELECT COUNT(response_type) FROM Response
+  function getResponseCount($lecture_ID, $response_type){
+    $sql = "SELECT COUNT(response_type) as count FROM Response
     WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'";
     $result = mysqli_query($this->con, $sql);
-    return $result;
+    return mysqli_fetch_assoc($result)["count"];
   }
 
   function deleteAllResponsesByLectureID($lecture_ID){
