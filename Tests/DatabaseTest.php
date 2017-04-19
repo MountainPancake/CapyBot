@@ -123,4 +123,20 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       $this->assertTrue($deleted);
     }
   }
+
+  public function testResponseInsertCountAndDelete(){
+    $lectureID = 0;
+    $responses = ["Too slow" => 5, "Too fast" => 2,"Too flippin complicated bruv" => 100];
+    foreach ($responses as $responseType => $count) {
+      for($i = 0; $i < $count; $i++){
+        $inserted = $this->db->insertResponse($lectureID,$responseType);
+        $this->assertTrue($inserted);
+      }
+      $actualCount = $this->db->getResponseCount($lectureID,$responseType);
+      $this->assertEquals($actualCount,$count);
+    }
+    $deleted = $this->db->deleteAllResponsesByLectureID($lectureID);
+    $this->assertTrue($deleted);
+
+  }
 }
