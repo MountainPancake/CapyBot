@@ -105,14 +105,22 @@ class Database{
     }
   }
 
-  function insertResponseType($text, $lecture_id){
-      $sql = "INSERT INTO Response_Types (Text, lecture_id)
-      VALUES ('$text','$lecture_id')";
+
+  //Response_Type
+  function insertResponseType($lecture_ID,$text){
+      $sql = "INSERT INTO Response_Type (lecture_ID, text)
+      VALUES ('$lecture_ID','$text')";
       return mysqli_query($this->con, $sql);
   }
 
-  function getResponseTypesByLectureID($lecture_id){
-    $sql = "SELECT * FROM Response_Types where lecture_id = '$lecture_id'";
+  function deleteResponseTypeByLectureIDAndText($lecture_ID, $text){
+    $sql = "DELETE FROM Response_Type WHERE lecture_ID = '$lecture_ID' and text = '$text'";
+
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseTypesByLectureID($lecture_ID){
+    $sql = "SELECT * FROM Response_Type WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
     $responseTypesArray = [];
     while($row = mysqli_fetch_assoc($result)){
@@ -144,6 +152,7 @@ class Database{
     $sql = "DELETE FROM Response WHERE lecture_ID = '$lecture_ID'";
     return mysqli_query($this->con, $sql);
   }
+
 
  //Category
   function insertCategory($categoryName,$email){
