@@ -1,8 +1,30 @@
 <!-- main -->
-
 <h1 class="page-header">Manage subjects</h1>
 
-<h3 class="sub-header">Your subjects</h3>
+<h3>Your subjects:</h3>
+
+<div class="well">
+    <div id="ingenFagDiv"></div>
+
+    <ul class="list-group" id="mySubjects"></ul>
+</div>
+
+
+<h3>Add new subject:</h3>
+
+<div class="well">
+
+    <form >
+        <div class="form-group">
+            <label for="chooseName">Choose a name for the subject:</label>
+            <input id="chooseName" type="text" name="name" placeholder="TDT4140 - Software Engineering" class="form-control"></input>
+            <small id="info" class="form-text text-muted">Choose something descriptive, like the name of the topic or the subject code.</small>
+        </div>
+
+        <button type="submit" name="submit" class="btn btn-success">+ Add subject</button>
+    </form>
+
+</div>
 
 
 <!-- end main -->
