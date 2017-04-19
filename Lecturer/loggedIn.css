@@ -30,6 +30,10 @@ label {
     display: none;
 }
 
+#subjectCreated{
+    display: none;
+}
+
 .menuSubject {
     color: white;
     display: block;

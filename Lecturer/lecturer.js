@@ -69,22 +69,27 @@ function getSubjects() {
             if (JSON.parse(this.responseText)=="null"){
                 var ingenFagDiv = document.getElementById("ingenFagDiv");
                 var text = document.createTextNode("You don't have any subjects yet! Create one below.")
-                ingenFagDiv.appendChild(text);
+                if (ingenFagDiv==null){return;}
+                else {ingenFagDiv.appendChild(text);}
             }
 
-            var subjects = document.getElementById("mySubjects");
+            else {
+                var subjects = document.getElementById("mySubjects");
+                if (subjects==null){return;}
+                else {
+                    for (x in myObj) {
+                        subject = myObj[x].name;
 
-            for (x in myObj) {
-                subject = myObj[x].name;
+                        var ingenFagDiv = document.getElementById("ingenFagDiv");
+                        ingenFagDiv.style.display = "none";
 
-                var ingenFagDiv = document.getElementById("ingenFagDiv");
-                ingenFagDiv.style.display = none;
-
-                var listElement = document.createElement("li");
-                listElement.className = "subjectList";
-                var text = document.createTextNode(subject);
-                listElement.appendChild(text);
-                subjects.appendChild(listElement);
+                        var listElement = document.createElement("li");
+                        listElement.className = "subjectList";
+                        var text = document.createTextNode(subject);
+                        listElement.appendChild(text);
+                        subjects.appendChild(listElement);
+                    }
+                }
             }
         }
       };
@@ -249,4 +254,48 @@ function validTime(time) {
         return false;
     }
     else {return true;}
+}
+
+
+
+/*    Add new subject in manageSubjects.html     */
+
+function addSubject() {
+    var categoryName = document.getElementById("chooseName").value;
+
+    event.preventDefault();
+    var dataString = 'categoryName=' + categoryName;
+
+    $.ajax({
+        type: "POST",
+        url: "addSubject.php",
+        data: dataString,
+        success: function(text) {
+            subjectSuccessful();
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR);
+        }
+
+    });
+
+}
+
+/*    Help function for addSubject. Stays on the same page, even after subject has been added    */
+
+function subjectSuccessful() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+
+    getSubjects();
+    var subjects = document.getElementById("subjectMenu");
+    subjects.innerHTML = "";
+    getMenu();
+
+    xhttp.open("POST", "manageSubjects.html", true);
+    xhttp.send();
 }

@@ -103,7 +103,7 @@ class Database{
       echo $row["lecturer_email"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
     }
   }
-  
+
   function getCategoriesByEmail($email){
     $sql = "SELECT name FROM Category where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
@@ -113,7 +113,13 @@ class Database{
     }
     return json_encode($categoriesArray);
   }
-  
+
+  function insertCategory($categoryName,$email){
+      $sql = "INSERT INTO Category (name, lecturer_email)
+      VALUES ('$categoryName','$email')";
+      return mysqli_query($this->con, $sql);
+  }
+
 //Class end
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
