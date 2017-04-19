@@ -128,10 +128,12 @@ class Database{
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
     $postsArray;
+    $i = 0;
     while($row = mysqli_fetch_assoc($result)){
-      $postsArray[$row["ID"]] = $row;
+      $postsArray[$i] = $row;
+      $i++;
     }
-    return json_encode($postsArray);
+    return $postsArray;
   }
 }
 ?>
