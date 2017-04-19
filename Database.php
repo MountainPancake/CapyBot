@@ -103,8 +103,17 @@ class Database{
       echo $row["lecturer_email"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
     }
   }
-
-
+  
+  function getCategoriesByEmail($email){
+    $sql = "SELECT name FROM Category where lecturer_email = '$email'";
+    $result = mysqli_query($this->con, $sql);
+    $categoriesArray;
+    while($row = mysqli_fetch_assoc($result)){
+      $categoriesArray[$row["name"]] = $row;
+    }
+    return json_encode($categoriesArray);
+  }
+  
 //Class end
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";

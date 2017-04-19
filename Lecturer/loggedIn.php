@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<body>
+<body onload="getMenu()">
 
     <!-- Top navbar -->
 
@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" onclick="overview()">capybot</a>
+                <a class="navbar-brand" onclick="overview()" style="cursor:pointer;">capybot</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -61,11 +61,9 @@
                     <li onclick="manageSubjects()"><a>Manage subjects</a></li>
                     <li onclick="statistics()"><a>Statistics</a></li>
                 </ul>
-                <h3 class="menuTitle">Subjects</h3>
-                <ul class="nav nav-sidebar">
-                    <li><a href="">TDT4140</a></li>
-                    <li><a href="">IT1901</a></li>
-                    <li><a href="">TDT4145</a></li>
+                <h4 class="menuTitle">Subjects:</h4>
+                <ul class="nav nav-sidebar" id="subjectMenu">
+                    
                 </ul>
             </div>
 
