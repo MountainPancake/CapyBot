@@ -79,12 +79,6 @@ class Database{
     return mysqli_query($this->con, $sql);
   }
 
-  function insertPost($lecture_ID,$text){
-    $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
-    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
-    return mysqli_query($this->con, $sql);
-  }
-
   function getLecturesByEmail($email){
     $sql = "SELECT * FROM Lecture where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
@@ -123,15 +117,37 @@ class Database{
     return $categoriesArray;
   }
 
-//Class end
+//Post
+  function insertPost($lecture_ID,$text){
+    $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
+    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function deletePostByID($ID){
+    $sql = "DELETE FROM Post WHERE ID = '$ID'";
+    return mysqli_query($this->con, $sql);
+  }
+
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
     $postsArray;
+    $i = 0;
     while($row = mysqli_fetch_assoc($result)){
-      $postsArray[$row["ID"]] = $row;
+      $postsArray[$i] = $row;
+      $i++;
     }
-    return json_encode($postsArray);
+    return $postsArray;
   }
+
+  function upvotePostByID($ID){
+    $sql = "UPDATE Post SET upvotes = upvotes + 1 WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $sql);
+    return $result;
+  }
+
+
+//Class end
 }
 ?>
