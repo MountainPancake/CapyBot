@@ -1,5 +1,6 @@
 <?php
-require '../Database.php';
+//Requires complete filepath from root, relative doesn't work
+require '..Database.php';
 
 class DatabaseTest extends PHPUnit\Framework\TestCase
 {
@@ -39,10 +40,10 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
 
   public function testLectureInsertReadAndDelete(){
     $lecturer_email = "mail@grunn.lov";
-    $date = "1814-05-17";
     $categories = array("eidsvoll","grunnlov");
+    $date = "1814-05-17";
     $time = 140000;
-    $title = "grunnlov pt.";
+    $title = "grunnlov";
     $insertedIDs = [];
     //Inserting new Lecture-rows
     foreach ($categories as $category) {
@@ -51,8 +52,8 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       array_push($insertedIDs, mysqli_insert_id($this->db->con));
       $this->assertTrue($isInserted);
     }
-    //Fetching Lectures back ot check existence
-    $insertedLectures = $this->db->getLecturesByEmail($lecturer_email),true;
+    //Fetching Lectures or check existence
+    $insertedLectures = $this->db->getLecturesByEmail($lecturer_email);
     $i = 0;
     //Asserting that correct info was inserted along with deleting the created lectures
     foreach ($insertedLectures as $lecture) {

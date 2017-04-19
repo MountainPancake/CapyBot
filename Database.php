@@ -89,31 +89,40 @@ class Database{
     $sql = "SELECT * FROM Lecture where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
     $lecturesArray;
+    $i = 0;
     while($row = mysqli_fetch_assoc($result)){
-      $lecturesArray[$row["ID"]] = $row;
+      $lecturesArray[$i] = $row;
+      $i++;
     }
-    return json_encode($lecturesArray);
+    return $lecturesArray;
+  }
+
+  function getLectureByID($ID){
+    $query = "SELECT * FROM Lecture WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $query);
+    return mysqli_fetch_assoc($result);
   }
 
   function getLecturesByEmailAndCategory($email, $category){
-    echo "<br>in function";
     $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$email' AND category_name = '$category'";
     $result = mysqli_query($this->con, $query);
     while ($row = mysqli_fetch_assoc($result)){
       echo $row["lecturer_email"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
     }
   }
-  
+
   function getCategoriesByEmail($email){
     $sql = "SELECT name FROM Category where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
     $categoriesArray;
+    $i = 0;
     while($row = mysqli_fetch_assoc($result)){
-      $categoriesArray[$row["name"]] = $row;
+      $categoriesArray[$i] = $row;
+      $i++;
     }
-    return json_encode($categoriesArray);
+    return $categoriesArray;
   }
-  
+
 //Class end
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
