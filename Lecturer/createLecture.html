@@ -7,8 +7,6 @@
         <label for="chooseSubject">First, choose which subject the lecture belongs to</label>
         <select id="chooseSubject" name="category" class="form-control chooseSubject" onchange="showContent()">
             <option selected="selected" disabled="disabled">Choose subject</option>
-            <option>TDT4100</option>
-            <option>IT1901</option>
         </select>
         <small id="info" class="form-text text-muted">If you can't find the subject you're looking for, go to "manage subjects" and add it first.</small>
     </div>
@@ -26,7 +24,7 @@
 
         <div class="form-group">
             <label for="chooseTime">What time is the lecture?</label>
-            <input id="chooseTime" type="time" name="time" placeholder="xx:xx"  class="form-control"></input>
+            <input id="chooseTime" type="time" name="time" placeholder="xx.xx"  class="form-control"></input>
         </div>
 
         <button type="submit" name="submit" class="btn btn-success">Save</button>
