@@ -1,11 +1,14 @@
 <?php
-  $lecture->PIN = 1234;
-  $lecture->date = "2017-03-20";
-  $lecture->responses = ["Slow down","Speed up", "Too hard","Too easy"];
-  $lecture->subjectID = "TDT4125";
-  $lecture->subject = "Algoritmekonstruksjon";
+    session_start();
+    require '../Database.php';
+    $db = new Database();
+    $dbLecture = $db->getLectureByID($_SESSION["lecturePin"]);
+    $lecture->PIN = $dbLecture["ID"];
+    $lecture->date = $dbLecture["date"];
+    $lecture->responses = ["Slow down","Speed up", "Too hard","Too easy"];
+    $lecture->category = $dbLecture["category"];
 
-  $jsonLecture = json_encode($lecture);
+    $jsonLecture = json_encode($lecture);
 
-  echo $jsonLecture;
+    echo $jsonLecture;
 ?>

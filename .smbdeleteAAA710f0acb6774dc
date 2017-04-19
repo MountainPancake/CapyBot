@@ -20,7 +20,7 @@ class Database{
   }
 
   function login($email, $password){
-    $sql = "SELECT * FROM User WHERE e_mail = '$email' and password = '$password'";
+    $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
 
     return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
   }
@@ -45,7 +45,7 @@ class Database{
   }
 //Inserts
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
-  	$sql = "INSERT INTO User (ID, e_mail, password, first_name, last_name, university, is_student)
+  	$sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
   	VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
@@ -62,7 +62,7 @@ class Database{
 
 //Getters
   function getUserByMail($mail){
-    $sql = "SELECT * FROM User WHERE e_mail = '$mail'";
+    $sql = "SELECT * FROM User WHERE email = '$mail'";
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
   }
