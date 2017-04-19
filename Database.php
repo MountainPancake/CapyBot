@@ -105,6 +105,27 @@ class Database{
     }
   }
 
+  function insertResponseType($text, $lecture_id){
+      $sql = "INSERT INTO Response_Types ('Text', lecture_id)
+      VALUES ('$text','$lecture_id')";
+      return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseTypesByLectureID($lecture_id){
+    $sql = "SELECT * FROM Response_Types where lecture_id = '$lecture_id'";
+    $result = mysqli_query($this->con, $sql);
+    $responseTypesArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($responseTypesArray, $row);
+    }
+    return $responseTypesArray;
+  }
+
+  function deleteResponseTypeByLectureIDAndText($lecture_id, $text){
+    $sql = "DELETE FROM Response_Types WHERE lecture_id = '$lecture_id' and text = '$text'";
+    return mysqli_query($this->con, $sql);
+  }
+
  //Category
   function insertCategory($categoryName,$email){
       $sql = "INSERT INTO Category (name, lecturer_email)
