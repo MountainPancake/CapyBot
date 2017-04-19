@@ -51,9 +51,9 @@ function manageSubjects() {
         }
     };
 
-    getSubjects();
+    getSubjects();   /* Gets already added subjects to the manage subjects page   */
 
-    xhttp.open("POST", "manageSubjects3.html", true);
+    xhttp.open("POST", "manageSubjects.html", true);
     xhttp.send();
 }
 
@@ -66,10 +66,9 @@ function getSubjects() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(JSON.parse(this.responseText));
 
-            if (this.responseText==null || this.responseText==""){
+            if (JSON.parse(this.responseText)=="null"){
                 var ingenFagDiv = document.getElementById("ingenFagDiv");
-                ingenFagDiv.className = "alert alert-info";
-                var text = document.createTextNode("You don't have any subjects yet! Create one below :)")
+                var text = document.createTextNode("You don't have any subjects yet! Create one below.")
                 ingenFagDiv.appendChild(text);
             }
 
@@ -77,6 +76,9 @@ function getSubjects() {
 
             for (x in myObj) {
                 subject = myObj[x].name;
+
+                var ingenFagDiv = document.getElementById("ingenFagDiv");
+                ingenFagDiv.style.display = none;
 
                 var listElement = document.createElement("li");
                 listElement.className = "subjectList";
