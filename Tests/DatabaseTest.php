@@ -111,9 +111,9 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
 
   public function testResponseTypeInsertReadAndDelete(){
     $lectureID = 0;
-    $texts = array("Too slow","Too fast", "Too flippin' complicated, bruv");
+    $texts = array("Too slow","Too fast", "Too flippin complicated bruv");
     foreach ($texts as $text) {
-      $inserted = $this->db->insertResponseType($lectureID,$texts);
+      $inserted = $this->db->insertResponseType($lectureID,$text);
       $this->assertTrue($inserted);
     }
     $insertedResponseTypes = $this->db->getResponseTypesByLectureID($lectureID);
