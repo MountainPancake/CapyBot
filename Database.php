@@ -105,6 +105,49 @@ class Database{
     }
   }
 
+
+  //Response_Type
+  function insertResponseType($lecture_ID,$text){
+      $sql = "INSERT INTO Response_Type (lecture_ID, text)
+      VALUES ('$lecture_ID','$text')";
+      return mysqli_query($this->con, $sql);
+  }
+
+  function deleteResponseTypeByLectureIDAndText($lecture_ID, $text){
+    $sql = "DELETE FROM Response_Type WHERE lecture_ID = '$lecture_ID' and text = '$text'";
+
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseTypesByLectureID($lecture_ID){
+    $sql = "SELECT * FROM Response_Type WHERE lecture_ID = '$lecture_ID'";
+    $result = mysqli_query($this->con, $sql);
+    $responseTypesArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($responseTypesArray, $row);
+    }
+    return $responseTypesArray;
+  }
+
+  function insertResponse($lecture_ID, $response_type){
+    $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
+    VALUES ('$lecture_ID', '$response_type', CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseCount($lecture_ID, $response_type){
+    $sql = "SELECT COUNT(response_type) as count FROM Response
+    WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'";
+    $result = mysqli_query($this->con, $sql);
+    return mysqli_fetch_assoc($result)["count"];
+  }
+
+  function deleteAllResponsesByLectureID($lecture_ID){
+    $sql = "DELETE FROM Response WHERE lecture_ID = '$lecture_ID'";
+    return mysqli_query($this->con, $sql);
+  }
+
+
  //Category
   function insertCategory($categoryName,$email){
       $sql = "INSERT INTO Category (name, lecturer_email)
