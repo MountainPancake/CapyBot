@@ -1,11 +1,8 @@
 <?php
+    session_start();
+    require '../Database.php';
+    $db = new Database();
+    $profil = $db->getUserByEmail($_SESSION["email"]);
 
-    $profile->firstName = "Fride";
-    $profile->lastName = "Skarseth";
-    $profile->points = 1450;
-    $profile->rank = "CAPYBARA";
-
-    $jsonProfile = json_encode($profile);
-
-    echo $jsonProfile;
+    echo $profile;
 ?>
