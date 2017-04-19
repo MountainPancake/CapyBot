@@ -112,26 +112,24 @@ class Database{
       return mysqli_query($this->con, $sql);
   }
 
-  function getCategoriesByEmail($email){
-    $sql = "SELECT name FROM Category where lecturer_email = '$email'";
-    $result = mysqli_query($this->con, $sql);
-    $categoriesArray;
-    $i = 0;
-    while($row = mysqli_fetch_assoc($result)){
-      $categoriesArray[$i] = $row;
-      $i++;
-    }
-    return $categoriesArray;
-  }
-
   function deleteAllCategoriesByEmail($email){
     $sql = "DELETE FROM Category WHERE email = '$email'";
     return mysqli_query($this->con, $sql);
   }
 
-  function deleteCategoryByNameAndEmail($category_name, $email){
-    $sql = "DELETE FROM Category WHERE name = '$category_name' AND email = '$email'";
+  function deleteCategoryByNameAndEmail($category_name, $lecturer_email){
+    $sql = "DELETE FROM Category WHERE name = '$category_name' AND lecturer_email = '$lecturer_email'";
     return mysqli_query($this->con, $sql);
+  }
+
+  function getCategoriesByEmail($email){
+    $sql = "SELECT * FROM Category where lecturer_email = '$email'";
+    $result = mysqli_query($this->con, $sql);
+    $categoriesArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($categoriesArray, $row);
+    }
+    return $categoriesArray;
   }
 
 //Post
@@ -146,14 +144,18 @@ class Database{
     return mysqli_query($this->con, $sql);
   }
 
+  function getPostByID($ID){
+    $sql = "SELECT * FROM Post WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $sql);
+    return mysqli_fetch_assoc($result);
+  }
+
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
-    $postsArray;
-    $i = 0;
+    $postsArray = [];
     while($row = mysqli_fetch_assoc($result)){
-      $postsArray[$i] = $row;
-      $i++;
+      array_push($postsArray, $row);
     }
     return $postsArray;
   }

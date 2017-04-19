@@ -51,7 +51,7 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
     foreach ($insertedCategories as $c) {
       $this->assertTrue(in_array($c["name"], $categories_name));
       $this->assertEquals($lecturer_email,$c["lecturer_email"]);
-      $deleted = $this->db->deleteCategoryByNameAndEmail($c["name"], $c["email"]);
+      $deleted = $this->db->deleteCategoryByNameAndEmail($c["name"], $c["lecturer_email"]);
       $this->assertTrue($deleted);
     }
   }
@@ -91,14 +91,20 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
   public function testPostInsertReadUpvoteAndDelete(){
     $lectureID = 0;
     $postTexts = array("Tekst1","Tekst2");
-    $insertedIDs = [];
     foreach ($postTexts as $text) {
       $inserted = $this->db->insertPost($lectureID,$text);
       $this->assertTrue($inserted);
-      array_push($insertedIDs,mysqli_insert_id($this->db->con));
     }
-    foreach ($insertedIDs as $ID) {
-      $deleted = $this->db->deletePostByID($ID);
+    //Checking existence of inserted posts, upvoting them and deleting
+    $insertedPosts = $this->db->getPostsByLectureID($lectureID);
+    foreach ($insertedPosts as $post) {
+      $upvotes = $post["upvotes"];
+      $this->db->upvotePostByID($post["ID"]);
+      //Checking if new upvote-value is 1 higher than previous
+      $updatedPost = $this->db->getPostByID($post["ID"]);
+      $this->assertEquals($upvotes+1,$updatedPost["upvotes"]);
+      //Delete post
+      $deleted = $this->db->deletePostByID($post["ID"]);
       $this->assertTrue($deleted);
     }
 
