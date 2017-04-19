@@ -107,7 +107,20 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       $deleted = $this->db->deletePostByID($post["ID"]);
       $this->assertTrue($deleted);
     }
+  }
 
-
+  public function testResponseTypeInsertReadAndDelete(){
+    $lectureID = 0;
+    $texts = array("Too slow","Too fast", "Too flippin' complicated, bruv");
+    foreach ($texts as $text) {
+      $inserted = $this->db->insertResponseType($lectureID,$texts);
+      $this->assertTrue($inserted);
+    }
+    $insertedResponseTypes = $this->db->getResponseTypesByLectureID($lectureID);
+    foreach ($insertedResponseTypes as $responseType) {
+      $this->assertTrue(in_array($responseType["text"],$texts));
+      $deleted = $this->db->deleteResponseTypeByLectureIDAndText($lectureID,$responseType["text"]);
+      $this->assertTrue($deleted);
+    }
   }
 }
