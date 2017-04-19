@@ -111,6 +111,12 @@ class Database{
     }
   }
 
+  function insertCategory($categoryName,$email){
+      $sql = "INSERT INTO Category (name, lecturer_email)
+      VALUES ('$categoryName','$email')";
+      return mysqli_query($this->con, $sql);
+  }
+
   function getCategoriesByEmail($email){
     $sql = "SELECT name FROM Category where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
@@ -121,6 +127,16 @@ class Database{
       $i++;
     }
     return $categoriesArray;
+  }
+
+  function deleteAllCategoriesByEmail($email){
+    $sql = "DELETE FROM Category WHERE email = '$email'";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function deleteCategoryByNameAndEmail($category_name, $email){
+    $sql = "DELETE FROM Category WHERE name = '$category_name' AND email = '$email'";
+    return mysqli_query($this->con, $sql);
   }
 
 //Class end
