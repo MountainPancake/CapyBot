@@ -38,6 +38,24 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
     $this->assertTrue($isDeleted);
   }
 
+  public function testCategoriesInsertReadAndDelete(){
+    $lecturer_email = "categoriestestmail@test.te";
+    $categories_name = array("cats", "dogs", "capybaras", "something");
+    foreach ($categories_name as $c_name){
+      $insertedCategory = $this->db->insertCategory($c_name, $lecturer_email);
+      $this->assertTrue($insertedCategory);
+    }
+    $insertedCategories = $this->db->getCategoriesByEmail($lecturer_email);
+
+    //Asserting that correct info was inserted
+    foreach ($insertedCategories as $c) {
+      $this->assertTrue(in_array($c["name"], $categories_name));
+      $this->assertEquals($lecturer_email,$c["email"]);
+      $categoryDeleted = $this->db->deleteCategoryByNameAndEmail($c["name"], $c["email"]);
+      $this->assertTrue($categoryDeleted);
+    }
+  }
+
   public function testLectureInsertReadAndDelete(){
     $lecturer_email = "mail@grunn.lov";
     $categories = array("eidsvoll","grunnlov");
