@@ -28,14 +28,9 @@ class Database{
 
 //User methods
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
-    $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
-    VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-    if(mysqli_query($this->con, $sql)){
-      return true;
-    }
-    else{
-      return false;
-    }
+  $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
+  VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
+  return (mysqli_query($this->con, $sql));
   }
 
   function deleteUserByEmail($email){
@@ -84,6 +79,12 @@ class Database{
     return mysqli_query($this->con, $sql);
   }
 
+  function insertPost($lecture_ID,$text){
+    $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
+    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
   function getLecturesByEmail($email){
     $sql = "SELECT * FROM Lecture where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
@@ -103,6 +104,16 @@ class Database{
     }
   }
 
+
 //Class end
+  function getPostsByLectureID($lecture_ID){
+    $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
+    $result = mysqli_query($this->con, $sql);
+    $postsArray;
+    while($row = mysqli_fetch_assoc($result)){
+      $postsArray[$row["ID"]] = $row;
+    }
+    return json_encode($postsArray);
+  }
 }
 ?>

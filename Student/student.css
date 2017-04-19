@@ -67,6 +67,10 @@ body {
   padding-bottom: 30px;
 }
 
+#questions_body {
+  padding-bottom: 30px;
+}
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -77,6 +81,9 @@ body {
     padding-bottom: 30px;
   }
   #highscore_body {
+    padding-bottom: 30px;
+  }
+  #questions_body {
     padding-bottom: 30px;
   }
 
