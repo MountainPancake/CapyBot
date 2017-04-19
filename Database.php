@@ -11,20 +11,6 @@ class Database{
     $this->disconnect();
   }
 
-  function createStudentUser($email, $password, $firstname, $lastname, $university){
-    $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
-  }
-
-  function createLecturerUser($email, $password, $firstname, $lastname, $university){
-    $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
-  }
-
-  function login($email, $password){
-    $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
-
-    return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-  }
-
   function connect(){
     $servername = "mysql.stud.ntnu.no";
     $username = "capybotpu";
@@ -39,16 +25,57 @@ class Database{
   function disconnect(){
     return mysqli_close($this->con);
   }
-//Inserts
+
+//User methods
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
-  	$sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
-  	VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-    return (mysqli_query($this->con, $sql));
+  $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
+  VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
+  return (mysqli_query($this->con, $sql));
   }
 
-  function insertLecture($lecturer_email,$category_name,$date,$time){
-    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_email`, `category_name`, `date`, `time`)
-    VALUES (NULL, '$lecturer_email', '$category_name', '$date', '$time')";
+  function deleteUserByEmail($email){
+    $sql = "DELETE FROM User WHERE email = '$email'";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getUserByEmail($email){
+    $sql = "SELECT * FROM User WHERE email = '$email'";
+    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
+    return $assoc_array;
+  }
+
+  function createStudentUser($email, $password, $firstname, $lastname, $university){
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
+  }
+
+  function createLecturerUser($email, $password, $firstname, $lastname, $university){
+    $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
+  }
+
+  function login($email, $password){
+    $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
+
+    return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
+  }
+
+  function printAllUsers(){
+    $query = "SELECT first_name as name, is_student as student FROM User";
+    $result = mysqli_query($this->con, $query);
+    while($row = mysqli_fetch_assoc($result)){
+      echo $row["name"]." This person is a ".(!$row["student"]?"lecturer":"student")."<br>";
+    }
+  }
+
+
+//Lecture
+  function insertLecture($lecturer_email,$category_name,$date,$time,$title){
+    $sql = "INSERT INTO `Lecture` (`ID`, `lecturer_email`, `category_name`, `date`, `time`, `title`)
+    VALUES (NULL, '$lecturer_email', '$category_name', '$date', '$time', '$title')";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function deleteLectureByID($ID){
+    $sql = "DELETE FROM Lecture WHERE ID = '$ID'";
     return mysqli_query($this->con, $sql);
   }
 
@@ -68,7 +95,6 @@ class Database{
     return json_encode($lecturesArray);
   }
 
-
   function getLecturesByEmailAndCategory($email, $category){
     echo "<br>in function";
     $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$email' AND category_name = '$category'";
@@ -79,31 +105,7 @@ class Database{
   }
 
 
-//Deleters
-
-function deleteUserByEmail($email){
-  $sql = "DELETE FROM User WHERE email = '$email'";
-  return mysqli_query($this->con, $sql);
-}
-
-function deleteLectureByID($ID){
-  $sql = "DELETE FROM Lecture WHERE ID = '$ID'";
-  return mysqli_query($this->con, $sql);
-}
-
-//Getters
-  function getUserByEmail($email){
-    $sql = "SELECT * FROM User WHERE email = '$email'";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
-  }
-
-  function getLectureByID($ID){
-    $sql = "SELECT * FROM Lecture WHERE ID = '$ID'";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
-  }
-
+//Class end
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
@@ -113,14 +115,5 @@ function deleteLectureByID($ID){
     }
     return json_encode($postsArray);
   }
-//Misc
-  function printAllUsers(){
-    $query = "SELECT first_name as name, is_student as student FROM User";
-    $result = mysqli_query($this->con, $query);
-    while($row = mysqli_fetch_assoc($result)){
-      echo $row["name"]." This person is a ".(!$row["student"]?"lecturer":"student")."<br>";
-    };
-  }
-
 }
 ?>

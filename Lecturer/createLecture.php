@@ -1,13 +1,23 @@
 <?php
+session_start();
+
 include '../Database.php';
 
-$lecturer_mail = $_POST["email"];
-$category_name = $_POST["category"];
+$email = $_SESSION["email"];
+
+$category = $_POST["category"];
+$name = $_POST["name"];
 $date = $_POST["date"];
 $time = $_POST["time"];
 
 $db = new Database();
 
-$db->insertLecture($lecturer_mail,$category_name,$date,$time);
+$success = $db->insertLecture($email,$category,$date,$time,$name);
+
+if ($success){
+   echo "success";
+}else{
+    echo "invalid";
+}
 
 ?>

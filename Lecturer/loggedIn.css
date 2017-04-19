@@ -11,7 +11,7 @@ body {
   border: 0;
 }
 
-/* create lecture form */
+/* create lecture - form */
 
 .chooseSubject {
 
@@ -24,6 +24,10 @@ label {
 
 #moreContent{
     display:none;
+}
+
+#lectureError{
+    display: none;
 }
 
 
@@ -71,6 +75,7 @@ label {
 .nav-sidebar > li > a:hover {
     background-color: #142952;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .menuTitle {
