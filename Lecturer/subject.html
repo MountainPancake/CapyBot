@@ -1,0 +1,50 @@
+<!-- main -->
+<h1 class="page-header" id="subjectName">Subject_name</h1>
+
+<h3>Lectures:</h3>
+
+<div class="well">
+    <div id="ingenFagDiv"></div>
+
+    <ul class="list-group" id="myLectures"></ul>
+</div>
+
+<br />
+
+<button id="viewCreateLectureBoxButton" class="btn btn-primary" onclick="viewCreateLectureBox()">+ Add new lecture</button>
+
+<div id="addNewLectureBox" class="addNewLectureBox">
+
+    <h3 >Add new lecture:</h3>
+    <button onclick="hideCreateLectureBox()" class="btn btn-primary" style="float:right;">Hide box</button>
+
+    <div class="well">
+
+        <form onsubmit="return createNewLecture()">
+
+            <div class="form-group">
+                <label for="chooseName">Choose a title for the lecture</label>
+                <input id="chooseName" type="text" name="name" placeholder="Lecture name" class="form-control"></input>
+            </div>
+            <div class="form-group">
+                <label for="chooseDate">When is the lecture?</label>
+                <input id="chooseDate" type="date" name="date" placeholder="dd.mm.yyyy" class="form-control"></input>
+            </div>
+            <div class="form-group">
+                <label for="chooseTime">What time is the lecture?</label>
+                <input id="chooseTime" type="time" name="time" placeholder="xx.xx"  class="form-control"></input>
+            </div>
+
+            <button type="submit" name="submit" class="btn btn-success">Save</button>
+
+            <div id="lectureError" class="alert alert-danger" role="alert" style="margin-top:10px;"><strong>Hmm, something went wrong..</strong> Check that your info is correct and try resubmitting.</div>
+
+        </form>
+        <br />
+
+    </div>
+
+</div>
+
+
+<!-- end main -->

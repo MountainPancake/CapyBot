@@ -1,7 +1,6 @@
 /*   Get subjects for menu    */
 
 function getMenu() {
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -14,12 +13,18 @@ function getMenu() {
 
                 var listElement = document.createElement("li");
                 listElement.className = "menuSubject";
+                listElement.id = subject;
+                listElement.addEventListener("click", function() {
+                    /*   Open correct subject when cliking on menu item    */
+                    openSubject(this.id);
+                });
+
                 var text = document.createTextNode(subject);
                 listElement.appendChild(text);
                 subjects.appendChild(listElement);
             }
         }
-      };
+    };
 
     xhttp.open("POST", "getSubjects.php", true);
     xhttp.send();
@@ -298,4 +303,113 @@ function subjectSuccessful() {
 
     xhttp.open("POST", "manageSubjects.html", true);
     xhttp.send();
+}
+
+/*   Open correct subject when cliking on menu item    */
+
+function openSubject(subject) {
+
+    console.log(subject);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+
+            var header = document.getElementById("subjectName");
+            header.innerHTML = subject;
+        }
+    };
+
+    xhttp.open("POST", "subject.html", true);
+    xhttp.send();
+
+}
+
+
+/*   Inside subject-page, display/hide create lecture box    */
+
+function viewCreateLectureBox() {
+    var box = document.getElementById("addNewLectureBox");
+    var button = document.getElementById("viewCreateLectureBoxButton");
+
+    box.style.display = "block";
+    button.style.display = "none";
+}
+
+function hideCreateLectureBox() {
+    var box = document.getElementById("addNewLectureBox");
+    var button = document.getElementById("viewCreateLectureBoxButton");
+    var error = document.getElementById("lectureError");
+
+    box.style.display = "none";
+    button.style.display = "block";
+    error.style.display = "none";
+
+}
+
+function newLectureCreated() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+        }
+    };
+
+    //getLecturesForSubject();
+
+    xhttp.open("POST", "subject.html", true);
+    xhttp.send();
+}
+
+/*    New lecture created inside subject    */
+
+function createNewLecture(){
+    var category = document.getElementById("subjectName").innerHTML;
+    var chooseName = document.getElementById("chooseName").value;
+    var chooseDate = document.getElementById("chooseDate").value;
+    var chooseTime = document.getElementById("chooseTime").value;
+
+    var created = document.getElementById("lectureCreated");
+    var error = document.getElementById("lectureError");
+
+    /*    Check that input-values are valid    */
+
+    if (validTitle(chooseName)==false) {
+        error.style.display = "block";
+        error.innerHTML = "Lecture not created. You need to choose a title for you lecture.";
+        return false;
+    }
+
+    if (validDate(chooseDate)==false) {
+        error.style.display = "block";
+        error.innerHTML = "Lecture not created. The date is not valid.";
+        return false;
+    }
+
+    if (validTime(chooseTime)==false) {
+        error.style.display = "block";
+        error.innerHTML = "Lecture not created. The time is not valid.";
+        return false;
+    }
+
+    /*    If they are valid, run create lecture PHP-script   */
+
+    else {
+        event.preventDefault();
+        var dataString = 'category=' + category + '&name=' + chooseName + '&date=' + chooseDate + '&time=' + chooseTime;
+
+        $.ajax({
+            type: "POST",
+            url: "createLecture.php",
+            data: dataString,
+            success: function(text) {
+                newLectureCreated();
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
+            }
+
+        });
+    }
 }

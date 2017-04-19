@@ -52,7 +52,7 @@ class Database{
     $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
-  function login($email, $password){
+  function getUserByEmailAndPassword($email, $password){
     $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
 
     return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
