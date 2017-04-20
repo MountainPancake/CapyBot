@@ -3,20 +3,21 @@
 
 function studentLogin(){
     event.preventDefault();
-    var dataString = "email="+document.getElementByIdI("email").value+"&password="+document.getElementById("password").value;
+    var dataString = "email="+document.getElementById("email").value+"&password="+document.getElementById("password").value;
 
     $.ajax({
         type: "POST",
         url: "Student/studentLogin.php",
         data: dataString,
         success: function(text) {
-            if(text == "success"){
+            /*if(text == "success"){
                 location.href = "student_notLoggedIn.php"
             }
             else{
                 alert("Login failed. \nUsername and/or password incorrect.")
-            }
-        } 
+            }*/
+            console.log(text);
+        }, 
         error: function (jqXHR, exception) {
             console.log(jqXHR);
         }

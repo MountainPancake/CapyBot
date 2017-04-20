@@ -2,14 +2,22 @@
 
 session_start();
 
-include '../Database.php';
+require 'Database.php';
 
 $email = $_POST["email"];
 $password = $_POST["password"];
 
+
+echo "Hello";
+/*
 $db = new Database();
 
+/*
 $success = $db->getUserByEmailAndPassword($email, $password);
+
+echo $success;
+
+echo $success["is_student"];
 
 if ($success and $success["is_student"]=="1"){
 	$_SESSION["email"] = $email;
@@ -19,10 +27,6 @@ if ($success and $success["is_student"]=="1"){
 else{
 	echo "Invalid";
 }
-
-
-$data = json_encode($success);
-
-echo $data;
+*/
 
 ?>
