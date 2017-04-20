@@ -28,6 +28,10 @@ label {
     display: none;
 }
 
+#lectureStartedDiv{
+    display: none;
+}
+
 .lectureBox {
     margin-right: 30px;
     overflow: hidden;
@@ -37,7 +41,7 @@ label {
 .left {
     display: inline-block;
     padding: 10px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     width: 35%;
 }
@@ -46,7 +50,7 @@ label {
     display: inline-block;
     padding: 10px;
     width: 60%;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 

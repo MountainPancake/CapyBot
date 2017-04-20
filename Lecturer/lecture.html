@@ -22,9 +22,30 @@
     </div>
 </div>
 
-<h3 class="sub-header"> Questions:</h3>
+<h3> Response buttons:</h3>
+
+<div id="responseButtons" class="responseButtons well">
+    <h2 id="responses"></h2>
+    <div id="noResponsesDiv"></div>
+
+    <form onsubmit="return getLectureByID()">
+        <input id="responseType" type="text" placeholder="Response type"></input>
+        <button type="submit" name="submit" class="btn btn-success">Save</button>
+    </form>
+
+
+</div>
 
 <br />
+
+<button onclick="startLecture()" id="startLectureButton" class="btn btn-lg btn-success form-control" style="height:45px;">Start lecture!</button>
+<br />
+
+<div id="lectureStartedDiv">
+    <h3 class="sub-header"> Questions:</h3>
+
+</div>
+
 
 
 <!-- end main -->
