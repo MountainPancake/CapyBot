@@ -101,7 +101,6 @@ function getSubjects() {
 
     xhttp.open("POST", "getSubjects.php", true);
     xhttp.send();
-
 }
 
 /*    Switches main body content using AJAX from the statistics.html file    */
@@ -319,12 +318,57 @@ function openSubject(subject) {
 
             var header = document.getElementById("subjectName");
             header.innerHTML = subject;
+
+            getLecturesForSubject(subject);
         }
     };
 
     xhttp.open("POST", "subject.html", true);
     xhttp.send();
 
+}
+
+/*   Subject.html -  Get all lectures for a given subject, for the signed in lecturer    */
+
+function getLecturesForSubject(subject) {
+    console.log(subject);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(JSON.parse(this.responseText));
+            console.log(myObj);
+
+            if (JSON.parse(this.responseText)=="null"){
+                var noLecturesDiv = document.getElementById("noLecturesDiv");
+                var text = document.createTextNode("You don't have any lectures for this subject yet! Create one below.")
+                if (noLecturesDiv==null){return;}
+                else {noLecturesDiv.appendChild(text);}
+            }
+
+            else {
+                var lectures = document.getElementById("lecturesForSubject");
+                if (lectures==null){return;}
+                else {
+                    for (x in myObj) {
+                        lecture = myObj[x].name;
+
+                        var noLecturesDiv = document.getElementById("noLecturesDiv");
+                        noLecturesDiv.style.display = "none";
+
+                        var listElement = document.createElement("li");
+                        listElement.className = "lectureList";
+                        var text = document.createTextNode(lecture);
+                        listElement.appendChild(text);
+                        lectures.appendChild(listElement);
+                    }
+                }
+            }
+        }
+      };
+
+    xhttp.open("POST", "getLecturesForSubject.php", true);
+    xhttp.send("category="+subject);
 }
 
 
@@ -363,7 +407,7 @@ function newLectureCreated() {
     xhttp.send();
 }
 
-/*    New lecture created inside subject    */
+/*    Subject.html - New lecture created inside subject    */
 
 function createNewLecture(){
     var category = document.getElementById("subjectName").innerHTML;
