@@ -128,6 +128,7 @@ class Database{
     return $responseTypesArray;
   }
 
+//Response
   function insertResponse($lecture_ID, $response_type){
     $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
     VALUES ('$lecture_ID', '$response_type', CURRENT_TIMESTAMP)";
