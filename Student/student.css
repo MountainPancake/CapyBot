@@ -208,6 +208,18 @@ body {
   margin: 10px;
 }
 
+.quest {
+  display:inline-block;
+  width:75%;
+}
+
+.up-vote {
+  display:inline-block;
+  float:right;
+  width:25%; 
+  text-align:center;
+}
+
 #profile_body {
   text-align: center;
 }

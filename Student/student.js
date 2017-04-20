@@ -127,6 +127,26 @@ function updateProfile(){
     xmlhttp.send();
 }
 
+//Kjører insertPost.php og sender deg videre til questions med input fra form
+function postQuestion(){
+    var questionData = document.getElementById("question").value;
+
+    event.preventDefault();
+    var dataString = "question=" + questionData;
+
+    $.ajax({
+        type: "POST",
+        url: "insertPost.php",
+        data: dataString,
+        success: function(text){
+            console.log(text);
+            openQuestions();
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+    });
+}
 
 //Åpner siden Questions og oppdaterer den onclick!
 function openQuestions(){
@@ -143,40 +163,66 @@ function openQuestions(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            //Kaller oppdateringene fra database
+            insertPost();
         }
-        //Kaller oppdateringene fra database
-        insertPost();
     };
-    xhttp.open("GET", "questions.html", true);
+    xhttp.open("POST", "questions.html", true);
     xhttp.send();
 }
 
 //Viderefører til questions-siden til student, med nye spørsmål
 function insertPost(){
-    var obj, dbParam, xmlhttp, top_quest;
+    var obj, dbParam, xmlhttp;
     // *** Grab the parent element just once, no need to keep looking it up in the loop
-    top_quest = document.getElementById("top_quest");
     obj = { "table":"text", "limit":15 };
     dbParam = JSON.stringify(obj);
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+          var questBox = document.createElement("DIV");
+          questBox.className = "questbox";
+          questBox.innerHTML =
+          '<div class="quest">'
+              +'<h5 class="question"></h5>'
+          +'</div>'
+          +'<div class="up-vote">'
+              +'<button type="button" class="btn btn-lg btn-primary knapp">'
+                  +'<div class="arrow-up"/>'
+              +'</button>'
+              +'<h5 class="upvotes"></h5>'
+          +'</div>';
           var myObj = JSON.parse(this.responseText);
           if(myObj){
-            Object.keys(myObj).forEach(function(key) {
-                var entry = myObj[key];
-                // Get the first .questbox and clone it
-                var clone = top_quest.querySelector(".questbox").cloneNode(true);
-                // Set the question and upvotes
-                clone.querySelector(".question").innerHTML = entry.text;
-                clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                // Append the clone at the top
-                top_quest.insertBefore(clone, top_quest.firstChild);
-            });
+              var new_quest = document.getElementById("new_quest")
+              Object.keys(myObj).forEach(function(key) {
+                  var entry = myObj[key];
+                  // Get the first .questbox and clone it
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  new_quest.appendChild(clone);
+              });
+              myObj.sort(function(a,b){
+                  return parseInt(b.upvotes) - parseInt(a.upvotes);
+              });
+              myObj = myObj.slice(0,5);
+              var top_quest = document.getElementById("top_quest");
+              myObj.forEach(function(entry){
+                  // Get the first .questbox and clone it
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  top_quest.appendChild(clone);
+              });
           }
       }
     };
-    xmlhttp.open("GET", "getPostsForLecture.php", true);
+    xmlhttp.open("GET", "getPostsSortedByTime.php", true);
     xmlhttp.send();
 }
 
