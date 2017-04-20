@@ -127,7 +127,26 @@ function updateProfile(){
     xmlhttp.send();
 }
 
+//Kjører insertPost.php og sender deg videre til questions med input fra form
+function postQuestion(){
+    var questionData = document.getElementById("question").value;
 
+    event.preventDefault();
+    var dataString = "question=" + questionData;
+
+    $.ajax({
+        type: "POST",
+        url: "insertPost.php",
+        data: dataString,
+        success: function(text){
+            console.log(text);
+            openQuestions();
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+    });
+}
 
 //Åpner siden Questions og oppdaterer den onclick!
 function openQuestions(){
@@ -159,7 +178,6 @@ function insertPost(){
     obj = { "table":"text", "limit":15 };
     dbParam = JSON.stringify(obj);
     xmlhttp = new XMLHttpRequest();
-    console.log("ijie");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var questBox = document.createElement("DIV");
@@ -174,7 +192,6 @@ function insertPost(){
               +'</button>'
               +'<h5 class="upvotes"></h5>'
           +'</div>';
-          console.log(questBox.innerHTML);
           var myObj = JSON.parse(this.responseText);
           if(myObj){
               var new_quest = document.getElementById("new_quest")
@@ -194,7 +211,6 @@ function insertPost(){
               myObj = myObj.slice(0,5);
               var top_quest = document.getElementById("top_quest");
               myObj.forEach(function(entry){
-                  console.log(entry);
                   // Get the first .questbox and clone it
                   var clone = questBox.cloneNode(true);
                   // Set the question and upvotes

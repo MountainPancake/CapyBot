@@ -53,8 +53,8 @@ session_start();
                     </div>
 
                     <h3>Ask question</h3>
-                    <form method="post" onsubmit="return fetchQuestionData()">
-                        <input type="text" name="question" class="form-control" placeholder="?">
+                    <form method="post" onsubmit="postQuestion()">
+                        <input type="text" id="question" name="question" class="form-control" placeholder="?">
                         <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                     </form>
                     <br />
