@@ -34,13 +34,13 @@
 
                     <div class="signInBox" id="logIn">
 
-                        <form>
+                        <form onsubmit = "studentLogin()">
 
                             <p class="signInText">Email:</p>
-                            <input type="text" name="email" placeholder="Email" class="form-control signInForm" required>
+                            <input type="text" id="email" name="email" placeholder="Email" class="form-control signInForm" required>
                             <br/>
                             <p class="signInText">Password:</p>
-                            <input type="password" name=password placeholder="********" class="form-control signInForm" required>
+                            <input type="password" id="password" name="password" placeholder="********" class="form-control signInForm" required>
                             <br/>
                             <button type="submit" class="btn btn-success btn-lg">Sign in!</button>
                             <br /><br />
