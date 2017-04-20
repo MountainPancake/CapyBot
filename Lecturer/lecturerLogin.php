@@ -11,8 +11,8 @@ if($assocUserArray){
   $_SESSION["email"] = $assocUserArray["email"];
   $_SESSION["firstName"] = $assocUserArray["first_name"];
   $_SESSION["lastName"] = $assocUserArray["last_name"];
-  header("Location: loggedIn.php");
+  echo "success";
 }else{
-  header("Location: lecturerIndex.html");
+  echo "invalid";
 }
 ?>

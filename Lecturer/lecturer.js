@@ -1,3 +1,26 @@
+
+/* Login function */
+function lecturerLogin(){
+  event.preventDefault();
+  var dataString = "email="+document.getElementById("email").value+"&password="+document.getElementById("password").value;
+
+  $.ajax({
+      type: "POST",
+      url: "lecturerLogin.php",
+      data: dataString,
+      success: function(text) {
+        if(text == "success"){
+          location.href = "loggedIn.html";
+        }else{
+          alert("Login failed.\nUsername and/or password incorrect.")
+        }
+      },
+      error: function(jqXHR, exception) {
+          console.log(jqXHR);
+      }
+  });
+}
+
 /*   Get subjects for menu    */
 
 function getMenu() {
