@@ -53,13 +53,12 @@ function openLecture(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            //Kaller oppdateringene fra database
+            updateLecture();
         }
     };
     xhttp.open("GET", "student.html", true);
     xhttp.send();
-
-    //Kaller oppdateringene fra database
-    updateLecture();
 }
 
 function updateLecture(){
@@ -82,7 +81,7 @@ function updateLecture(){
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.open("GET", "getLecture.php", true);
     xmlhttp.send();
 }
 
@@ -103,32 +102,30 @@ function openProfile() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            //Kaller oppdateringene fra database
+            updateProfile();
         }
     };
     xhttp.open("GET", "profile.html", true);
     xhttp.send();
-
-    //Kaller oppdateringene fra database
-    updateProfile();
-
-    function updateProfile(){
-
-        //Henter ut innholdet i "getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              myObj = JSON.parse(this.responseText);
-              document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
-              //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-              //document.getElementById("rank").innerHTML = myObj.rank;
-          }
-        };
-
-        xmlhttp.open("GET", "getProfile.php?q=", true);
-        xmlhttp.send();
-    }
 }
 
+function updateProfile(){
+
+    //Henter ut innholdet i "getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var myObj = JSON.parse(this.responseText);
+          document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
+          //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+          //document.getElementById("rank").innerHTML = myObj.rank;
+      }
+    };
+
+    xmlhttp.open("GET", "getProfile.php?q=", true);
+    xmlhttp.send();
+}
 
 
 //Åpner siden Questions og oppdaterer den onclick!
@@ -147,12 +144,11 @@ function openQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
         }
+        //Kaller oppdateringene fra database
+        insertPost();
     };
     xhttp.open("GET", "questions.html", true);
     xhttp.send();
-
-    //Kaller oppdateringene fra database
-    insertPost();
 }
 
 //Viderefører til questions-siden til student, med nye spørsmål
@@ -166,19 +162,21 @@ function insertPost(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          Object.keys(myObj).forEach(function(key) {
-              var entry = myObj[key];
-              // Get the first .questbox and clone it
-              var clone = top_quest.querySelector(".questbox").cloneNode(true);
-              // Set the question and upvotes
-              clone.querySelector(".question").innerHTML = entry.text;
-              clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-              // Append the clone at the top
-              top_quest.insertBefore(clone, top_quest.firstChild);
-          });
+          if(myObj){
+            Object.keys(myObj).forEach(function(key) {
+                var entry = myObj[key];
+                // Get the first .questbox and clone it
+                var clone = top_quest.querySelector(".questbox").cloneNode(true);
+                // Set the question and upvotes
+                clone.querySelector(".question").innerHTML = entry.text;
+                clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                // Append the clone at the top
+                top_quest.insertBefore(clone, top_quest.firstChild);
+            });
+          }
       }
     };
-    xmlhttp.open("GET", "getPostsForLecture.php?q=", true);
+    xmlhttp.open("GET", "getPostsForLecture.php", true);
     xmlhttp.send();
 }
 
