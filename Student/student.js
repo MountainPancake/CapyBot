@@ -128,9 +128,9 @@ function updateProfile(){
 }
 
 
+
 //Åpner siden Questions og oppdaterer den onclick!
 function openQuestions(){
-    console.log("HEI");
     var activeQuestions = document.getElementById("activeQuestions");
 
     //setter klassen "active" aktiv hos gjeldene funksjon
@@ -148,7 +148,7 @@ function openQuestions(){
             insertPost();
         }
     };
-    xhttp.open("GET", "questions.html", true);
+    xhttp.open("POST", "questions.html", true);
     xhttp.send();
 }
 
@@ -162,36 +162,47 @@ function insertPost(){
     console.log("ijie");
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+          var questBox = document.createElement("DIV");
+          questBox.className = "questbox";
+          questBox.innerHTML =
+          '<div class="quest">'
+              +'<h5 class="question"></h5>'
+          +'</div>'
+          +'<div class="up-vote">'
+              +'<button type="button" class="btn btn-lg btn-primary knapp">'
+                  +'<div class="arrow-up"/>'
+              +'</button>'
+              +'<h5 class="upvotes"></h5>'
+          +'</div>';
+          console.log(questBox.innerHTML);
           var myObj = JSON.parse(this.responseText);
-          console.log(this.responseText);
           if(myObj){
-            var new_quest = document.getElementById("new_quest")
-            Object.keys(myObj).forEach(function(key) {
-                var entry = myObj[key];
-                // Get the first .questbox and clone it
-                var clone = document.querySelector(".questbox").cloneNode(true);
-                // Set the question and upvotes
-                clone.querySelector(".question").innerHTML = entry.text;
-                clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                // Append the clone at the top
-                new_quest.insertBefore(clone, new_quest.firstChild);
-            });
-            myObj.sort(function(a,b){
-              return parseInt(b.upvotes) - parseInt(a.upvotes);
-            });
-            myObj = myObj.slice(0,5);
-            console.log(myObj);
-            var top_quest = document.getElementById("top_quest");
-            myObj.forEach(function(entry){
-              console.log(entry);
-              // Get the first .questbox and clone it
-              var clone = document.querySelector(".questbox").cloneNode(true);
-              // Set the question and upvotes
-              clone.querySelector(".question").innerHTML = entry.text;
-              clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-              // Append the clone at the top
-              top_quest.appendChild(clone);
-            });
+              var new_quest = document.getElementById("new_quest")
+              Object.keys(myObj).forEach(function(key) {
+                  var entry = myObj[key];
+                  // Get the first .questbox and clone it
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  new_quest.appendChild(clone);
+              });
+              myObj.sort(function(a,b){
+                  return parseInt(b.upvotes) - parseInt(a.upvotes);
+              });
+              myObj = myObj.slice(0,5);
+              var top_quest = document.getElementById("top_quest");
+              myObj.forEach(function(entry){
+                  console.log(entry);
+                  // Get the first .questbox and clone it
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  top_quest.appendChild(clone);
+              });
           }
       }
     };
