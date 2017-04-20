@@ -336,7 +336,6 @@ function getLecturesForSubject(subject) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            console.log(myObj)
 
             if (this.responseText=="null"){
                 var text = document.createTextNode("You don't have any lectures for this subject yet! Create one below.")
@@ -347,7 +346,6 @@ function getLecturesForSubject(subject) {
                 for (x in myObj) {
                     lecture = myObj[x].title;
                     lectureDate = myObj[x].date;
-                    lectureID = myObj[x].ID;
 
                     noLecturesDiv.style.display = "none";
 
@@ -355,7 +353,7 @@ function getLecturesForSubject(subject) {
                     listElement.className = "lectureList";
                     listElement.addEventListener("click", function() {
                         /*   Open correct lecture when cliking on lecture in menu   */
-                        openLecture(lecture, lectureID);
+                        openLecture(myObj[x]);
                     });
                     var text = document.createTextNode(lecture + " - " + lectureDate);
                     listElement.appendChild(text);
@@ -448,14 +446,29 @@ function createNewLecture(){
 
 /*    Lecture.html -  Open given lecture when clicking on it  */
 
-function openLecture(lecture, lectureID) {
+function openLecture(myObj) {
+
+    var lecture = myObj;
+    console.log(lecture)
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("main").innerHTML = xhttp.responseText;
 
             var header = document.getElementById("lectureName");
-            header.innerHTML = lecture + " " + lectureID;
+            var lectureName = document.getElementById("lectureNameInfo");
+            var lectureDate = document.getElementById("lectureDate");
+            var lectureTime = document.getElementById("lectureTime");
+            var lectureCategory = document.getElementById("lectureCategory");
+            var lectureID = document.getElementById("lectureID");
+
+            header.innerHTML = lecture.title;
+            lectureName.innerHTML = lecture.title;
+            lectureDate.innerHTML = lecture.date;
+            lectureTime.innerHTML = lecture.time;
+            lectureCategory.innerHTML = lecture.category_name;
+            lectureID.innerHTML = lecture.ID;
 
 
         }

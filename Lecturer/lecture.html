@@ -1,25 +1,30 @@
 <!-- main -->
 <h1 class="page-header" id="lectureName">Lecture_name</h1>
 
-<h3>lecture info:</h3>
+<h3>Lecture info:</h3>
 
-<div class="well">
-
-    <ul class="list-group" id="lecturesForSubject"></ul>
-</div>
-
-<br />
-
-<button id="viewCreateLectureBoxButton" class="btn btn-primary" onclick="viewCreateLectureBox()">+ Add new lecture</button>
-
-<div id="addNewLectureBox" class="addNewLectureBox">
-
-    <div class="well">
-
-
+<div class="row">
+    <div class="well lectureBox col-sm-6">
+        <p class="left">Name:</p>
+        <p id="lectureNameInfo" class="right">name</p>
+        <p class="left">Subject:</p>
+        <p id="lectureCategory" class="right">Subject:</p>
+        <p class="left">Date:</p>
+        <p id="lectureDate" class="right">Date:</p>
+        <p class="left">Time:</p>
+        <p id="lectureTime" class="right">Time:</p>
     </div>
 
+    <div class="well lectureBox col-sm-5">
+        <p style="font-size:25px;">Lecture pin:</p>
+        <p id="lectureID" style="font-size:65px; font-weight:bold;">Lecture pin:</p>
+
+    </div>
 </div>
+
+<h3 class="sub-header"> Questions:</h3>
+
+<br />
 
 
 <!-- end main -->

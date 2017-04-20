@@ -28,6 +28,28 @@ label {
     display: none;
 }
 
+.lectureBox {
+    margin-right: 30px;
+    overflow: hidden;
+}
+
+
+.left {
+    display: inline-block;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 35%;
+}
+
+.right {
+    display: inline-block;
+    padding: 10px;
+    width: 60%;
+    font-size: 20px;
+}
+
+
 .menuSubject {
     color: white;
     display: block;
