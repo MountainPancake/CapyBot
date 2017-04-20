@@ -12,7 +12,7 @@ function lecturerLogin(){
         if(text == "success"){
           location.href = "loggedIn.html";
         }else{
-          alert("Login failed.\nUsername and/or password incorrect.")
+          alert("Login failed.\nEmail and/or password incorrect.")
         }
       },
       error: function(jqXHR, exception) {
@@ -22,7 +22,6 @@ function lecturerLogin(){
 }
 
 /*   Get subjects for menu    */
-
 function getMenu() {
 
     var xhttp = new XMLHttpRequest();
