@@ -4,7 +4,7 @@ function getMenu() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            myObj = JSON.parse(this.responseText);
 
             var subjects = document.getElementById("subjectMenu");
 
@@ -69,9 +69,9 @@ function getSubjects() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            myObj = JSON.parse(this.responseText);
 
-            if (JSON.parse(this.responseText)=="null"){
+            if (this.responseText=="null"){
                 var ingenFagDiv = document.getElementById("ingenFagDiv");
                 var text = document.createTextNode("You don't have any subjects yet! Create one below.")
                 if (ingenFagDiv==null){return;}
@@ -142,7 +142,7 @@ function getDropDown() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            myObj = JSON.parse(this.responseText);
 
             var chooseSubject = document.getElementById("chooseSubject");
 
@@ -308,9 +308,6 @@ function subjectSuccessful() {
 /*   Open correct subject when cliking on menu item    */
 
 function openSubject(subject) {
-
-    console.log(subject);
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -320,6 +317,7 @@ function openSubject(subject) {
             header.innerHTML = subject;
 
             getLecturesForSubject(subject);
+
         }
     };
 
@@ -331,45 +329,46 @@ function openSubject(subject) {
 /*   Subject.html -  Get all lectures for a given subject, for the signed in lecturer    */
 
 function getLecturesForSubject(subject) {
-    console.log(subject);
+    var noLecturesDiv = document.getElementById("noLecturesDiv");
+    var lectures = document.getElementById("lecturesForSubject");
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-            myObj = JSON.parse(JSON.parse(this.responseText));
-            console.log(myObj);
+            myObj = JSON.parse(this.responseText);
+            console.log(myObj)
 
-            if (JSON.parse(this.responseText)=="null"){
-                var noLecturesDiv = document.getElementById("noLecturesDiv");
+            if (this.responseText=="null"){
                 var text = document.createTextNode("You don't have any lectures for this subject yet! Create one below.")
-                if (noLecturesDiv==null){return;}
-                else {noLecturesDiv.appendChild(text);}
+                noLecturesDiv.appendChild(text);
             }
 
             else {
-                var lectures = document.getElementById("lecturesForSubject");
-                if (lectures==null){return;}
-                else {
-                    for (x in myObj) {
-                        lecture = myObj[x].name;
+                for (x in myObj) {
+                    lecture = myObj[x].title;
+                    lectureDate = myObj[x].date;
+                    lectureID = myObj[x].ID;
 
-                        var noLecturesDiv = document.getElementById("noLecturesDiv");
-                        noLecturesDiv.style.display = "none";
+                    noLecturesDiv.style.display = "none";
 
-                        var listElement = document.createElement("li");
-                        listElement.className = "lectureList";
-                        var text = document.createTextNode(lecture);
-                        listElement.appendChild(text);
-                        lectures.appendChild(listElement);
-                    }
+                    var listElement = document.createElement("li");
+                    listElement.className = "lectureList";
+                    listElement.addEventListener("click", function() {
+                        /*   Open correct lecture when cliking on lecture in menu   */
+                        openLecture(lecture, lectureID);
+                    });
+                    var text = document.createTextNode(lecture + " - " + lectureDate);
+                    listElement.appendChild(text);
+                    lectures.appendChild(listElement);
                 }
             }
         }
-      };
+    };
 
+    var postData = "category=" + subject + "&";
     xhttp.open("POST", "getLecturesForSubject.php", true);
-    xhttp.send("category="+subject);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(postData);
 }
 
 
@@ -392,20 +391,6 @@ function hideCreateLectureBox() {
     button.style.display = "block";
     error.style.display = "none";
 
-}
-
-function newLectureCreated() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("main").innerHTML = xhttp.responseText;
-        }
-    };
-
-    //getLecturesForSubject();
-
-    xhttp.open("POST", "subject.html", true);
-    xhttp.send();
 }
 
 /*    Subject.html - New lecture created inside subject    */
@@ -450,7 +435,7 @@ function createNewLecture(){
             url: "createLecture.php",
             data: dataString,
             success: function(text) {
-                newLectureCreated();
+                openSubject(category);
             },
             error: function(jqXHR, exception) {
                 console.log(jqXHR);
@@ -458,4 +443,25 @@ function createNewLecture(){
 
         });
     }
+}
+
+
+/*    Lecture.html -  Open given lecture when clicking on it  */
+
+function openLecture(lecture, lectureID) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+
+            var header = document.getElementById("lectureName");
+            header.innerHTML = lecture + " " + lectureID;
+
+
+        }
+    };
+
+    xhttp.open("POST", "lecture.html", true);
+    xhttp.send();
+
 }
