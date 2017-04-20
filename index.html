@@ -34,7 +34,7 @@
 
                     <div class="signInBox" id="logIn">
 
-                        <form onsubmit = "studentLogin()" method = "POST">
+                        <form onsubmit="studentLogin()" method = "POST">
 
                             <p class="signInText">Email:</p>
                             <input type="text" id="email" name="email" placeholder="Email" class="form-control signInForm" required>
@@ -52,20 +52,19 @@
 
                     <div class="signInBox" id="createUser">
 
-                        <form>
-                            <p class="signInText">Username: *</p>
-                            <input type="text" placeholder="Username" name="username" class="form-control signInForm" required><br/>
+                        <form onsubmit="createStudentUser()" method = "POST">
+
                             <p class="signInText">Email:</p>
-                            <input type="email" placeholder="name@domain.com" name="email" class="form-control signInForm" required><br/>
+                            <input type="email" id="newEmail" placeholder="name@domain.com" name="email" class="form-control signInForm" required><br/>
                             <p class="signInText">Password:</p>
-                            <input type="password" placeholder="*******" name="password" class="form-control signInForm" required>
+                            <input type="password" id="newPassword" placeholder="*******" name="password" class="form-control signInForm" required>
                             <br/>
                             <button type="submit" class="btn btn-success btn-lg">Create user!</button>
                             <br /><br />
                         </form>
 
                         <button onclick="signInClick()" class="btn btn-primary btn-sm" style="float:left; margin-left:20px;">Already have an account?</button>
-                        <p class="helpText">* Your username will be visible to other users</p>
+                        <p class="helpText">* Your email will be visible to other users?</p>
 
                     </div>
 
