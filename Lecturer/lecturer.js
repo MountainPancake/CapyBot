@@ -136,6 +136,8 @@ function createLecture() {
     xhttp.send();
 }
 
+/*    Gets lecturers subjects for drop down menu when creating lecture    */
+
 function getDropDown() {
 
     var xhttp = new XMLHttpRequest();
@@ -219,7 +221,6 @@ function addLecture(){
 
         });
     }
-
 }
 
 
