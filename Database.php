@@ -52,7 +52,7 @@ class Database{
     $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
-  function login($email, $password){
+  function getUserByEmailAndPassword($email, $password){
     $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
 
     return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
@@ -104,7 +104,6 @@ class Database{
       echo $row["lecturer_email"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
     }
   }
-
 
   //Response_Type
   function insertResponseType($lecture_ID,$text){

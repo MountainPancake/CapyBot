@@ -62,9 +62,7 @@
                     <li onclick="statistics()"><a>Statistics</a></li>
                 </ul>
                 <h4 class="menuTitle">Subjects:</h4>
-                <ul class="nav nav-sidebar" id="subjectMenu">
-                    
-                </ul>
+                <ul class="nav nav-sidebar" id="subjectMenu"></ul>
             </div>
 
             <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
