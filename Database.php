@@ -79,24 +79,25 @@ class Database{
     return mysqli_query($this->con, $sql);
   }
 
-  function insertPost($lecture_ID,$text){
-    $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
-    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
-    return mysqli_query($this->con, $sql);
-  }
-
   function getLecturesByEmail($email){
     $sql = "SELECT * FROM Lecture where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
     $lecturesArray;
+    $i = 0;
     while($row = mysqli_fetch_assoc($result)){
-      $lecturesArray[$row["ID"]] = $row;
+      $lecturesArray[$i] = $row;
+      $i++;
     }
-    return json_encode($lecturesArray);
+    return $lecturesArray;
+  }
+
+  function getLectureByID($ID){
+    $query = "SELECT * FROM Lecture WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $query);
+    return mysqli_fetch_assoc($result);
   }
 
   function getLecturesByEmailAndCategory($email, $category){
-    echo "<br>in function";
     $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$email' AND category_name = '$category'";
     $result = mysqli_query($this->con, $query);
     while ($row = mysqli_fetch_assoc($result)){
@@ -104,31 +105,110 @@ class Database{
     }
   }
 
-  function getCategoriesByEmail($email){
-    $sql = "SELECT name FROM Category where lecturer_email = '$email'";
-    $result = mysqli_query($this->con, $sql);
-    $categoriesArray;
-    while($row = mysqli_fetch_assoc($result)){
-      $categoriesArray[$row["name"]] = $row;
-    }
-    return json_encode($categoriesArray);
+  //Response_Type
+  function insertResponseType($lecture_ID,$text){
+      $sql = "INSERT INTO Response_Type (lecture_ID, text)
+      VALUES ('$lecture_ID','$text')";
+      return mysqli_query($this->con, $sql);
   }
 
+  function deleteResponseTypeByLectureIDAndText($lecture_ID, $text){
+    $sql = "DELETE FROM Response_Type WHERE lecture_ID = '$lecture_ID' and text = '$text'";
+
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseTypesByLectureID($lecture_ID){
+    $sql = "SELECT * FROM Response_Type WHERE lecture_ID = '$lecture_ID'";
+    $result = mysqli_query($this->con, $sql);
+    $responseTypesArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($responseTypesArray, $row);
+    }
+    return $responseTypesArray;
+  }
+
+  function insertResponse($lecture_ID, $response_type){
+    $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
+    VALUES ('$lecture_ID', '$response_type', CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getResponseCount($lecture_ID, $response_type){
+    $sql = "SELECT COUNT(response_type) as count FROM Response
+    WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'";
+    $result = mysqli_query($this->con, $sql);
+    return mysqli_fetch_assoc($result)["count"];
+  }
+
+  function deleteAllResponsesByLectureID($lecture_ID){
+    $sql = "DELETE FROM Response WHERE lecture_ID = '$lecture_ID'";
+    return mysqli_query($this->con, $sql);
+  }
+
+
+ //Category
   function insertCategory($categoryName,$email){
       $sql = "INSERT INTO Category (name, lecturer_email)
       VALUES ('$categoryName','$email')";
       return mysqli_query($this->con, $sql);
   }
 
-//Class end
+  function deleteAllCategoriesByEmail($email){
+    $sql = "DELETE FROM Category WHERE email = '$email'";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function deleteCategoryByNameAndEmail($category_name, $lecturer_email){
+    $sql = "DELETE FROM Category WHERE name = '$category_name' AND lecturer_email = '$lecturer_email'";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getCategoriesByEmail($email){
+    $sql = "SELECT * FROM Category where lecturer_email = '$email'";
+    $result = mysqli_query($this->con, $sql);
+    $categoriesArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($categoriesArray, $row);
+    }
+    return $categoriesArray;
+  }
+
+//Post
+  function insertPost($lecture_ID,$text){
+    $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
+    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function deletePostByID($ID){
+    $sql = "DELETE FROM Post WHERE ID = '$ID'";
+    return mysqli_query($this->con, $sql);
+  }
+
+  function getPostByID($ID){
+    $sql = "SELECT * FROM Post WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $sql);
+    return mysqli_fetch_assoc($result);
+  }
+
   function getPostsByLectureID($lecture_ID){
     $sql = "SELECT * FROM Post WHERE lecture_ID = '$lecture_ID'";
     $result = mysqli_query($this->con, $sql);
-    $postsArray;
+    $postsArray = [];
     while($row = mysqli_fetch_assoc($result)){
-      $postsArray[$row["ID"]] = $row;
+      array_push($postsArray, $row);
     }
-    return json_encode($postsArray);
+    return $postsArray;
   }
+
+  function upvotePostByID($ID){
+    $sql = "UPDATE Post SET upvotes = upvotes + 1 WHERE ID = '$ID'";
+    $result = mysqli_query($this->con, $sql);
+    return $result;
+  }
+
+
+//Class end
 }
 ?>
