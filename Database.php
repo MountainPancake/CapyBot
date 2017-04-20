@@ -52,7 +52,7 @@ class Database{
     $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
-  function login($email, $password){
+  function getUserByEmailAndPassword($email, $password){
     $sql = "SELECT * FROM User WHERE email = '$email' and password = '$password'";
 
     return mysqli_fetch_assoc(mysqli_query($this->con, $sql));
@@ -105,7 +105,6 @@ class Database{
     }
   }
 
-
   //Response_Type
   function insertResponseType($lecture_ID,$text){
       $sql = "INSERT INTO Response_Type (lecture_ID, text)
@@ -129,6 +128,7 @@ class Database{
     return $responseTypesArray;
   }
 
+//Response
   function insertResponse($lecture_ID, $response_type){
     $sql = "INSERT INTO `Response`(`lecture_ID`, `response_type`, `time_stamp`)
     VALUES ('$lecture_ID', '$response_type', CURRENT_TIMESTAMP)";
