@@ -14,14 +14,15 @@
 
 <div class="well">
 
-    <form >
+    <form onsubmit="return addSubject()">
         <div class="form-group">
             <label for="chooseName">Choose a name for the subject:</label>
-            <input id="chooseName" type="text" name="name" placeholder="TDT4140 - Software Engineering" class="form-control"></input>
+            <input id="chooseName" type="text" name="categoryName" placeholder="TDT4140 - Software Engineering" class="form-control"></input>
             <small id="info" class="form-text text-muted">Choose something descriptive, like the name of the topic or the subject code.</small>
         </div>
 
         <button type="submit" name="submit" class="btn btn-success">+ Add subject</button>
+
     </form>
 
 </div>

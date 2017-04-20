@@ -105,7 +105,6 @@ class Database{
     }
   }
 
-
   //Response_Type
   function insertResponseType($lecture_ID,$text){
       $sql = "INSERT INTO Response_Type (lecture_ID, text)
