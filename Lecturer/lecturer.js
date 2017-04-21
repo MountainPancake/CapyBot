@@ -649,7 +649,7 @@ function startLecture() {
 
 }
 
-//Viderefører til questions-siden til student, med nye spørsmål
+//Setter inn spørsmål stilt av studentene
 function insertStudentPosts(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
