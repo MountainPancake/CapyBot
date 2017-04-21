@@ -190,7 +190,7 @@ function insertPost(){
               +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
                   +'<div class="arrow-up"/>'
               +'</button>'
-              +'<h5" class="upvotes"></h5>'
+              +'<h5 class="upvotes"></h5>'
           +'</div>';
           var myObj = JSON.parse(this.responseText);
           if(myObj){
