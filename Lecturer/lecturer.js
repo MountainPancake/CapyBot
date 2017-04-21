@@ -1,4 +1,3 @@
-
 /* Login function */
 function lecturerLogin(){
   event.preventDefault();
@@ -21,11 +20,42 @@ function lecturerLogin(){
   });
 }
 
-/*   Get subjects for menu    */
-function getMenu() {
+/* Log out function */
+function signOut(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            window.location.href = "lecturerIndex.html"
+        }
+    };
+    xhttp.open("POST", "logOut.php", true);
+    xhttp.send();
+}
+
+/*   Get email    */
+function getEmail() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            var email = document.getElementById("email");
+            email.innerHTML = myObj;
+        }
+    };
+
+    xhttp.open("POST", "getEmail.php", true);
+    xhttp.send();
+}
+
+
+/*   Get subjects for menu    */
+function getMenu() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
             myObj = JSON.parse(this.responseText);
 
             var subjects = document.getElementById("subjectMenu");
@@ -93,7 +123,7 @@ function getSubjects() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
 
-            if (this.responseText=="null"){
+            if (this.responseText=="[]"){
                 var ingenFagDiv = document.getElementById("ingenFagDiv");
                 var text = document.createTextNode("You don't have any subjects yet! Create one below.")
                 if (ingenFagDiv==null){return;}
@@ -102,8 +132,6 @@ function getSubjects() {
 
             else {
                 var subjects = document.getElementById("mySubjects");
-                if (subjects==null){return;}
-                else {
                     for (x in myObj) {
                         subject = myObj[x].name;
 
@@ -115,7 +143,6 @@ function getSubjects() {
                         var text = document.createTextNode(subject);
                         listElement.appendChild(text);
                         subjects.appendChild(listElement);
-                    }
                 }
             }
         }
@@ -160,7 +187,6 @@ function createLecture() {
 /*    Gets lecturers subjects for drop down menu when creating lecture    */
 
 function getDropDown() {
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -508,32 +534,44 @@ function getResponseButtons(lectureID) {
             myObj = JSON.parse(this.responseText);
 
             var noResponsesDiv = document.getElementById("noResponsesDiv");
+            var noResponsesDiv2 = document.getElementById("noResponsesDiv");
             var responses = document.getElementById("responses");
+            var responseTitles = document.getElementById("responseTitles");
 
             if (this.responseText=="[]"){
                 var text = document.createTextNode("You don't have any response buttons for this lecture yet, add some.")
+                var text2 = document.createTextNode("You didn't add response buttons for this lecture.")
                 noResponsesDiv.appendChild(text);
+                noResponsesDiv2.appendChild(text2);
             }
 
             else {
                 for (x in myObj) {
                     response = myObj[x].text;
                     noResponsesDiv.style.display = "none";
+                    noResponsesDiv2.style.display = "none";
 
                     var h2 = document.createElement("h2");
                     var span = document.createElement("span");
+                    var span2 = document.createElement("span");
                     var text = document.createTextNode(response);
+                    var text2 = document.createTextNode(response);
                     var p = document.createElement("p");
                     var counter = document.createTextNode("counter");
+                    var h3 = document.createElement("h3");
 
                     h2.className = "responseButton";
                     span.className = "label label-primary";
+                    span2.className = "label label-primary";
                     p.className = "counter";
                     p.appendChild(counter);
                     span.appendChild(text);
+                    span2.appendChild(text2);
                     h2.appendChild(span);
+                    h3.appendChild(span2);
                     responses.appendChild(h2);
                     responses.appendChild(p);
+                    responseTitles.appendChild(h3);
                 }
             }
         }
@@ -574,7 +612,7 @@ function addResponseButton(lecture) {
     }
 }
 
-/*    Lecture.html -  get lecure by ID  */
+/*    Lecture.html -  get lecure by ID when adding button  */
 
 function getLectureByID() {
     event.preventDefault();
@@ -597,13 +635,16 @@ function getLectureByID() {
 }
 
 
-/*    Lecture.html -  Show more content when lecture starts  */
+
+/*    Lecture.html -  Show more content when lecture starts, and remove some  */
 
 function startLecture() {
     var button = document.getElementById("startLectureButton");
     var div = document.getElementById("lectureStartedDiv");
+    var divBefore = document.getElementById("lectureNotStartedDiv");
 
     div.style.display = "block";
+    divBefore.style.display = "none";
     button.style.display = "none";
 
 }
