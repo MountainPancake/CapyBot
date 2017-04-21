@@ -7,12 +7,12 @@ $password = $_POST["password"];
 
 $db = new Database();
 $assocUserArray = $db->getUserByEmailAndPassword($email,$password);
-if($assocUserArray){
+if($assocUserArray && $assocUserArray["is_student"] == "0"){
   $_SESSION["email"] = $assocUserArray["email"];
   $_SESSION["firstName"] = $assocUserArray["first_name"];
   $_SESSION["lastName"] = $assocUserArray["last_name"];
-  header("Location: loggedIn.php");
+  echo "success";
 }else{
-  header("Location: lecturerIndex.html");
+  echo "invalid";
 }
 ?>
