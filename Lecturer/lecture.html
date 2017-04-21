@@ -22,23 +22,25 @@
     </div>
 </div>
 
-<h3> Response buttons:</h3>
+<div id="lectureNotStartedDiv">
 
-<div class="row">
-    <div id="responses" class="well lectureBox col-sm-6">
-        <div id="noResponsesDiv"></div>
-    </div>
+    <h3> Response buttons:</h3>
+    <div class="row">
+        <div id="responseTitles" class="well lectureBox col-sm-6">
+            <div id="noResponsesDiv"></div>
+        </div>
 
-    <div class="well lectureBox col-sm-5">
-        <h4 class="sub-header">Add response type:</h4>
-        <form onsubmit="return getLectureByID()">
-            <div style="display:inline-block; width:80%;">
-                <input class="form-control" id="responseType" type="text" placeholder="Response type"></input>
-            </div>
-            <div style="display:inline-block; width:15%;">
-                <button type="submit" name="submit" class="btn btn-success">Save</button>
-            </div>
-        </form>
+        <div class="well lectureBox col-sm-5">
+            <h4 class="sub-header">Add response type:</h4>
+            <form onsubmit="return getLectureByID()">
+                <div style="display:inline-block; width:80%;">
+                    <input class="form-control" id="responseType" type="text" placeholder="Response type"></input>
+                </div>
+                <div style="display:inline-block; width:15%;">
+                    <button type="submit" name="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -46,9 +48,18 @@
 <br />
 
 <button onclick="startLecture()" id="startLectureButton" class="btn btn-lg btn-success form-control" style="height:45px;">Start lecture!</button>
-<br />
 
 <div id="lectureStartedDiv">
+
+    <h3> Response buttons:</h3>
+
+    <div id="responses" class="well">
+            <div id="noResponsesDiv2"></div>
+
+        </div>
+    </div>
+
+
     <h3 class="sub-header"> Questions:</h3>
 
 </div>

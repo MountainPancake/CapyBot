@@ -7,6 +7,6 @@ if($lecture && $lecture["date"]){
   $_SESSION["lecturePin"] = $lecture["ID"];
   header("Location: student.php");
 }else{
-  header("Location: student_notLoggedIn.php");
+  header("Location: student_notLoggedIn.html");
 }
 ?>
