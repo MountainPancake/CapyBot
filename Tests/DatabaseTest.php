@@ -134,6 +134,9 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       $actualCount = $this->db->getResponseCount($lectureID,$responseType);
       $this->assertEquals($count,$actualCount);
     }
+    $responseCountArray = $this->db->getResponseTypesAndCountByLectureID($lectureID);
+    $this->assertEquals(sizeof($responses),sizeof($responseCountArray));
+
     $deleted = $this->db->deleteAllResponsesByLectureID($lectureID);
     $this->assertTrue($deleted);
 
