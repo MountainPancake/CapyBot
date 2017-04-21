@@ -142,7 +142,8 @@ class Database{
 
   function getResponseCount($lecture_ID, $response_type){
     $sql = "SELECT COUNT(response_type) as count FROM Response
-    WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'";
+    WHERE lecture_ID = '$lecture_ID' and response_type = '$response_type'
+    GROUP BY response_type";
     $result = mysqli_query($this->con, $sql);
     return mysqli_fetch_assoc($result)["count"];
   }
@@ -152,6 +153,18 @@ class Database{
     return mysqli_query($this->con, $sql);
   }
 
+//Response type and count
+function getResponseTypesAndCountByLectureID($lecture_ID){
+  $sql = "SELECT response_type, COUNT(response_type) as count FROM Response
+  WHERE lecture_ID = '$lecture_ID'
+  GROUP BY response_type";
+  $result = mysqli_query($this->con, $sql);
+  $responseCountArray = [];
+  while($row = mysqli_fetch_assoc($result)){
+    array_push($responseCountArray,$row);
+  }
+  return $responseCountArray;
+}
 
  //Category
   function insertCategory($categoryName,$email){
