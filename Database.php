@@ -27,10 +27,11 @@ class Database{
   }
 
 //User methods
+  
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
-  $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
-  VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
-  return (mysqli_query($this->con, $sql));
+    $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
+    VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
+    return (mysqli_query($this->con, $sql));
   }
 
   function deleteUserByEmail($email){
@@ -45,11 +46,11 @@ class Database{
   }
 
   function createStudentUser($email, $password, $firstname, $lastname, $university){
-    $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
+    return $this->insertUser($email, $password, $firstname, $lastname, $university, 1);
   }
 
   function createLecturerUser($email, $password, $firstname, $lastname, $university){
-    $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
+    return $this->insertUser($email, $password, $firstname, $lastname, $university, 0);
   }
 
   function getUserByEmailAndPassword($email, $password){
@@ -82,11 +83,9 @@ class Database{
   function getLecturesByEmail($email){
     $sql = "SELECT * FROM Lecture where lecturer_email = '$email'";
     $result = mysqli_query($this->con, $sql);
-    $lecturesArray;
-    $i = 0;
+    $lecturesArray = [];
     while($row = mysqli_fetch_assoc($result)){
-      $lecturesArray[$i] = $row;
-      $i++;
+      array_push($lecturesArray, $row);
     }
     return $lecturesArray;
   }
@@ -97,12 +96,15 @@ class Database{
     return mysqli_fetch_assoc($result);
   }
 
+
   function getLecturesByEmailAndCategory($email, $category){
     $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$email' AND category_name = '$category'";
     $result = mysqli_query($this->con, $query);
+    $lecturesArray = [];
     while ($row = mysqli_fetch_assoc($result)){
-      echo $row["lecturer_email"]. " Mail of lecturer <br>". "Category: ". $row['category_name'];
+      array_push($lecturesArray, $row);
     }
+    return $lecturesArray;
   }
 
   //Response_Type
@@ -114,9 +116,9 @@ class Database{
 
   function deleteResponseTypeByLectureIDAndText($lecture_ID, $text){
     $sql = "DELETE FROM Response_Type WHERE lecture_ID = '$lecture_ID' and text = '$text'";
-
     return mysqli_query($this->con, $sql);
   }
+
 
   function getResponseTypesByLectureID($lecture_ID){
     $sql = "SELECT * FROM Response_Type WHERE lecture_ID = '$lecture_ID'";
@@ -211,5 +213,6 @@ class Database{
 
 
 //Class end
+
 }
 ?>
