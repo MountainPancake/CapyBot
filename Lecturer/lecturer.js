@@ -534,7 +534,7 @@ function getResponseButtons(lectureID) {
             myObj = JSON.parse(this.responseText);
 
             var noResponsesDiv = document.getElementById("noResponsesDiv");
-            var noResponsesDiv2 = document.getElementById("noResponsesDiv");
+            var noResponsesDiv2 = document.getElementById("noResponsesDiv2");
             var responses = document.getElementById("responses");
             var responseTitles = document.getElementById("responseTitles");
 
@@ -557,7 +557,7 @@ function getResponseButtons(lectureID) {
                     var text = document.createTextNode(response);
                     var text2 = document.createTextNode(response);
                     var p = document.createElement("p");
-                    var counter = document.createTextNode("counter");
+                    var counter = document.createTextNode("0");
                     var h3 = document.createElement("h3");
 
                     h2.className = "responseButton";
