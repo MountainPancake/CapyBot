@@ -68,22 +68,36 @@ function updateLecture(){
         $("#lecturer_quest").hide();
     }*/
 
-    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          myObj = JSON.parse(this.responseText);
-          document.getElementById("subject").innerHTML = myObj.name;
-          document.getElementById("slowDown").innerHTML = myObj.responses[0];
-          document.getElementById("speedUp").innerHTML = myObj.responses[1];
-          document.getElementById("tooHard").innerHTML = myObj.responses[2];
-          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+          var myObj = JSON.parse(this.responseText);
+          document.getElementById("subject").innerHTML = myObj.subject;
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php", true);
+    xmlhttp.open("GET", "getLecture.php?q=", true);
     xmlhttp.send();
 }
+/*
+function updateResponses(){
+
+    event.preventDefault();
+    var dataString = 'responseType=' + responseType;
+
+    $.ajax({
+        type: "POST",
+        url: "getLecture.php",
+        data: dataString,
+        success: function(text) {
+            openLecture(lecture);
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR);
+        }
+
+    });
+}*/
 
 
 
@@ -180,21 +194,21 @@ function insertPost(){
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          var questBox = document.createElement("DIV");
+          var questBox = document.createElement("div");
           questBox.className = "questbox";
           questBox.innerHTML =
           '<div class="quest">'
               +'<h5 class="question"></h5>'
           +'</div>'
           +'<div class="up-vote">'
-              +'<button type="button" class="btn btn-lg btn-primary knapp">'
+              +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
                   +'<div class="arrow-up"/>'
               +'</button>'
-              +'<h5 class="upvotes"></h5>'
+              +'<h5" class="upvotes"></h5>'
           +'</div>';
           var myObj = JSON.parse(this.responseText);
           if(myObj){
-              var new_quest = document.getElementById("new_quest")
+              var new_quest = document.getElementById("new_quest");
               Object.keys(myObj).forEach(function(key) {
                   var entry = myObj[key];
                   // Get the first .questbox and clone it
@@ -202,8 +216,13 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+
+                  clone.querySelector(".upvotes").setAttribute('name', entry.upvotes);
+                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
+
                   // Append the clone at the top
                   new_quest.appendChild(clone);
+
               });
               myObj.sort(function(a,b){
                   return parseInt(b.upvotes) - parseInt(a.upvotes);
@@ -216,6 +235,7 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
                   // Append the clone at the top
                   top_quest.appendChild(clone);
               });
@@ -224,6 +244,27 @@ function insertPost(){
     };
     xmlhttp.open("GET", "getPostsSortedByTime.php", true);
     xmlhttp.send();
+}
+
+//Oppdatere upvotes når knappene klikkes
+function upvotePost(event){
+    var button = event.srcElement;
+    button.disabled = true;
+    var dataString = "ID="+ button.getAttribute("name");
+    $.ajax({
+        type: "GET",
+        url: "studentUpvote.php",
+        data: dataString,
+        success: function(responseText){
+            //insertPost();
+            var post = JSON.parse(responseText);
+            button.parentElement.querySelector(".upvotes").innerHTML = post.upvotes;
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
 }
 
 
