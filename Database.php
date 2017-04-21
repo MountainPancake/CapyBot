@@ -98,11 +98,14 @@ class Database{
 
 
   function getLecturesByEmailAndCategory($email, $category){
-    $query = "SELECT * FROM Lecture WHERE lecturer_mail = '$email' AND category_name = '$category'";
+    $query = "SELECT * FROM Lecture WHERE lecturer_email = '$email' AND category_name = '$category'";
     $result = mysqli_query($this->con, $query);
-    $lecturesArray = [];
-    while ($row = mysqli_fetch_assoc($result)){
-      array_push($lecturesArray, $row);
+    $lecturesArray;
+    $i = 0;
+    while($row = mysqli_fetch_assoc($result)){
+      $lecturesArray[$i] = $row;
+      $i++;
+
     }
     return $lecturesArray;
   }
