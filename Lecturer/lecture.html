@@ -24,17 +24,24 @@
 
 <h3> Response buttons:</h3>
 
-<div id="responseButtons" class="responseButtons well">
-    <h2 id="responses"></h2>
-    <div id="noResponsesDiv"></div>
+<div class="row">
+    <div id="responses" class="well lectureBox col-sm-6">
+        <div id="noResponsesDiv"></div>
+    </div>
 
-    <form onsubmit="return getLectureByID()">
-        <input id="responseType" type="text" placeholder="Response type"></input>
-        <button type="submit" name="submit" class="btn btn-success">Save</button>
-    </form>
-
-
+    <div class="well lectureBox col-sm-5">
+        <h4 class="sub-header">Add response type:</h4>
+        <form onsubmit="return getLectureByID()">
+            <div style="display:inline-block; width:80%;">
+                <input class="form-control" id="responseType" type="text" placeholder="Response type"></input>
+            </div>
+            <div style="display:inline-block; width:15%;">
+                <button type="submit" name="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
 </div>
+
 
 <br />
 

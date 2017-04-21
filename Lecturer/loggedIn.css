@@ -53,6 +53,18 @@ label {
     font-size: 16px;
 }
 
+.responseButton {
+    display: inline-block;
+    padding: 10px;
+    width: 60%;
+}
+
+.counter {
+    display: inline-block;
+    width: 35%;
+    font-size: 20px;
+}
+
 
 .menuSubject {
     color: white;

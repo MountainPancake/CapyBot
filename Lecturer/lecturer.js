@@ -498,13 +498,20 @@ function getResponseButtons(lectureID) {
                     response = myObj[x].text;
                     noResponsesDiv.style.display = "none";
 
+                    var h2 = document.createElement("h2");
                     var span = document.createElement("span");
                     var text = document.createTextNode(response);
+                    var p = document.createElement("p");
+                    var counter = document.createTextNode("counter");
+
+                    h2.className = "responseButton";
                     span.className = "label label-primary";
-                    var textSpace = document.createTextNode("  ");
+                    p.className = "counter";
+                    p.appendChild(counter);
                     span.appendChild(text);
-                    responses.appendChild(textSpace);
-                    responses.appendChild(span);
+                    h2.appendChild(span);
+                    responses.appendChild(h2);
+                    responses.appendChild(p);
                 }
             }
         }
@@ -521,24 +528,28 @@ function getResponseButtons(lectureID) {
 
 function addResponseButton(lecture) {
     var responseType = document.getElementById("responseType").value;
-    var lectureID = lecture.ID;
+    if (responseType==""){
+        alert("Reponse type cannot be empty.");
+    }
+    else {
+        var lectureID = lecture.ID;
 
-    event.preventDefault();
-    var dataString = 'responseType=' + responseType + '&lectureID=' + lectureID;
+        event.preventDefault();
+        var dataString = 'responseType=' + responseType + '&lectureID=' + lectureID;
 
-    $.ajax({
-        type: "POST",
-        url: "addResponseType.php",
-        data: dataString,
-        success: function(text) {
-            openLecture(lecture);
-        },
-        error: function(jqXHR, exception) {
-            console.log(jqXHR);
-        }
+        $.ajax({
+            type: "POST",
+            url: "addResponseType.php",
+            data: dataString,
+            success: function(text) {
+                openLecture(lecture);
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
+            }
 
-    });
-
+        });
+    }
 }
 
 /*    Lecture.html -  get lecure by ID  */
