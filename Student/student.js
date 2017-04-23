@@ -55,6 +55,8 @@ function openLecture(){
             document.getElementById("student_body").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
             updateLecture();
+            var question_page = 0;
+            insertPost(question_page);
         }
     };
     xhttp.open("GET", "student.html", true);
@@ -95,6 +97,7 @@ function updateResponses(){
                   response = myObj[x].text;
 
                   var button = document.createElement("button");
+                  button.style.margin = "5px";
                   var text = document.createTextNode(response);
 
                   button.className = "btn btn-primary btn-lg";
@@ -211,7 +214,8 @@ function openQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
-            insertPost();
+            var question_page = 1;
+            insertPost(question_page);
         }
     };
     xhttp.open("POST", "questions.html", true);
@@ -219,7 +223,7 @@ function openQuestions(){
 }
 
 //Viderefører til questions-siden til student, med nye spørsmål
-function insertPost(){
+function insertPost(input){
     var obj, dbParam, xmlhttp;
     // *** Grab the parent element just once, no need to keep looking it up in the loop
     obj = { "table":"text", "limit":15 };
@@ -241,21 +245,22 @@ function insertPost(){
           +'</div>';
           var myObj = JSON.parse(this.responseText);
           if(myObj){
-              var new_quest = document.getElementById("new_quest");
-              Object.keys(myObj).forEach(function(key) {
-                  var entry = myObj[key];
-                  // Get the first .questbox and clone it
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                
-                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
+              if(input === 1){
+                  Object.keys(myObj).forEach(function(key) {
+                      var entry = myObj[key];
+                      // Get the first .questbox and clone it
+                      var clone = questBox.cloneNode(true);
+                      // Set the question and upvotes
+                      clone.querySelector(".question").innerHTML = entry.text;
+                      clone.querySelector(".upvotes").innerHTML = entry.upvotes;
 
-                  // Append the clone at the top
-                  new_quest.appendChild(clone);
+                      clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
-              });
+                      // Append the clone at the top
+                      new_quest.appendChild(clone);
+
+                  });
+              }
               myObj.sort(function(a,b){
                   return parseInt(b.upvotes) - parseInt(a.upvotes);
               });
@@ -267,6 +272,7 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+
                   clone.querySelector(".knapp").setAttribute('name', entry.ID);
                   // Append the clone at the top
                   top_quest.appendChild(clone);

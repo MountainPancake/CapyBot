@@ -23,16 +23,7 @@ session_start();
         <!-- Body -->
         <div id="student_body">
 
-            <h1 id="subject">Hei</h1>
-            <div id="lecturer_quest" class="jumbotron">
-                <h1 class="question" style="font-size:50px;">Question</h1>
-
-                <ul class="list-group answers">
-                    <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
-                    <button type="button" class="btn btn-lg btn-primary list-group-item answer ">Answer</button>
-                    <button type="button" class="btn btn-lg btn-primary list-group-item answer">Answer</button>
-                </ul>
-            </div>
+            <h1 id="subject"></h1>
 
             <div class="row marketing">
                 <div class="col-lg-12">
@@ -43,7 +34,6 @@ session_start();
                             <h3> Give feedback </h3>
                         </div>
 
-                        <!--<div id="responses" onclick="giveResponse(event)"></div>-->
                         <div id="responses"></div>
 
                     </div>
@@ -53,9 +43,11 @@ session_start();
                         <input type="text" id="question" name="question" class="form-control" placeholder="?">
                         <input type="submit" class="btn btn-success knapp" value="Ask" style="display:block; width:25%; margin:auto; margin-top: 5px; text-align:center">
                     </form>
-                    <br />
-
+                    
+                    <h3>Top questions</h3>
                </div>
+               <div id="top_quest"></div>
+
            </div>
 
   </div>
