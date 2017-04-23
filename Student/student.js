@@ -249,7 +249,7 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                
+
                   clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
                   // Append the clone at the top
