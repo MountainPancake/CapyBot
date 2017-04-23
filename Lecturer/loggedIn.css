@@ -28,6 +28,44 @@ label {
     display: none;
 }
 
+#lectureStartedDiv{
+    display: none;
+}
+
+.lectureBox {
+    margin-right: 30px;
+    overflow: hidden;
+}
+
+
+.left {
+    display: inline-block;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 35%;
+}
+
+.right {
+    display: inline-block;
+    padding: 10px;
+    width: 60%;
+    font-size: 16px;
+}
+
+.responseButton {
+    display: inline-block;
+    padding: 10px;
+    width: 60%;
+}
+
+.counter {
+    display: inline-block;
+    width: 35%;
+    font-size: 20px;
+}
+
+
 .menuSubject {
     color: white;
     display: block;
@@ -49,6 +87,18 @@ label {
 }
 
 .subjectList:hover {
+    font-weight: bold;
+}
+
+.lectureList {
+    display: block;
+    list-style-type: none;
+    font-size: 13pt;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.lectureList:hover {
     font-weight: bold;
 }
 

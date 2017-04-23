@@ -9,5 +9,5 @@
 
   $db = new Database();
   $db->createLecturerUser($email, $password, $firstName, $lastName, $university);
-  header("Location: lecturerindex.html");
+  header("Location: lecturerIndex.html");
 ?>
