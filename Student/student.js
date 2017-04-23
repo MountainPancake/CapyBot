@@ -214,7 +214,6 @@ function openQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
-            console.log(this);
             var question_page = 1;
             insertPost(question_page);
         }
