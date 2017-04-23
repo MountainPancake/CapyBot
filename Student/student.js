@@ -63,16 +63,12 @@ function openLecture(){
 
 function updateLecture(){
 
-    //Synliggjøre/gjemme question-box ut i fra om lecturer har stillt spørsmål eller ikke
-    /*if(){
-        $("#lecturer_quest").hide();
-    }*/
-
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          document.getElementById("subject").innerHTML = myObj.subject;
+          console.log(myObj);
+          document.getElementById("subject").innerHTML = myObj.title;
       }
     };
 
