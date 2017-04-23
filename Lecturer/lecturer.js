@@ -647,53 +647,71 @@ function startLecture() {
     divBefore.style.display = "none";
     button.style.display = "none";
 
+    setInterval(function(){ renderStudentQuestions(); }, 1000);
 }
 
-//Setter inn spørsmål stilt av studentene
-function insertStudentPosts(){
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          var questBox = document.createElement("div");
-          questBox.innerHTML =
-          '<div class="quest">'
-              +'<h5 class="question"></h5>'
-          +'</div>'
-          +'<div>'
-              +'<h5 class="upvotes"></h5>'
-          +'</div>';
-          var myObj = JSON.parse(this.responseText);
-          if(myObj){
-              var newQuest = document.getElementById("newQuest");
-              Object.keys(myObj).forEach(function(key) {
-                  var entry = myObj[key];
-                  //Clone questBox
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                  // Append the clone at the top
-                  newQuest.appendChild(clone);
 
-              });
-              myObj.sort(function(a,b){
-                  return parseInt(b.upvotes) - parseInt(a.upvotes);
-              });
-              myObj = myObj.slice(0,5);
-              var topQuest = document.getElementById("topQuest");
-              myObj.forEach(function(entry){
-                  //Clone questBox
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                  // Append the clone at the top
-                  topQuest.appendChild(clone);
-              });
-          }
+/*
+Fetches and renders questions/posts submited by students.
+"Post" and "question" used interchangably.
+Post is the name of the database-table while quesiton has a
+more intuitive relation to the concept.
+*/
+function renderStudentQuestions(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //Constructs the template for questions-elements
+      var questBox = document.createElement("div");
+      questBox.innerHTML =
+      '<div class="quest">'
+          +'<h5 class="question"></h5>'
+      +'</div>'
+      +'<div>'
+          +'<h5 class="upvotes"></h5>'
+      +'</div>';
+      //Parsing post-data from the database
+      var myObj = JSON.parse(this.responseText);
+      if(myObj){
+
+        //Rendering new quesions
+        //Fetches the parent element for all the newest quesions
+        var newQuest = document.getElementById("newQuest");
+        newQuest.innerHTML = "";
+        myObj.forEach(function(entry){
+          //Clone questBox
+          var clone = questBox.cloneNode(true);
+          // Set the question and upvotes
+          clone.querySelector(".question").innerHTML = entry.text;
+          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+          //Appending to parent
+          newQuest.appendChild(clone);
+        });
+
+        //Rendering top 5 most upvotes questions
+        //Sorting quesitons by upvotes and slicing the 5 first ones
+        myObj.sort(function(a,b){
+          return parseInt(b.upvotes) - parseInt(a.upvotes);
+        });
+        myObj = myObj.slice(0,5);
+        //Fetches the parent element for questions with the most votes
+        var topQuest = document.getElementById("topQuest");
+        topQuest.innerHTML = "";
+        myObj.forEach(function(entry){
+          //Clone questBox
+          var clone = questBox.cloneNode(true);
+          // Set the question and upvotes
+          clone.querySelector(".question").innerHTML = entry.text;
+          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+          //Appending to parent
+          topQuest.appendChild(clone);
+        });
+
       }
-    };
-    var data = "lecture_ID="+document.getElementById("lectureID").innerHTML;
-    xmlhttp.open("GET", "getPostsSortedByTime.php", true);
-    xmlhttp.send(data);
+    }
+  };
+  var data = "lectureID="+document.getElementById("lectureID").innerHTML;
+  xhttp.open("POST", "getPostsSortedByTime.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(data);
 }
