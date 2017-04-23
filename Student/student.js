@@ -103,7 +103,7 @@ function updateResponses(){
                   responses.appendChild(button);
 
                   button.addEventListener("click", function(){
-                      giveResponse(this.innerHTML, this.id);
+                      giveResponse(this.innerHTML);
                   });
               }
 
@@ -115,11 +115,23 @@ function updateResponses(){
     xmlhttp.send();
 }
 
-function giveResponse(text, lecture_ID){
-    console.log(lecture_ID, text);
-
+function giveResponse(text){
+    console.log(text);
     //button.disabled = true;
-    //var dataString = "ID="+ button.getAttribute("name");
+    var dataString = "responseType=" + text;
+    $.ajax({
+        type: "GET",
+        url: "insertResponse.php",
+        data: dataString,
+        success: function(responseText){
+            console.log(responseText);
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
+
 }
 
 
