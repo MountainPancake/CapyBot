@@ -564,6 +564,7 @@ function getResponseButtons(lectureID) {
                     span.className = "label label-primary";
                     span2.className = "label label-primary";
                     p.className = "counter";
+                    p.id = myObj[x].text;
                     p.appendChild(counter);
                     span.appendChild(text);
                     span2.appendChild(text2);
@@ -584,9 +585,31 @@ function getResponseButtons(lectureID) {
 }
 
 
+/*    Lecture.html -  get lecure by ID when adding new response button  */
+
+function addResponseButton() {
+    event.preventDefault();
+
+    var lectureID = document.getElementById("lectureID").innerHTML;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            addResponseButton2(myObj);
+            }
+    };
+
+    var data = "ID=" + lectureID;
+    xhttp.open("POST", "getLectureByID.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
+}
+
 /*    lecture.html - add new response button    */
 
-function addResponseButton(lecture) {
+function addResponseButton2(lecture) {
     var responseType = document.getElementById("responseType").value;
     if (responseType==""){
         alert("Reponse type cannot be empty.");
@@ -612,28 +635,6 @@ function addResponseButton(lecture) {
     }
 }
 
-/*    Lecture.html -  get lecure by ID when adding button  */
-
-function getLectureByID() {
-    event.preventDefault();
-
-    var lectureID = document.getElementById("lectureID").innerHTML;
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(this.responseText);
-
-            addResponseButton(myObj);
-            }
-    };
-
-    var data = "ID=" + lectureID;
-    xhttp.open("POST", "getLectureByID.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(data);
-}
-
 
 
 /*    Lecture.html -  Show more content when lecture starts, and remove some  */
@@ -646,6 +647,39 @@ function startLecture() {
     div.style.display = "block";
     divBefore.style.display = "none";
     button.style.display = "none";
+
+    getCounter();
+
+}
+
+
+/*    Lecture.html -  get counter for each response type */
+
+function getCounter() {
+    var id = document.getElementById("lectureID").innerHTML;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            if (this.responseText=="[]"){
+                return;
+            }
+
+            else {
+                for (x in myObj) {
+                    responseType = document.getElementById(myObj[x].response_type);
+                    responseType.innerHTML = myObj[x].count;
+                }
+            }
+        }
+    };
+
+    var data = "lectureID=" + id;
+    xhttp.open("POST", "getLectureResponseStatistics.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
 
     setInterval(function(){ renderStudentQuestions(); }, 1000);
 }
