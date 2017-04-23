@@ -92,19 +92,21 @@ function updateResponses(){
               var responses = document.getElementById("responses");
 
               for (x in myObj) {
-                  console.log(myObj[x]);
                   response = myObj[x].text;
 
-                  var h2 = document.createElement("h2");
-                  var span = document.createElement("span");
+                  var button = document.createElement("button");
                   var text = document.createTextNode(response);
 
-                  h2.className = "responseButton";
-                  span.className = "label label-primary";
-                  span.appendChild(text);
-                  h2.appendChild(span);
-                  responses.appendChild(h2);
+                  button.className = "btn btn-primary btn-lg";
+                  button.appendChild(text);
+                  button.id = myObj[x].lecture_ID;
+                  responses.appendChild(button);
+
+                  button.addEventListener("click", function(){
+                      giveResponse(this.innerHTML, this.id);
+                  });
               }
+
           }
       }
     };
@@ -113,6 +115,12 @@ function updateResponses(){
     xmlhttp.send();
 }
 
+function giveResponse(text, lecture_ID){
+    console.log(lecture_ID, text);
+
+    //button.disabled = true;
+    //var dataString = "ID="+ button.getAttribute("name");
+}
 
 
 //Åpner siden Profile og oppdaterer den onclick!
