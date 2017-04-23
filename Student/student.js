@@ -63,28 +63,75 @@ function openLecture(){
 
 function updateLecture(){
 
-    //Synliggjøre/gjemme question-box ut i fra om lecturer har stillt spørsmål eller ikke
-    /*if(){
-        $("#lecturer_quest").hide();
-    }*/
-
-    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          myObj = JSON.parse(this.responseText);
-          document.getElementById("subject").innerHTML = myObj.name;
-          document.getElementById("slowDown").innerHTML = myObj.responses[0];
-          document.getElementById("speedUp").innerHTML = myObj.responses[1];
-          document.getElementById("tooHard").innerHTML = myObj.responses[2];
-          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+          var myObj = JSON.parse(this.responseText);
+          document.getElementById("subject").innerHTML = myObj.title;
+          updateResponses();
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php", true);
+    xmlhttp.open("GET", "getLecture.php?q=", true);
     xmlhttp.send();
 }
 
+function updateResponses(){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var myObj = JSON.parse(this.responseText);
+
+          if(this.responseText=="[]"){
+              document.getElementById("header").style.display = "none";
+          }
+
+          else{
+              var responsesDiv = document.getElementById("responsesDiv");
+              var responses = document.getElementById("responses");
+
+              for (x in myObj) {
+                  response = myObj[x].text;
+
+                  var button = document.createElement("button");
+                  var text = document.createTextNode(response);
+
+                  button.className = "btn btn-primary btn-lg";
+                  button.appendChild(text);
+                  button.id = myObj[x].lecture_ID;
+                  responses.appendChild(button);
+
+                  button.addEventListener("click", function(){
+                      giveResponse(this.innerHTML);
+                  });
+              }
+
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getResponseButtons.php?q=", true);
+    xmlhttp.send();
+}
+
+function giveResponse(text){
+    //button.disabled = true;
+    var dataString = "responseType=" + text;
+    $.ajax({
+        type: "POST",
+        url: "insertResponse.php",
+        data: dataString,
+        success: function(responseText){
+            console.log(responseText);
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
+
+}
 
 
 //Åpner siden Profile og oppdaterer den onclick!
@@ -202,7 +249,7 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                  
+                
                   clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
                   // Append the clone at the top
