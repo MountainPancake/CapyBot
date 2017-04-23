@@ -1,0 +1,75 @@
+<!-- main -->
+<h1 class="page-header" id="lectureName">Lecture_name</h1>
+
+<h3>Lecture info:</h3>
+
+<div class="row">
+    <div class="well lectureBox col-sm-6">
+        <p class="left">Name:</p>
+        <p id="lectureNameInfo" class="right">name</p>
+        <p class="left">Subject:</p>
+        <p id="lectureCategory" class="right">Subject:</p>
+        <p class="left">Date:</p>
+        <p id="lectureDate" class="right">Date:</p>
+        <p class="left">Time:</p>
+        <p id="lectureTime" class="right">Time:</p>
+    </div>
+
+    <div class="well lectureBox col-sm-5">
+        <p style="font-size:25px;">Lecture pin:</p>
+        <p id="lectureID" style="font-size:65px; font-weight:bold;">Lecture pin:</p>
+
+    </div>
+</div>
+
+<div id="lectureNotStartedDiv">
+
+    <h3> Response buttons:</h3>
+    <div class="row">
+        <div id="responseTitles" class="well lectureBox col-sm-6">
+            <div id="noResponsesDiv"></div>
+        </div>
+
+        <div class="well lectureBox col-sm-5">
+            <h4 class="sub-header">Add response type:</h4>
+            <form onsubmit="return addResponseButton()">
+                <div style="display:inline-block; width:80%;">
+                    <input class="form-control" id="responseType" type="text" placeholder="Response type"></input>
+                </div>
+                <div style="display:inline-block; width:15%;">
+                    <button type="submit" name="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<br />
+
+<button onclick="startLecture()" id="startLectureButton" class="btn btn-lg btn-success form-control" style="height:45px;">Start lecture!</button>
+
+<div id="lectureStartedDiv">
+
+    <h3> Response buttons:</h3>
+
+    <div id="responses" class="well">
+        <div id="noResponsesDiv2"></div>
+    </div>
+
+
+    <h3 class="sub-header"> Questions:</h3>
+    <h4> Top 5:</h4>
+    <div class="well" id="topQuest">
+
+    </div>
+    <h4> Newest:</h4>
+    <div class="well" id="newQuest">
+
+    </div>
+
+</div>
+
+
+
+<!-- end main -->

@@ -1,4 +1,3 @@
-
 /* Login function */
 function lecturerLogin(){
   event.preventDefault();
@@ -21,12 +20,43 @@ function lecturerLogin(){
   });
 }
 
-/*   Get subjects for menu    */
-function getMenu() {
+/* Log out function */
+function signOut(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            window.location.href = "lecturerIndex.html"
+        }
+    };
+    xhttp.open("POST", "logOut.php", true);
+    xhttp.send();
+}
+
+/*   Get email    */
+function getEmail() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            var email = document.getElementById("email");
+            email.innerHTML = myObj;
+        }
+    };
+
+    xhttp.open("POST", "getEmail.php", true);
+    xhttp.send();
+}
+
+
+/*   Get subjects for menu    */
+function getMenu() {
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+
+            myObj = JSON.parse(this.responseText);
 
             var subjects = document.getElementById("subjectMenu");
 
@@ -91,9 +121,9 @@ function getSubjects() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            myObj = JSON.parse(this.responseText);
 
-            if (JSON.parse(this.responseText)=="null"){
+            if (this.responseText=="[]"){
                 var ingenFagDiv = document.getElementById("ingenFagDiv");
                 var text = document.createTextNode("You don't have any subjects yet! Create one below.")
                 if (ingenFagDiv==null){return;}
@@ -102,8 +132,6 @@ function getSubjects() {
 
             else {
                 var subjects = document.getElementById("mySubjects");
-                if (subjects==null){return;}
-                else {
                     for (x in myObj) {
                         subject = myObj[x].name;
 
@@ -115,7 +143,6 @@ function getSubjects() {
                         var text = document.createTextNode(subject);
                         listElement.appendChild(text);
                         subjects.appendChild(listElement);
-                    }
                 }
             }
         }
@@ -160,11 +187,10 @@ function createLecture() {
 /*    Gets lecturers subjects for drop down menu when creating lecture    */
 
 function getDropDown() {
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
+            myObj = JSON.parse(this.responseText);
 
             var chooseSubject = document.getElementById("chooseSubject");
 
@@ -330,9 +356,6 @@ function subjectSuccessful() {
 /*   Open correct subject when cliking on menu item    */
 
 function openSubject(subject) {
-
-    console.log(subject);
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -342,6 +365,7 @@ function openSubject(subject) {
             header.innerHTML = subject;
 
             getLecturesForSubject(subject);
+
         }
     };
 
@@ -353,44 +377,45 @@ function openSubject(subject) {
 /*   Subject.html -  Get all lectures for a given subject, for the signed in lecturer    */
 
 function getLecturesForSubject(subject) {
-    console.log(subject);
+    var noLecturesDiv = document.getElementById("noLecturesDiv");
+    var lectures = document.getElementById("lecturesForSubject");
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(JSON.parse(this.responseText));
-            console.log(myObj);
+            myObj = JSON.parse(this.responseText);
 
-            if (JSON.parse(this.responseText)=="null"){
-                var noLecturesDiv = document.getElementById("noLecturesDiv");
+            if (this.responseText=="null"){
                 var text = document.createTextNode("You don't have any lectures for this subject yet! Create one below.")
-                if (noLecturesDiv==null){return;}
-                else {noLecturesDiv.appendChild(text);}
+                noLecturesDiv.appendChild(text);
             }
 
             else {
-                var lectures = document.getElementById("lecturesForSubject");
-                if (lectures==null){return;}
-                else {
-                    for (x in myObj) {
-                        lecture = myObj[x].name;
+                for (x in myObj) {
+                    lecture = myObj[x].title;
+                    lectureDate = myObj[x].date;
 
-                        var noLecturesDiv = document.getElementById("noLecturesDiv");
-                        noLecturesDiv.style.display = "none";
+                    noLecturesDiv.style.display = "none";
 
-                        var listElement = document.createElement("li");
-                        listElement.className = "lectureList";
-                        var text = document.createTextNode(lecture);
-                        listElement.appendChild(text);
-                        lectures.appendChild(listElement);
-                    }
+                    var listElement = document.createElement("li");
+                    listElement.className = "lectureList";
+                    listElement.id = x;
+                    listElement.addEventListener("click", function() {
+                        /*   Open correct lecture when cliking on lecture in menu   */
+                        openLecture(myObj[this.id]);
+                    });
+                    var text = document.createTextNode(lecture + " - " + lectureDate);
+                    listElement.appendChild(text);
+                    lectures.appendChild(listElement);
                 }
             }
         }
-      };
+    };
 
+    var postData = "category=" + subject + "&";
     xhttp.open("POST", "getLecturesForSubject.php", true);
-    xhttp.send("category="+subject);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(postData);
 }
 
 
@@ -413,20 +438,6 @@ function hideCreateLectureBox() {
     button.style.display = "block";
     error.style.display = "none";
 
-}
-
-function newLectureCreated() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("main").innerHTML = xhttp.responseText;
-        }
-    };
-
-    //getLecturesForSubject();
-
-    xhttp.open("POST", "subject.html", true);
-    xhttp.send();
 }
 
 /*    Subject.html - New lecture created inside subject    */
@@ -471,7 +482,7 @@ function createNewLecture(){
             url: "createLecture.php",
             data: dataString,
             success: function(text) {
-                newLectureCreated();
+                openSubject(category);
             },
             error: function(jqXHR, exception) {
                 console.log(jqXHR);
@@ -479,4 +490,262 @@ function createNewLecture(){
 
         });
     }
+}
+
+
+/*    Lecture.html -  Open given lecture when clicking on it  */
+
+function openLecture(myObj) {
+    var lecture = myObj;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("main").innerHTML = xhttp.responseText;
+
+            getResponseButtons(lecture.ID);
+
+            var header = document.getElementById("lectureName");
+            var lectureName = document.getElementById("lectureNameInfo");
+            var lectureDate = document.getElementById("lectureDate");
+            var lectureTime = document.getElementById("lectureTime");
+            var lectureCategory = document.getElementById("lectureCategory");
+            var lectureID = document.getElementById("lectureID");
+
+            header.innerHTML = lecture.title;
+            lectureName.innerHTML = lecture.title;
+            lectureDate.innerHTML = lecture.date;
+            lectureTime.innerHTML = lecture.time;
+            lectureCategory.innerHTML = lecture.category_name;
+            lectureID.innerHTML = lecture.ID;
+        }
+    };
+
+    xhttp.open("POST", "lecture.html", true);
+    xhttp.send();
+}
+
+/*    Lecture.html -  Get response buttons for given lecture  */
+
+function getResponseButtons(lectureID) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            var noResponsesDiv = document.getElementById("noResponsesDiv");
+            var noResponsesDiv2 = document.getElementById("noResponsesDiv2");
+            var responses = document.getElementById("responses");
+            var responseTitles = document.getElementById("responseTitles");
+
+            if (this.responseText=="[]"){
+                var text = document.createTextNode("You don't have any response buttons for this lecture yet, add some.")
+                var text2 = document.createTextNode("You didn't add response buttons for this lecture.")
+                noResponsesDiv.appendChild(text);
+                noResponsesDiv2.appendChild(text2);
+            }
+
+            else {
+                for (x in myObj) {
+                    response = myObj[x].text;
+                    noResponsesDiv.style.display = "none";
+                    noResponsesDiv2.style.display = "none";
+
+                    var h2 = document.createElement("h2");
+                    var span = document.createElement("span");
+                    var span2 = document.createElement("span");
+                    var text = document.createTextNode(response);
+                    var text2 = document.createTextNode(response);
+                    var p = document.createElement("p");
+                    var counter = document.createTextNode("0");
+                    var h3 = document.createElement("h3");
+
+                    h2.className = "responseButton";
+                    span.className = "label label-primary";
+                    span2.className = "label label-primary";
+                    p.className = "counter";
+                    p.id = myObj[x].text;
+                    p.appendChild(counter);
+                    span.appendChild(text);
+                    span2.appendChild(text2);
+                    h2.appendChild(span);
+                    h3.appendChild(span2);
+                    responses.appendChild(h2);
+                    responses.appendChild(p);
+                    responseTitles.appendChild(h3);
+                }
+            }
+        }
+    };
+
+    var data = "lectureID=" + lectureID;
+    xhttp.open("POST", "getResponseButtons.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
+}
+
+
+/*    Lecture.html -  get lecure by ID when adding new response button  */
+
+function addResponseButton() {
+    event.preventDefault();
+
+    var lectureID = document.getElementById("lectureID").innerHTML;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            addResponseButton2(myObj);
+            }
+    };
+
+    var data = "ID=" + lectureID;
+    xhttp.open("POST", "getLectureByID.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
+}
+
+/*    lecture.html - add new response button    */
+
+function addResponseButton2(lecture) {
+    var responseType = document.getElementById("responseType").value;
+    if (responseType==""){
+        alert("Reponse type cannot be empty.");
+    }
+    else {
+        var lectureID = lecture.ID;
+
+        event.preventDefault();
+        var dataString = 'responseType=' + responseType + '&lectureID=' + lectureID;
+
+        $.ajax({
+            type: "POST",
+            url: "addResponseType.php",
+            data: dataString,
+            success: function(text) {
+                openLecture(lecture);
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
+            }
+
+        });
+    }
+}
+
+
+
+/*    Lecture.html -  Show more content when lecture starts, and remove some  */
+
+function startLecture() {
+    var button = document.getElementById("startLectureButton");
+    var div = document.getElementById("lectureStartedDiv");
+    var divBefore = document.getElementById("lectureNotStartedDiv");
+
+    div.style.display = "block";
+    divBefore.style.display = "none";
+    button.style.display = "none";
+
+    getCounter();
+
+}
+
+
+/*    Lecture.html -  get counter for each response type */
+
+function getCounter() {
+    var id = document.getElementById("lectureID").innerHTML;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+
+            if (this.responseText=="[]"){
+                return;
+            }
+
+            else {
+                for (x in myObj) {
+                    responseType = document.getElementById(myObj[x].response_type);
+                    responseType.innerHTML = myObj[x].count;
+                }
+            }
+        }
+    };
+
+    var data = "lectureID=" + id;
+    xhttp.open("POST", "getLectureResponseStatistics.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
+
+    setInterval(function(){ renderStudentQuestions(); }, 1000);
+}
+
+
+/*
+Fetches and renders questions/posts submited by students.
+"Post" and "question" used interchangably.
+Post is the name of the database-table while quesiton has a
+more intuitive relation to the concept.
+*/
+function renderStudentQuestions(){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //Constructs the template for questions-elements
+      var questBox = document.createElement("div");
+      questBox.innerHTML =
+      '<div class="quest">'
+          +'<h5 class="question"></h5>'
+      +'</div>'
+      +'<div>'
+          +'<h5 class="upvotes"></h5>'
+      +'</div>';
+      //Parsing post-data from the database
+      var myObj = JSON.parse(this.responseText);
+      if(myObj){
+
+        //Rendering new quesions
+        //Fetches the parent element for all the newest quesions
+        var newQuest = document.getElementById("newQuest");
+        newQuest.innerHTML = "";
+        myObj.forEach(function(entry){
+          //Clone questBox
+          var clone = questBox.cloneNode(true);
+          // Set the question and upvotes
+          clone.querySelector(".question").innerHTML = entry.text;
+          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+          //Appending to parent
+          newQuest.appendChild(clone);
+        });
+
+        //Rendering top 5 most upvotes questions
+        //Sorting quesitons by upvotes and slicing the 5 first ones
+        myObj.sort(function(a,b){
+          return parseInt(b.upvotes) - parseInt(a.upvotes);
+        });
+        myObj = myObj.slice(0,5);
+        //Fetches the parent element for questions with the most votes
+        var topQuest = document.getElementById("topQuest");
+        topQuest.innerHTML = "";
+        myObj.forEach(function(entry){
+          //Clone questBox
+          var clone = questBox.cloneNode(true);
+          // Set the question and upvotes
+          clone.querySelector(".question").innerHTML = entry.text;
+          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+          //Appending to parent
+          topQuest.appendChild(clone);
+        });
+
+      }
+    }
+  };
+  var data = "lectureID="+document.getElementById("lectureID").innerHTML;
+  xhttp.open("POST", "getPostsSortedByTime.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(data);
 }
