@@ -1,3 +1,42 @@
+//Haralds kode for StudentLogin
+/*
+function studentLogin(){
+    event.preventDefault();
+    var dataString = "email="+document.getElementByIdI("email").value+"&password="+document.getElementById("password").value;
+
+    $.ajax({
+        type: "POST",
+        url: "studentLogin.php",
+        data: dataString,
+        success: function(text) {
+            if(text == "success"){
+                location.href = "studentNotInLecture.html"
+            }
+            else{
+                alert("Login failed. \nUsername and/or password incorrect.")
+            }
+        } 
+        error: function (jqXHR, exception) {
+            console.log(jqXHR);
+        }
+    });
+}
+
+*/
+function studentLogout(){
+    event.preventDefault();
+
+
+    $.ajax({
+
+    })
+}
+
+
+//slutt på haralds kode
+
+
+
 //Åpner siden Sign In
 function openSignIn(){
     var activeSignIn = document.getElementById("activeSignIn");
