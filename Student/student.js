@@ -95,6 +95,7 @@ function updateResponses(){
                   response = myObj[x].text;
 
                   var button = document.createElement("button");
+                  button.style.margin = "5px";
                   var text = document.createTextNode(response);
 
                   button.className = "btn btn-primary btn-lg";
@@ -249,7 +250,7 @@ function insertPost(){
                   // Set the question and upvotes
                   clone.querySelector(".question").innerHTML = entry.text;
                   clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                
+
                   clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
                   // Append the clone at the top
