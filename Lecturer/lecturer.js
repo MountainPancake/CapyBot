@@ -648,3 +648,52 @@ function startLecture() {
     button.style.display = "none";
 
 }
+
+//Setter inn spørsmål stilt av studentene
+function insertStudentPosts(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var questBox = document.createElement("div");
+          questBox.innerHTML =
+          '<div class="quest">'
+              +'<h5 class="question"></h5>'
+          +'</div>'
+          +'<div>'
+              +'<h5 class="upvotes"></h5>'
+          +'</div>';
+          var myObj = JSON.parse(this.responseText);
+          if(myObj){
+              var newQuest = document.getElementById("newQuest");
+              Object.keys(myObj).forEach(function(key) {
+                  var entry = myObj[key];
+                  //Clone questBox
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  newQuest.appendChild(clone);
+
+              });
+              myObj.sort(function(a,b){
+                  return parseInt(b.upvotes) - parseInt(a.upvotes);
+              });
+              myObj = myObj.slice(0,5);
+              var topQuest = document.getElementById("topQuest");
+              myObj.forEach(function(entry){
+                  //Clone questBox
+                  var clone = questBox.cloneNode(true);
+                  // Set the question and upvotes
+                  clone.querySelector(".question").innerHTML = entry.text;
+                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                  // Append the clone at the top
+                  topQuest.appendChild(clone);
+              });
+          }
+      }
+    };
+    var data = "lecture_ID="+document.getElementById("lectureID").innerHTML;
+    xmlhttp.open("GET", "getPostsSortedByTime.php", true);
+    xmlhttp.send(data);
+}
