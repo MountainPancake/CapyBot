@@ -68,21 +68,44 @@ function updateLecture(){
         $("#lecturer_quest").hide();
     }*/
 
-    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-          myObj = JSON.parse(this.responseText);
-          document.getElementById("subject").innerHTML = myObj.name;
-          document.getElementById("slowDown").innerHTML = myObj.responses[0];
-          document.getElementById("speedUp").innerHTML = myObj.responses[1];
-          document.getElementById("tooHard").innerHTML = myObj.responses[2];
-          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
-      }
-    };
+    //Henter ut det innholdet vi trenger fra "postResponse.php"
+    var lectureID = lecture.ID;
 
-    xmlhttp.open("GET", "getLecture.php", true);
-    xmlhttp.send();
+        event.preventDefault();
+        var dataString = 'responseType=' + responseType;
+
+        $.ajax({
+            type: "POST",
+            url: "postResponse.php",
+            data: dataString,
+            success: function(text) {
+                openLecture(lecture);
+            },
+            error: function(jqXHR, exception) {
+                console.log(jqXHR);
+            }
+
+        });
+}
+
+function updateResponses(){
+    var lectureID = lecture.ID;
+
+    event.preventDefault();
+    var dataString = 'responseType=' + responseType;
+
+    $.ajax({
+        type: "POST",
+        url: "postResponse.php",
+        data: dataString,
+        success: function(text) {
+            openLecture(lecture);
+        },
+        error: function(jqXHR, exception) {
+            console.log(jqXHR);
+        }
+
+    });
 }
 
 
