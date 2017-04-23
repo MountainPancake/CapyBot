@@ -116,11 +116,10 @@ function updateResponses(){
 }
 
 function giveResponse(text){
-    console.log(text);
     //button.disabled = true;
     var dataString = "responseType=" + text;
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "insertResponse.php",
         data: dataString,
         success: function(responseText){
