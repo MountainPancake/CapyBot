@@ -67,33 +67,51 @@ function updateLecture(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          console.log(myObj);
           document.getElementById("subject").innerHTML = myObj.title;
+          updateResponses();
       }
     };
 
     xmlhttp.open("GET", "getLecture.php?q=", true);
     xmlhttp.send();
 }
-/*
+
 function updateResponses(){
 
-    event.preventDefault();
-    var dataString = 'responseType=' + responseType;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var myObj = JSON.parse(this.responseText);
 
-    $.ajax({
-        type: "POST",
-        url: "getLecture.php",
-        data: dataString,
-        success: function(text) {
-            openLecture(lecture);
-        },
-        error: function(jqXHR, exception) {
-            console.log(jqXHR);
-        }
+          if(this.responseText=="[]"){
+              document.getElementById("header").style.display = "none";
+          }
 
-    });
-}*/
+          else{
+              var responsesDiv = document.getElementById("responsesDiv");
+              var responses = document.getElementById("responses");
+
+              for (x in myObj) {
+                  console.log(myObj[x]);
+                  response = myObj[x].text;
+
+                  var h2 = document.createElement("h2");
+                  var span = document.createElement("span");
+                  var text = document.createTextNode(response);
+
+                  h2.className = "responseButton";
+                  span.className = "label label-primary";
+                  span.appendChild(text);
+                  h2.appendChild(span);
+                  responses.appendChild(h2);
+              }
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getResponseButtons.php?q=", true);
+    xmlhttp.send();
+}
 
 
 
