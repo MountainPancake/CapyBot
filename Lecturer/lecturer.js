@@ -648,8 +648,15 @@ function startLecture() {
     divBefore.style.display = "none";
     button.style.display = "none";
 
-    getCounter();
+    setInterval(function(){ updateCounterAndQuestions(); }, 1000);
 
+}
+
+/*    Lecture.html -  Update questions and counters at given time interval  */
+
+function updateCounterAndQuestions() {
+    getCounter();
+    renderStudentQuestions()
 }
 
 
@@ -680,8 +687,6 @@ function getCounter() {
     xhttp.open("POST", "getLectureResponseStatistics.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
-
-    setInterval(function(){ renderStudentQuestions(); }, 1000);
 }
 
 
