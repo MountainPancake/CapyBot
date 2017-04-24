@@ -90,9 +90,10 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
 
   public function testPostInsertReadUpvoteAndDelete(){
     $lectureID = 0;
+    $posted_by_ID = 40;
     $postTexts = array("Tekst1","Tekst2");
     foreach ($postTexts as $text) {
-      $inserted = $this->db->insertPost($lectureID,$text);
+      $inserted = $this->db->insertPost($lectureID,$posted_by_ID,$text);
       $this->assertTrue($inserted);
     }
     //Checking existence of inserted posts, upvoting them and deleting
@@ -103,6 +104,7 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
       //Checking if new upvote-value is 1 higher than previous
       $updatedPost = $this->db->getPostByID($post["ID"]);
       $this->assertEquals($upvotes+1,$updatedPost["upvotes"]);
+      $this->assertEquals($posted_by_ID,$updatedPost["posted_by_ID"]);
       //Delete post
       $deleted = $this->db->deletePostByID($post["ID"]);
       $this->assertTrue($deleted);
