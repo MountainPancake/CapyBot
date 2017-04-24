@@ -167,7 +167,8 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
+          console.log(myObj);
+          document.getElementById("name").innerHTML = myObj.email;
           //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
           //document.getElementById("rank").innerHTML = myObj.rank;
       }
