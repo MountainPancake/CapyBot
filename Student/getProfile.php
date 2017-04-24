@@ -1,7 +1,9 @@
 <?php
     session_start();
     require '../Database.php';
+    $email = $_SESSION["email"];
     $db = new Database();
-    $profil = $db->getUserByEmail($_SESSION["email"]);
-    echo json_encode($profile);
+    $success = $db->getUserByEmail($email);
+    $data = json_encode($success);
+    echo $data;
 ?>
