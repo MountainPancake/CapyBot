@@ -86,7 +86,7 @@ function updateResponses(){
           var myObj = JSON.parse(this.responseText);
 
           if(this.responseText=="[]"){
-              document.getElementById("header").style.display = "none";
+              document.getElementById("giveFeedbackHeader").style.display = "none";
           }
 
           else{
@@ -233,23 +233,50 @@ function insertPost(input){
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          var questBox = document.createElement("div");
-          questBox.className = "questbox";
-          questBox.innerHTML =
-          '<div class="quest">'
-              +'<h5 class="question"></h5>'
-          +'</div>'
-          +'<div class="up-vote">'
-              +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
-                  +'<div class="arrow-up"/>'
-              +'</button>'
-              +'<h5 class="upvotes"></h5>'
-          +'</div>';
+
           var myObj = JSON.parse(this.responseText);
-          if(myObj){
-              if(input === 1){
-                  Object.keys(myObj).forEach(function(key) {
-                      var entry = myObj[key];
+
+          if(this.responseText=="[]"){
+              document.getElementById("top_quest").innerHTML = "There are no questions yet!";
+              document.getElementById("new_quest").innerHTML = "There are no questions yet!";
+          }
+          else{
+              var questBox = document.createElement("div");
+              questBox.className = "questbox";
+              questBox.innerHTML =
+              '<div class="quest">'
+                  +'<h5 class="question"></h5>'
+              +'</div>'
+              +'<div class="up-vote">'
+                  +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
+                      +'<div class="arrow-up"/>'
+                  +'</button>'
+                  +'<h5 class="upvotes"></h5>'
+              +'</div>';
+
+              if(myObj){
+                  if(input === 1){
+                      Object.keys(myObj).forEach(function(key) {
+                          var entry = myObj[key];
+                          // Get the first .questbox and clone it
+                          var clone = questBox.cloneNode(true);
+                          // Set the question and upvotes
+                          clone.querySelector(".question").innerHTML = entry.text;
+                          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+
+                          clone.querySelector(".knapp").setAttribute('name', entry.ID);
+
+                          // Append the clone at the top
+                          new_quest.appendChild(clone);
+
+                      });
+                  }
+                  myObj.sort(function(a,b){
+                      return parseInt(b.upvotes) - parseInt(a.upvotes);
+                  });
+                  myObj = myObj.slice(0,5);
+                  var top_quest = document.getElementById("top_quest");
+                  myObj.forEach(function(entry){
                       // Get the first .questbox and clone it
                       var clone = questBox.cloneNode(true);
                       // Set the question and upvotes
@@ -257,28 +284,10 @@ function insertPost(input){
                       clone.querySelector(".upvotes").innerHTML = entry.upvotes;
 
                       clone.querySelector(".knapp").setAttribute('name', entry.ID);
-
                       // Append the clone at the top
-                      new_quest.appendChild(clone);
-
+                      top_quest.appendChild(clone);
                   });
               }
-              myObj.sort(function(a,b){
-                  return parseInt(b.upvotes) - parseInt(a.upvotes);
-              });
-              myObj = myObj.slice(0,5);
-              var top_quest = document.getElementById("top_quest");
-              myObj.forEach(function(entry){
-                  // Get the first .questbox and clone it
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-
-                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
-                  // Append the clone at the top
-                  top_quest.appendChild(clone);
-              });
           }
       }
     };
@@ -324,30 +333,30 @@ function openHighscore(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateHighscore();
         }
     };
     xhttp.open("GET", "highscore.html", true);
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    updateHighscore();
+}
 
-    function updateHighscore(){
+function updateHighscore(){
 
-          //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myObj = JSON.parse(this.responseText);
-                document.getElementById("place").innerHTML = myObj.place;
-                document.getElementById("nickname").innerHTML = myObj.nickname;
-                document.getElementById("points").innerHTML = myObj.points;
-            }
-          };
+      //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("place").innerHTML = myObj.place;
+            document.getElementById("nickname").innerHTML = myObj.nickname;
+            document.getElementById("points").innerHTML = myObj.points;
+        }
+      };
 
-          xmlhttp.open("GET", "getHighscore.php?q=", true);
-          xmlhttp.send();
-    }
+      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.send();
 }
 
 
