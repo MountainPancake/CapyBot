@@ -173,7 +173,7 @@ function updateProfile(){
           var firstLetter = myObj.email.split("", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
-          //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+
           var updateProfile = true;
           insertPoints(updateProfile);
       }
@@ -309,7 +309,6 @@ function upvotePost(event){
         url: "studentUpvote.php",
         data: dataString,
         success: function(responseText){
-            //insertPost();
             var post = JSON.parse(responseText);
             button.parentElement.querySelector(".upvotes").innerHTML = post.upvotes;
         },
@@ -353,9 +352,9 @@ function updateHighscore(){
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            document.getElementById("place").innerHTML = myObj.place;
-            document.getElementById("nickname").innerHTML = myObj.nickname;
-            //document.getElementById("points").innerHTML = myObj.points;
+
+            var highsoreTable = document.getElementById("highscoreTable");
+
             var updateHighscore = true;
             insertPoints(updateHighscore);
         }
@@ -377,7 +376,7 @@ function insertPoints(orginFunciton){
               document.getElementById("highscorePoints").innerHTML = myObj.points;
           }
           if(orginFunciton == updateProfile){
-              document.getElementById("profilePoints").innerHTML = myObj.points;
+              document.getElementById("profilePoints").innerHTML = myObj.points + "nerdpoints";
           }
       }
     };
