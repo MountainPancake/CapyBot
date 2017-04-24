@@ -27,7 +27,7 @@ class Database{
   }
 
 //User methods
-  
+
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
     $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
     VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
@@ -194,9 +194,9 @@ function getResponseTypesAndCountByLectureID($lecture_ID){
   }
 
 //Post
-  function insertPost($lecture_ID,$text){
+  function insertPost($lecture_ID,$posted_by_ID, $text){
     $sql = "INSERT INTO Post (ID, lecture_ID, posted_by_ID, text, upvotes, time_posted)
-    VALUES (NULL, '$lecture_ID', NULL, '$text', 0, CURRENT_TIMESTAMP)";
+    VALUES (NULL, '$lecture_ID', '$posted_by_ID', '$text', 0, CURRENT_TIMESTAMP)";
     return mysqli_query($this->con, $sql);
   }
 
