@@ -41,7 +41,7 @@ session_start();
                 </button>
                 <ul id="navbar" class="nav navbar-nav navbar-right navbar-collapse collapse">
                     <li class="active" id="activeLecture"><a href="#" onclick="openLecture()">Lecture <span class="sr-only">(current)</span></a></li>
-                    <li id="activeQuestions"><a href="#" onclick="openQuestions()">Questions <span class="badge">4</badge></a></li>
+                    <li id="activeQuestions"><a href="#" onclick="openQuestions()">Questions</a></li>
                     <li id="activeHighscore"><a href="#" onclick="openHighscore()">Highscore</a></li>
                     <li id="activeProfile"><a href="#" onclick="openProfile()">Profile</a></li>
                 </ul>

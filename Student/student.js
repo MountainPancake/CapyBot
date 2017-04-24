@@ -31,6 +31,7 @@ function openProfile_notLoggedIn() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateProfile();
         }
     };
     xhttp.open("GET", "profile.html", true);
@@ -168,9 +169,11 @@ function updateProfile(){
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
           console.log(myObj);
-          document.getElementById("name").innerHTML = myObj.email;
+          var username = myObj.email.split("@", 1);
+          var firstLetter = myObj.email.split("", 1);
+          document.getElementById("name").innerHTML = username;
+          document.getElementById("email").innerHTML = myObj.email;
           //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-          //document.getElementById("rank").innerHTML = myObj.rank;
       }
     };
 
@@ -332,30 +335,30 @@ function openHighscore(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateHighscore();
         }
     };
     xhttp.open("GET", "highscore.html", true);
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    updateHighscore();
+}
 
-    function updateHighscore(){
+function updateHighscore(){
 
-          //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myObj = JSON.parse(this.responseText);
-                document.getElementById("place").innerHTML = myObj.place;
-                document.getElementById("nickname").innerHTML = myObj.nickname;
-                document.getElementById("points").innerHTML = myObj.points;
-            }
-          };
+      //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("place").innerHTML = myObj.place;
+            document.getElementById("nickname").innerHTML = myObj.nickname;
+            document.getElementById("points").innerHTML = myObj.points;
+        }
+      };
 
-          xmlhttp.open("GET", "getHighscore.php?q=", true);
-          xmlhttp.send();
-    }
+      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.send();
 }
 
 
