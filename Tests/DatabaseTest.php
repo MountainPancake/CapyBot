@@ -11,8 +11,8 @@ class DatabaseTest extends PHPUnit\Framework\TestCase
   }
 
   public function testDisconnectAndConnect(){
-    $is_dis_connected = $this->db->disconnect();
-    $this->assertTrue($is_dis_connected);
+    $is_disconnected = $this->db->disconnect();
+    $this->assertTrue($is_disconnected);
     $is_connected = $this->db->connect();
     $this->assertTrue($is_connected);
   }
