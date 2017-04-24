@@ -27,7 +27,7 @@ class Database{
   }
 
 //User methods
-  
+
   function insertUser($email, $password, $firstname, $lastname, $university, $is_student){
     $sql = "INSERT INTO User (ID, email, password, first_name, last_name, university, is_student)
     VALUES (NULL, '$email' , '$password','$firstname', '$lastname',  '$university', '$is_student')";
@@ -43,6 +43,11 @@ class Database{
     $sql = "SELECT * FROM User WHERE email = '$email'";
     $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
     return $assoc_array;
+  }
+
+  function addPointsByUserEmail($userEmail,$points){
+    $sql = "UPDATE User SET points = points + $points WHERE email = '$userEmail'";
+    return mysqli_query($this->con, $sql);
   }
 
   function createStudentUser($email, $password, $firstname, $lastname, $university){
