@@ -170,7 +170,6 @@ function updateProfile(){
           var myObj = JSON.parse(this.responseText);
           console.log(myObj);
           var username = myObj.email.split("@", 1);
-          var firstLetter = myObj.email.split("", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
 
@@ -354,13 +353,41 @@ function updateHighscore(){
             myObj = JSON.parse(this.responseText);
 
             var highsoreTable = document.getElementById("highscoreTable");
+            var rank = "SHIT";
+            var username = myObj.email.split("@", 1);
+
+            for (x in myObj){
+
+                var table = document.createElement("TABLE");
+                table.setAttribute("id", "myTable");
+                highsoreTable.appendChild(table);
+
+                var row = document.createElement("TR");
+                row.setAttribute("id", "myRow");
+                document.getElementById("myTable").appendChild(row);
+
+                var cell = document.createElement("TD");
+                var cell2 = document.createElement("TD");
+                //var cell3 = document.createElement("TD");
+
+                var rank = document.createTextNode(rank);
+                var username = document.createTextNode(username);
+                //var points = document.createTextNode(points);
+
+                cell.appendChild(rank);
+                cell2.appendChild(username);
+                //cell3.appendChild(points);
+
+                document.getElementById("myRow").appendChild(cell, cell2);
+
+            }
 
             var updateHighscore = true;
             insertPoints(updateHighscore);
         }
       };
 
-      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.open("GET", "getProfile.php?q=", true);
       xmlhttp.send();
 }
 
