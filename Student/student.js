@@ -31,6 +31,7 @@ function openProfile_notLoggedIn() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateProfile();
         }
     };
     xhttp.open("GET", "profile.html", true);
@@ -168,9 +169,11 @@ function updateProfile(){
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
           console.log(myObj);
-          document.getElementById("name").innerHTML = myObj.email;
+          var username = myObj.email.split("@", 1);
+          var firstLetter = myObj.email.split("", 1);
+          document.getElementById("name").innerHTML = username;
+          document.getElementById("email").innerHTML = myObj.email;
           //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-          //document.getElementById("rank").innerHTML = myObj.rank;
       }
     };
 
