@@ -216,16 +216,12 @@ body {
 .up-vote {
   display:inline-block;
   float:right;
-  width:25%; 
+  width:25%;
   text-align:center;
 }
 
-#profile_body {
-  text-align: center;
-}
 
-
-/* Highscore tabell */
+/* Highscore table */
 th, td {
     padding: 15px;
 }
@@ -244,6 +240,17 @@ tr:nth-child(even) {
 background-color: #e7e7e7;
 }
 
+
+/* Text-align for headers and text in student*/
+
 #subjectID {
     text-align: center;
+}
+
+#profile_body {
+  text-align: center;
+}
+
+#subject{
+  text-align: center;
 }
