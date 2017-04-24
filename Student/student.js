@@ -174,6 +174,8 @@ function updateProfile(){
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
           //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+          var updateProfile = true;
+          insertPoints(updateProfile);
       }
     };
 
@@ -353,7 +355,9 @@ function updateHighscore(){
             myObj = JSON.parse(this.responseText);
             document.getElementById("place").innerHTML = myObj.place;
             document.getElementById("nickname").innerHTML = myObj.nickname;
-            document.getElementById("points").innerHTML = myObj.points;
+            //document.getElementById("points").innerHTML = myObj.points;
+            var updateHighscore = true;
+            insertPoints(updateHighscore);
         }
       };
 
@@ -361,6 +365,26 @@ function updateHighscore(){
       xmlhttp.send();
 }
 
+
+//Function for inserting points when submitting and upvoting questions and
+//clicking on different responseButtons.
+function insertPoints(orginFunciton){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          if(orginFunciton == updateHighscore){
+              document.getElementById("highscorePoints").innerHTML = myObj.points;
+          }
+          if(orginFunciton == updateProfile){
+              document.getElementById("profilePoints").innerHTML = myObj.points;
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getPoints.php", true);
+    xmlhttp.send();
+}
 
 
 //Kollapser Navigationbar når man klikker på linkene i menyen
