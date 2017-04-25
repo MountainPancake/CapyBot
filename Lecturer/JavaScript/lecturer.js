@@ -634,8 +634,15 @@ function startLecture() {
     divBefore.style.display = "none";
     button.style.display = "none";
 
-    getCounter();
+    setInterval(function(){ updateCounterAndQuestions(); }, 1000);
 
+}
+
+/*    Lecture.html -  Update questions and counters at given time interval  */
+
+function updateCounterAndQuestions() {
+    getCounter();
+    renderStudentQuestions();
 }
 
 
@@ -647,16 +654,17 @@ function getCounter() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(this.responseText);
+            var myObj = JSON.parse(this.responseText);
 
-            if (this.responseText=="[]"){
-                return;
-            }
+            if (this.responseText=="[]"){return;}
 
             else {
                 for (x in myObj) {
-                    responseType = document.getElementById(myObj[x].response_type);
-                    responseType.innerHTML = myObj[x].count;
+                    if(myObj[x].response_type){
+                        responseType = document.getElementById(myObj[x].response_type);
+                        responseType.innerHTML = myObj[x].count;
+                    }
+                    else {continue;}
                 }
             }
         }
@@ -666,8 +674,6 @@ function getCounter() {
     xhttp.open("POST", "PHP_scripts/getLectureResponseStatistics.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
-
-    setInterval(function(){ renderStudentQuestions(); }, 1000);
 }
 
 

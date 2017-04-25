@@ -31,6 +31,7 @@ function openProfile_notLoggedIn() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateProfile();
         }
     };
     xhttp.open("GET", "profile.html", true);
@@ -55,6 +56,8 @@ function openLecture(){
             document.getElementById("student_body").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
             updateLecture();
+            var question_page = 0;
+            insertPost(question_page);
         }
     };
     xhttp.open("GET", "student.html", true);
@@ -63,28 +66,76 @@ function openLecture(){
 
 function updateLecture(){
 
-    //Synliggjøre/gjemme question-box ut i fra om lecturer har stillt spørsmål eller ikke
-    /*if(){
-        $("#lecturer_quest").hide();
-    }*/
-
-    //Henter ut innholdet i "getLecture.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          myObj = JSON.parse(this.responseText);
-          document.getElementById("subject").innerHTML = myObj.name;
-          document.getElementById("slowDown").innerHTML = myObj.responses[0];
-          document.getElementById("speedUp").innerHTML = myObj.responses[1];
-          document.getElementById("tooHard").innerHTML = myObj.responses[2];
-          document.getElementById("tooEasy").innerHTML = myObj.responses[3];
+          var myObj = JSON.parse(this.responseText);
+          document.getElementById("subject").innerHTML = myObj.title;
+          updateResponses();
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php", true);
+    xmlhttp.open("GET", "getLecture.php?q=", true);
     xmlhttp.send();
 }
 
+function updateResponses(){
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          var myObj = JSON.parse(this.responseText);
+
+          if(this.responseText=="[]"){
+              document.getElementById("giveFeedbackHeader").style.display = "none";
+          }
+
+          else{
+              var responsesDiv = document.getElementById("responsesDiv");
+              var responses = document.getElementById("responses");
+
+              for (x in myObj) {
+                  response = myObj[x].text;
+
+                  var button = document.createElement("button");
+                  button.style.margin = "5px";
+                  var text = document.createTextNode(response);
+
+                  button.className = "btn btn-primary btn-lg";
+                  button.appendChild(text);
+                  button.id = myObj[x].lecture_ID;
+                  responses.appendChild(button);
+
+                  button.addEventListener("click", function(){
+                      giveResponse(this.innerHTML);
+                  });
+              }
+
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getResponseButtons.php?q=", true);
+    xmlhttp.send();
+}
+
+function giveResponse(text){
+    //button.disabled = true;
+    var dataString = "responseType=" + text;
+    $.ajax({
+        type: "POST",
+        url: "insertResponse.php",
+        data: dataString,
+        success: function(responseText){
+            console.log(responseText);
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
+
+}
 
 
 //Åpner siden Profile og oppdaterer den onclick!
@@ -117,9 +168,12 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          document.getElementById("name").innerHTML = myObj.first_name + " " + myObj.last_nme;
+          console.log(myObj);
+          var username = myObj.email.split("@", 1);
+          var firstLetter = myObj.email.split("", 1);
+          document.getElementById("name").innerHTML = username;
+          document.getElementById("email").innerHTML = myObj.email;
           //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
-          //document.getElementById("rank").innerHTML = myObj.rank;
       }
     };
 
@@ -164,7 +218,8 @@ function openQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
-            insertPost();
+            var question_page = 1;
+            insertPost(question_page);
         }
     };
     xhttp.open("POST", "questions.html", true);
@@ -172,7 +227,7 @@ function openQuestions(){
 }
 
 //Viderefører til questions-siden til student, med nye spørsmål
-function insertPost(){
+function insertPost(input){
     var obj, dbParam, xmlhttp;
     // *** Grab the parent element just once, no need to keep looking it up in the loop
     obj = { "table":"text", "limit":15 };
@@ -180,50 +235,61 @@ function insertPost(){
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-          var questBox = document.createElement("div");
-          questBox.className = "questbox";
-          questBox.innerHTML =
-          '<div class="quest">'
-              +'<h5 class="question"></h5>'
-          +'</div>'
-          +'<div class="up-vote">'
-              +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
-                  +'<div class="arrow-up"/>'
-              +'</button>'
-              +'<h5 class="upvotes"></h5>'
-          +'</div>';
+
           var myObj = JSON.parse(this.responseText);
-          if(myObj){
-              var new_quest = document.getElementById("new_quest");
-              Object.keys(myObj).forEach(function(key) {
-                  var entry = myObj[key];
-                  // Get the first .questbox and clone it
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                  
-                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
-                  // Append the clone at the top
-                  new_quest.appendChild(clone);
+          if(this.responseText=="[]"){
+              document.getElementById("top_quest").innerHTML = "There are no questions yet!";
+              document.getElementById("new_quest").innerHTML = "There are no questions yet!";
+          }
+          else{
+              var questBox = document.createElement("div");
+              questBox.className = "questbox";
+              questBox.innerHTML =
+              '<div class="quest">'
+                  +'<h5 class="question"></h5>'
+              +'</div>'
+              +'<div class="up-vote">'
+                  +'<button type="button"onclick="upvotePost(event)"  class="btn btn-lg btn-primary knapp">'
+                      +'<div class="arrow-up"/>'
+                  +'</button>'
+                  +'<h5 class="upvotes"></h5>'
+              +'</div>';
 
-              });
-              myObj.sort(function(a,b){
-                  return parseInt(b.upvotes) - parseInt(a.upvotes);
-              });
-              myObj = myObj.slice(0,5);
-              var top_quest = document.getElementById("top_quest");
-              myObj.forEach(function(entry){
-                  // Get the first .questbox and clone it
-                  var clone = questBox.cloneNode(true);
-                  // Set the question and upvotes
-                  clone.querySelector(".question").innerHTML = entry.text;
-                  clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-                  clone.querySelector(".knapp").setAttribute('name', entry.ID);
-                  // Append the clone at the top
-                  top_quest.appendChild(clone);
-              });
+              if(myObj){
+                  if(input === 1){
+                      Object.keys(myObj).forEach(function(key) {
+                          var entry = myObj[key];
+                          // Get the first .questbox and clone it
+                          var clone = questBox.cloneNode(true);
+                          // Set the question and upvotes
+                          clone.querySelector(".question").innerHTML = entry.text;
+                          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+
+                          clone.querySelector(".knapp").setAttribute('name', entry.ID);
+
+                          // Append the clone at the top
+                          new_quest.appendChild(clone);
+
+                      });
+                  }
+                  myObj.sort(function(a,b){
+                      return parseInt(b.upvotes) - parseInt(a.upvotes);
+                  });
+                  myObj = myObj.slice(0,5);
+                  var top_quest = document.getElementById("top_quest");
+                  myObj.forEach(function(entry){
+                      // Get the first .questbox and clone it
+                      var clone = questBox.cloneNode(true);
+                      // Set the question and upvotes
+                      clone.querySelector(".question").innerHTML = entry.text;
+                      clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+
+                      clone.querySelector(".knapp").setAttribute('name', entry.ID);
+                      // Append the clone at the top
+                      top_quest.appendChild(clone);
+                  });
+              }
           }
       }
     };
@@ -269,30 +335,30 @@ function openHighscore(){
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
+            updateHighscore();
         }
     };
     xhttp.open("GET", "highscore.html", true);
     xhttp.send();
 
     //Kaller oppdateringene fra database
-    updateHighscore();
+}
 
-    function updateHighscore(){
+function updateHighscore(){
 
-          //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
-          var xmlhttp = new XMLHttpRequest();
-          xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                myObj = JSON.parse(this.responseText);
-                document.getElementById("place").innerHTML = myObj.place;
-                document.getElementById("nickname").innerHTML = myObj.nickname;
-                document.getElementById("points").innerHTML = myObj.points;
-            }
-          };
+      //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            myObj = JSON.parse(this.responseText);
+            document.getElementById("place").innerHTML = myObj.place;
+            document.getElementById("nickname").innerHTML = myObj.nickname;
+            document.getElementById("points").innerHTML = myObj.points;
+        }
+      };
 
-          xmlhttp.open("GET", "getHighscore.php?q=", true);
-          xmlhttp.send();
-    }
+      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.send();
 }
 
 
