@@ -365,32 +365,30 @@ function updateHighscore(){
 
             for (x in myObj){
 
-
-                //var username = myObj.email.split("@", 1);
-                var username = myObj[x].email;
+                var email = myObj[x].email;
                 var points = myObj[x].points;
+                var name = email.split("@", 1);
 
                 var row = document.createElement("TR");
-                row.setAttribute("id", "myRow");
                 document.getElementById("tableRows").appendChild(row);
 
                 var cell1 = document.createElement("TD");
                 var cell2 = document.createElement("TD");
 
-                var username = document.createTextNode(username);
+                var name = document.createTextNode(name);
                 var points = document.createTextNode(points);
 
-                cell1.appendChild(username);
+                cell1.appendChild(name);
                 cell2.appendChild(points);
 
-                document.getElementById("myRow").appendChild(cell1);
-                document.getElementById("myRow").appendChild(cell2);
+                row.appendChild(cell1);
+                row.appendChild(cell2);
 
             }
         }
       };
 
-      xmlhttp.open("GET", "getPoints.php", true);
+      xmlhttp.open("GET", "getAllStudents.php", true);
       xmlhttp.send();
 }
 
@@ -402,9 +400,6 @@ function insertPoints(orginFunction){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
-          if(orginFunction === "updateHighscore"){
-              return myObj.points;
-          }
           if(orginFunction === "updateProfile"){
               document.getElementById("profilePoints").innerHTML = myObj.points + " nerdpoints";
           }
