@@ -135,6 +135,8 @@ function giveResponse(text){
 
     });
 
+    addPoints(2);
+
 }
 
 
@@ -168,12 +170,12 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          console.log(myObj);
           var username = myObj.email.split("@", 1);
-          var firstLetter = myObj.email.split("", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
-          //document.getElementById("points").innerHTML = myObj.points + " nerdpoints";
+
+          var orginFunciton = "updateProfile";
+          insertPoints(orginFunciton);
       }
     };
 
@@ -200,6 +202,9 @@ function postQuestion(){
             console.log(jqXHR);
         }
     });
+
+    addPoints(5);
+
 }
 
 //Åpner siden Questions og oppdaterer den onclick!
@@ -307,7 +312,6 @@ function upvotePost(event){
         url: "studentUpvote.php",
         data: dataString,
         success: function(responseText){
-            //insertPost();
             var post = JSON.parse(responseText);
             button.parentElement.querySelector(".upvotes").innerHTML = post.upvotes;
         },
@@ -316,6 +320,9 @@ function upvotePost(event){
         }
 
     });
+
+    addPoints(2);
+
 }
 
 
@@ -351,14 +358,82 @@ function updateHighscore(){
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
-            document.getElementById("place").innerHTML = myObj.place;
-            document.getElementById("nickname").innerHTML = myObj.nickname;
-            document.getElementById("points").innerHTML = myObj.points;
+
+            var highsoreTable = document.getElementById("highscoreTable");
+            var rank = "SHIT";
+            var username = myObj.email.split("@", 1);
+
+            var orginFunciton = "updateHighscore";
+            console.log(insertPoints(orginFunciton));
+
+            for (x in myObj){
+
+                var table = document.createElement("TABLE");
+                table.setAttribute("id", "myTable");
+                highsoreTable.appendChild(table);
+
+                var row = document.createElement("TR");
+                row.setAttribute("id", "myRow");
+                document.getElementById("myTable").appendChild(row);
+
+                var cell = document.createElement("TD");
+                var cell2 = document.createElement("TD");
+                //var cell3 = document.createElement("TD");
+
+                var rank = document.createTextNode(rank);
+                var username = document.createTextNode(username);
+                //var points = document.createTextNode(points);
+
+                cell.appendChild(rank);
+                cell2.appendChild(username);
+                //cell3.appendChild(points);
+
+                document.getElementById("myRow").appendChild(cell, cell2);
+
+            }
         }
       };
 
-      xmlhttp.open("GET", "getHighscore.php?q=", true);
+      xmlhttp.open("GET", "getProfile.php?q=", true);
       xmlhttp.send();
+}
+
+
+//Function for inserting points when submitting and upvoting questions and
+//clicking on different responseButtons.
+function insertPoints(orginFunciton){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+          myObj = JSON.parse(this.responseText);
+          if(orginFunciton === "updateHighscore"){
+              return myObj.points;
+          }
+          if(orginFunciton === "updateProfile"){
+              document.getElementById("profilePoints").innerHTML = myObj.points + " nerdpoints";
+          }
+      }
+    };
+
+    xmlhttp.open("GET", "getPoints.php", true);
+    xmlhttp.send();
+}
+
+function addPoints(points){
+    var dataString = "points=" + points;
+    $.ajax({
+        type: "POST",
+        url: "addPoints.php",
+        data: dataString,
+        success: function(responseText){
+            console.log(responseText);
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
+
 }
 
 
