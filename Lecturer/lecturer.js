@@ -648,8 +648,15 @@ function startLecture() {
     divBefore.style.display = "none";
     button.style.display = "none";
 
-    getCounter();
+    setInterval(function(){ updateCounterAndQuestions(); }, 1000);
 
+}
+
+/*    Lecture.html -  Update questions and counters at given time interval  */
+
+function updateCounterAndQuestions() {
+    getCounter();
+    renderStudentQuestions();
 }
 
 
@@ -661,16 +668,17 @@ function getCounter() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            myObj = JSON.parse(this.responseText);
+            var myObj = JSON.parse(this.responseText);
 
-            if (this.responseText=="[]"){
-                return;
-            }
+            if (this.responseText=="[]"){return;}
 
             else {
                 for (x in myObj) {
-                    responseType = document.getElementById(myObj[x].response_type);
-                    responseType.innerHTML = myObj[x].count;
+                    if(myObj[x].response_type){
+                        responseType = document.getElementById(myObj[x].response_type);
+                        responseType.innerHTML = myObj[x].count;
+                    }
+                    else {continue;}
                 }
             }
         }
@@ -680,8 +688,6 @@ function getCounter() {
     xhttp.open("POST", "getLectureResponseStatistics.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
-
-    setInterval(function(){ renderStudentQuestions(); }, 1000);
 }
 
 
@@ -698,11 +704,13 @@ function renderStudentQuestions(){
       //Constructs the template for questions-elements
       var questBox = document.createElement("div");
       questBox.innerHTML =
-      '<div class="quest">'
-          +'<h5 class="question"></h5>'
-      +'</div>'
-      +'<div>'
-          +'<h5 class="upvotes"></h5>'
+      '<div class="well">'
+          +'<div class="quest">'
+              +'<p class="question"></p>'
+          +'</div>'
+          +'<div class="vote">'
+              +'<p class="upvotes"></p>'
+          +'</div>';
       +'</div>';
       //Parsing post-data from the database
       var myObj = JSON.parse(this.responseText);
