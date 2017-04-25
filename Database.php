@@ -52,8 +52,12 @@ class Database{
 
   function getPointsByUserEmail($email){
     $sql = "SELECT * FROM User WHERE email = '$email'";
-    $assoc_array = mysqli_fetch_assoc(mysqli_query($this->con, $sql));
-    return $assoc_array;
+    $result = (mysqli_query($this->con, $sql));
+    $pointsArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($pointsArray, $row);
+    }
+    return $pointsArray;
   }
 
   function createStudentUser($email, $password, $firstname, $lastname, $university){
