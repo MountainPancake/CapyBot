@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../Database.php';
+include '../../Database.php';
 
 $text = $_POST["responseType"];
 $lecture_ID = $_POST["lectureID"];

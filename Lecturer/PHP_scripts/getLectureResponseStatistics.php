@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../Database.php';
+require '../../Database.php';
 $db = new Database();
 
 $lecture_ID = $_POST["lectureID"];
