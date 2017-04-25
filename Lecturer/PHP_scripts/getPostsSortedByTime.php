@@ -1,5 +1,5 @@
 <?php
-  require '../Database.php';
+  require '../../Database.php';
   $db = new Database();
   $posts = $db->getPostsByLectureID($_POST["lectureID"]);
   usort($posts, function($a,$b){
