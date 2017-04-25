@@ -170,12 +170,13 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
+          console.log(myObj);
           var username = myObj.email.split("@", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
 
-          var orginFunciton = "updateProfile";
-          insertPoints(orginFunciton);
+          var orginFunction = "updateProfile";
+          insertPoints(orginFunction);
       }
     };
 
@@ -360,62 +361,53 @@ function updateHighscore(){
             myObj = JSON.parse(this.responseText);
 
             var highsoreTable = document.getElementById("highscoreTable");
-            var rank = "SHIT";
-            var username = myObj.email.split("@", 1);
 
-            var orginFunciton = "updateHighscore";
-            console.log(insertPoints(orginFunciton));
+            console.log(myObj);
 
             for (x in myObj){
 
-                var table = document.createElement("TABLE");
-                table.setAttribute("id", "myTable");
-                highsoreTable.appendChild(table);
+                var email = myObj[x].email;
+                var points = myObj[x].points;
+                var name = email.split("@", 1);
 
                 var row = document.createElement("TR");
-                row.setAttribute("id", "myRow");
-                document.getElementById("myTable").appendChild(row);
+                document.getElementById("tableRows").appendChild(row);
 
-                var cell = document.createElement("TD");
+                var cell1 = document.createElement("TD");
                 var cell2 = document.createElement("TD");
-                //var cell3 = document.createElement("TD");
 
-                var rank = document.createTextNode(rank);
-                var username = document.createTextNode(username);
-                //var points = document.createTextNode(points);
+                var name = document.createTextNode(name);
+                var points = document.createTextNode(points);
 
-                cell.appendChild(rank);
-                cell2.appendChild(username);
-                //cell3.appendChild(points);
+                cell1.appendChild(name);
+                cell2.appendChild(points);
 
-                document.getElementById("myRow").appendChild(cell, cell2);
+                row.appendChild(cell1);
+                row.appendChild(cell2);
 
             }
         }
       };
 
-      xmlhttp.open("GET", "getProfile.php?q=", true);
+      xmlhttp.open("GET", "getAllStudents.php", true);
       xmlhttp.send();
 }
 
 
 //Function for inserting points when submitting and upvoting questions and
 //clicking on different responseButtons.
-function insertPoints(orginFunciton){
+function insertPoints(orginFunction){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
-          if(orginFunciton === "updateHighscore"){
-              return myObj.points;
-          }
-          if(orginFunciton === "updateProfile"){
+          if(orginFunction === "updateProfile"){
               document.getElementById("profilePoints").innerHTML = myObj.points + " nerdpoints";
           }
       }
     };
 
-    xmlhttp.open("GET", "getPoints.php", true);
+    xmlhttp.open("GET", "getProfile.php", true);
     xmlhttp.send();
 }
 
