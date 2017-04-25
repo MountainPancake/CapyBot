@@ -45,6 +45,16 @@ class Database{
     return $assoc_array;
   }
 
+  function getAllStudents(){
+    $sql = "SELECT * FROM User WHERE is_student = '1'";
+    $result = mysqli_query($this->con, $sql);
+    $studentsArray = [];
+    while($row = mysqli_fetch_assoc($result)){
+      array_push($studentsArray, $row);
+    }
+    return $studentsArray;
+  }
+
   function addPointsByUserEmail($userEmail,$points){
     $sql = "UPDATE User SET points = points + $points WHERE email = '$userEmail'";
     return mysqli_query($this->con, $sql);
