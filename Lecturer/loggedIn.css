@@ -170,7 +170,6 @@ label {
 
 /* Menu top */
 
-
 .navbar-inverse > li > a {
   color: white;
 }
@@ -188,8 +187,6 @@ label {
 /*  --------   */
 
 
-
-
 .main {
   padding: 20px;
 }
@@ -201,20 +198,4 @@ label {
 }
 .main .page-header {
   margin-top: 0;
-}
-
-
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.placeholders h4 {
-  margin-bottom: 0;
-}
-.placeholder {
-  margin-bottom: 20px;
-}
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
 }

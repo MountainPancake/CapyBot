@@ -54,15 +54,12 @@ a, a:focus, a:hover {
 }
 
 .liste {
-    font-size: 20pt;
+    font-size: 15pt;
     list-style-type: none;
     text-align: left;
     font-style: italic;
     line-height: 30pt;
 }
-
-
-
 
 
 
@@ -136,21 +133,5 @@ a, a:focus, a:hover {
   .mastfoot,
   .cover-container {
     width: 950px;
-  }
-}
-/*
-@media (min-width: 1100px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 1050px;
-  }
-}
-
-@media (min-width: 1300px) {
-  .masthead,
-  .mastfoot,
-  .cover-container {
-    width: 1250px;
   }
 }
