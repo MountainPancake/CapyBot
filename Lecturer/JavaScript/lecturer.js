@@ -152,20 +152,6 @@ function getSubjects() {
     xhttp.send();
 }
 
-/*    Switches main body content using AJAX from the statistics.html file    */
-
-function statistics() {
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("main").innerHTML = xhttp.responseText;
-        }
-    };
-    xhttp.open("POST", "statistics.html", true);
-    xhttp.send();
-}
-
 
 /*    Changes main content when clicking on "create lecture" button    */
 
