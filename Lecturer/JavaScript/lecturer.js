@@ -5,11 +5,11 @@ function lecturerLogin(){
 
   $.ajax({
       type: "POST",
-      url: "lecturerLogin.php",
+      url: "../PHP_scripts/lecturerLogin.php",
       data: dataString,
       success: function(text) {
         if(text == "success"){
-          location.href = "loggedIn.html";
+          location.href = "../AJAX_files/loggedIn.html";
         }else{
           alert("Login failed.\nEmail and/or password incorrect.")
         }
@@ -25,10 +25,10 @@ function signOut(){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            window.location.href = "lecturerIndex.html"
+            window.location.href = "../AJAX_files/lecturerIndex.html"
         }
     };
-    xhttp.open("POST", "logOut.php", true);
+    xhttp.open("POST", "../PHP_scripts/logOut.php", true);
     xhttp.send();
 }
 
@@ -44,7 +44,7 @@ function getEmail() {
         }
     };
 
-    xhttp.open("POST", "getEmail.php", true);
+    xhttp.open("POST", "../PHP_scripts/getEmail.php", true);
     xhttp.send();
 }
 
@@ -78,7 +78,7 @@ function getMenu() {
         }
     };
 
-    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.open("POST", "../PHP_scripts/getSubjects.php", true);
     xhttp.send();
 
 }
@@ -93,7 +93,7 @@ function overview() {
             document.getElementById("main").innerHTML = xhttp.responseText;
         }
     };
-    xhttp.open("POST", "overview.html", true);
+    xhttp.open("POST", "../AJAX_files/overview.html", true);
     xhttp.send();
 }
 
@@ -110,7 +110,7 @@ function manageSubjects() {
 
     getSubjects();   /* Gets already added subjects to the manage subjects page   */
 
-    xhttp.open("POST", "manageSubjects.html", true);
+    xhttp.open("POST", "../AJAX_files/manageSubjects.html", true);
     xhttp.send();
 }
 
@@ -148,7 +148,7 @@ function getSubjects() {
         }
       };
 
-    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.open("POST", "../PHP_scripts/getSubjects.php", true);
     xhttp.send();
 }
 
@@ -166,7 +166,7 @@ function createLecture() {
 
     getDropDown();
 
-    xhttp.open("POST", "createLecture.html", true);
+    xhttp.open("POST", "../AJAX_files/createLecture.html", true);
     xhttp.send();
 }
 
@@ -189,7 +189,7 @@ function getDropDown() {
         }
       };
 
-    xhttp.open("POST", "getSubjects.php", true);
+    xhttp.open("POST", "../PHP_scripts/getSubjects.php", true);
     xhttp.send();
 }
 
@@ -243,7 +243,7 @@ function addLecture(){
 
         $.ajax({
             type: "POST",
-            url: "createLecture.php",
+            url: "../PHP_scripts/createLecture.php",
             data: dataString,
             success: function(text) {
                 lectureSuccessful();
@@ -266,7 +266,7 @@ function lectureSuccessful() {
             document.getElementById("main").innerHTML = xhttp.responseText;
         }
     };
-    xhttp.open("POST", "lectureCreated.html", true);
+    xhttp.open("POST", "../AJAX_files/lectureCreated.html", true);
     xhttp.send();
 }
 
@@ -307,7 +307,7 @@ function addSubject() {
 
     $.ajax({
         type: "POST",
-        url: "addSubject.php",
+        url: "../PHP_scripts/addSubject.php",
         data: dataString,
         success: function(text) {
             subjectSuccessful();
@@ -335,7 +335,7 @@ function subjectSuccessful() {
     subjects.innerHTML = "";
     getMenu();
 
-    xhttp.open("POST", "manageSubjects.html", true);
+    xhttp.open("POST", "../AJAX_files/manageSubjects.html", true);
     xhttp.send();
 }
 
@@ -355,7 +355,7 @@ function openSubject(subject) {
         }
     };
 
-    xhttp.open("POST", "subject.html", true);
+    xhttp.open("POST", "../AJAX_files/subject.html", true);
     xhttp.send();
 
 }
@@ -399,7 +399,7 @@ function getLecturesForSubject(subject) {
     };
 
     var postData = "category=" + subject + "&";
-    xhttp.open("POST", "getLecturesForSubject.php", true);
+    xhttp.open("POST", "../PHP_scripts/getLecturesForSubject.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(postData);
 }
@@ -465,7 +465,7 @@ function createNewLecture(){
 
         $.ajax({
             type: "POST",
-            url: "createLecture.php",
+            url: "../PHP_scripts/createLecture.php",
             data: dataString,
             success: function(text) {
                 openSubject(category);
@@ -507,7 +507,7 @@ function openLecture(myObj) {
         }
     };
 
-    xhttp.open("POST", "lecture.html", true);
+    xhttp.open("POST", "../AJAX_files/lecture.html", true);
     xhttp.send();
 }
 
@@ -565,7 +565,7 @@ function getResponseButtons(lectureID) {
     };
 
     var data = "lectureID=" + lectureID;
-    xhttp.open("POST", "getResponseButtons.php", true);
+    xhttp.open("POST", "../PHP_scripts/getResponseButtons.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
@@ -588,7 +588,7 @@ function addResponseButton() {
     };
 
     var data = "ID=" + lectureID;
-    xhttp.open("POST", "getLectureByID.php", true);
+    xhttp.open("POST", "../PHP_scripts/getLectureByID.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 }
@@ -608,7 +608,7 @@ function addResponseButton2(lecture) {
 
         $.ajax({
             type: "POST",
-            url: "addResponseType.php",
+            url: "../PHP_scripts/addResponseType.php",
             data: dataString,
             success: function(text) {
                 openLecture(lecture);
@@ -663,7 +663,7 @@ function getCounter() {
     };
 
     var data = "lectureID=" + id;
-    xhttp.open("POST", "getLectureResponseStatistics.php", true);
+    xhttp.open("POST", "../PHP_scripts/getLectureResponseStatistics.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(data);
 
@@ -678,60 +678,59 @@ Post is the name of the database-table while quesiton has a
 more intuitive relation to the concept.
 */
 function renderStudentQuestions(){
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      //Constructs the template for questions-elements
-      var questBox = document.createElement("div");
-      questBox.innerHTML =
-      '<div class="quest">'
-          +'<h5 class="question"></h5>'
-      +'</div>'
-      +'<div>'
-          +'<h5 class="upvotes"></h5>'
-      +'</div>';
-      //Parsing post-data from the database
-      var myObj = JSON.parse(this.responseText);
-      if(myObj){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            //Constructs the template for questions-elements
+            var questBox = document.createElement("div");
+            questBox.innerHTML =
+            '<div class="quest">'
+                +'<h5 class="question"></h5>'
+            +'</div>'
+            +'<div>'
+                +'<h5 class="upvotes"></h5>'
+            +'</div>';
+            //Parsing post-data from the database
+            var myObj = JSON.parse(this.responseText);
+            if(myObj){
+                //Rendering new quesions
+                //Fetches the parent element for all the newest quesions
+                var newQuest = document.getElementById("newQuest");
+                newQuest.innerHTML = "";
+                myObj.forEach(function(entry){
+                    //Clone questBox
+                    var clone = questBox.cloneNode(true);
+                    // Set the question and upvotes
+                    clone.querySelector(".question").innerHTML = entry.text;
+                    clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                    //Appending to parent
+                    newQuest.appendChild(clone);
+                });
 
-        //Rendering new quesions
-        //Fetches the parent element for all the newest quesions
-        var newQuest = document.getElementById("newQuest");
-        newQuest.innerHTML = "";
-        myObj.forEach(function(entry){
-          //Clone questBox
-          var clone = questBox.cloneNode(true);
-          // Set the question and upvotes
-          clone.querySelector(".question").innerHTML = entry.text;
-          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-          //Appending to parent
-          newQuest.appendChild(clone);
-        });
+                //Rendering top 5 most upvotes questions
+                //Sorting quesitons by upvotes and slicing the 5 first ones
+                myObj.sort(function(a,b){
+                    return parseInt(b.upvotes) - parseInt(a.upvotes);
+                });
+                myObj = myObj.slice(0,5);
+                //Fetches the parent element for questions with the most votes
+                var topQuest = document.getElementById("topQuest");
+                topQuest.innerHTML = "";
+                myObj.forEach(function(entry){
+                    //Clone questBox
+                    var clone = questBox.cloneNode(true);
+                    // Set the question and upvotes
+                    clone.querySelector(".question").innerHTML = entry.text;
+                    clone.querySelector(".upvotes").innerHTML = entry.upvotes;
+                    //Appending to parent
+                    topQuest.appendChild(clone);
+                });
+            }
+        }
+    };
 
-        //Rendering top 5 most upvotes questions
-        //Sorting quesitons by upvotes and slicing the 5 first ones
-        myObj.sort(function(a,b){
-          return parseInt(b.upvotes) - parseInt(a.upvotes);
-        });
-        myObj = myObj.slice(0,5);
-        //Fetches the parent element for questions with the most votes
-        var topQuest = document.getElementById("topQuest");
-        topQuest.innerHTML = "";
-        myObj.forEach(function(entry){
-          //Clone questBox
-          var clone = questBox.cloneNode(true);
-          // Set the question and upvotes
-          clone.querySelector(".question").innerHTML = entry.text;
-          clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-          //Appending to parent
-          topQuest.appendChild(clone);
-        });
-
-      }
-    }
-  };
-  var data = "lectureID="+document.getElementById("lectureID").innerHTML;
-  xhttp.open("POST", "getPostsSortedByTime.php", true);
-  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send(data);
+    var data = "lectureID="+document.getElementById("lectureID").innerHTML;
+    xhttp.open("POST", "../PHP_scripts/getPostsSortedByTime.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
 }
