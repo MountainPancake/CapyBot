@@ -170,6 +170,7 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
+          console.log(myObj);
           var username = myObj.email.split("@", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
