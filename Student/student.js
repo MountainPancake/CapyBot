@@ -174,8 +174,8 @@ function updateProfile(){
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
 
-          var updateProfile = true;
-          insertPoints(updateProfile);
+          var orginFunciton = "updateProfile";
+          insertPoints(orginFunciton);
       }
     };
 
@@ -363,6 +363,9 @@ function updateHighscore(){
             var rank = "SHIT";
             var username = myObj.email.split("@", 1);
 
+            var orginFunciton = "updateHighscore";
+            console.log(insertPoints(orginFunciton));
+
             for (x in myObj){
 
                 var table = document.createElement("TABLE");
@@ -388,9 +391,6 @@ function updateHighscore(){
                 document.getElementById("myRow").appendChild(cell, cell2);
 
             }
-
-            var updateHighscore = true;
-            insertPoints(updateHighscore);
         }
       };
 
@@ -406,12 +406,11 @@ function insertPoints(orginFunciton){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
-          console.log(myObj);
-          if(orginFunciton == updateHighscore){
-              document.getElementById("highscorePoints").innerHTML = myObj.points;
+          if(orginFunciton === "updateHighscore"){
+              return myObj.points;
           }
-          if(orginFunciton == updateProfile){
-              document.getElementById("profilePoints").innerHTML = myObj.points + "nerdpoints";
+          if(orginFunciton === "updateProfile"){
+              document.getElementById("profilePoints").innerHTML = myObj.points + " nerdpoints";
           }
       }
     };
