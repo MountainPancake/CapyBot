@@ -135,6 +135,8 @@ function giveResponse(text){
 
     });
 
+    addPoints(2);
+
 }
 
 
@@ -168,7 +170,6 @@ function updateProfile(){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          console.log(myObj);
           var username = myObj.email.split("@", 1);
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
@@ -201,6 +202,9 @@ function postQuestion(){
             console.log(jqXHR);
         }
     });
+
+    addPoints(5);
+
 }
 
 //Åpner siden Questions og oppdaterer den onclick!
@@ -316,6 +320,9 @@ function upvotePost(event){
         }
 
     });
+
+    addPoints(2);
+
 }
 
 
@@ -399,6 +406,7 @@ function insertPoints(orginFunciton){
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           myObj = JSON.parse(this.responseText);
+          console.log(myObj);
           if(orginFunciton == updateHighscore){
               document.getElementById("highscorePoints").innerHTML = myObj.points;
           }
@@ -411,6 +419,24 @@ function insertPoints(orginFunciton){
     xmlhttp.open("GET", "getPoints.php", true);
     xmlhttp.send();
 }
+
+function addPoints(points){
+    var dataString = "points=" + points;
+    $.ajax({
+        type: "POST",
+        url: "addPoints.php",
+        data: dataString,
+        success: function(responseText){
+            console.log(responseText);
+        },
+        error: function(jqXHR, exception){
+            console.log(jqXHR);
+        }
+
+    });
+
+}
+
 
 
 //Kollapser Navigationbar når man klikker på linkene i menyen
