@@ -10,6 +10,7 @@ function studentLogin(){
         url: "Student/PHP/studentLogin.php",
         data: dataString,
         success: function(text) {
+            console.log(text);
             if(text == "success"){
                 location.href = "Student/studentNotInLecture.html"
             }
