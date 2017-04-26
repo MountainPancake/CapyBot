@@ -7,7 +7,7 @@ function studentLogin(){
 
     $.ajax({
         type: "POST",
-        url: "Student/studentLogin.php",
+        url: "Student/PHP/studentLogin.php",
         data: dataString,
         success: function(text) {
             if(text == "success"){
@@ -16,7 +16,7 @@ function studentLogin(){
             else{
                 alert("Login failed. \nUsername and/or password incorrect.")
             }
-        }, 
+        },
         error: function (jqXHR, exception) {
             console.log(jqXHR);
         }
@@ -37,12 +37,12 @@ function createStudentUser(){
         	console.log(text)
             if(text == "success"){
             	console.log("inni success bro")
-                location.href = "index.html"   
+                location.href = "index.html"
             }
             else{
                 alert("Failed to create user. \nThe username may already exist.")
             }
-        }, 
+        },
         error: function (jqXHR, exception) {
             console.log(jqXHR);
         }

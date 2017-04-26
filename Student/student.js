@@ -75,7 +75,7 @@ function updateLecture(){
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.open("GET", "PHP/getLecture.php?q=", true);
     xmlhttp.send();
 }
 
@@ -115,7 +115,7 @@ function updateResponses(){
       }
     };
 
-    xmlhttp.open("GET", "getResponseButtons.php?q=", true);
+    xmlhttp.open("GET", "PHP/getResponseButtons.php?q=", true);
     xmlhttp.send();
 }
 
@@ -124,7 +124,7 @@ function giveResponse(text){
     var dataString = "responseType=" + text;
     $.ajax({
         type: "POST",
-        url: "insertResponse.php",
+        url: "PHP/insertResponse.php",
         data: dataString,
         success: function(responseText){
             console.log(responseText);
@@ -165,7 +165,7 @@ function openProfile() {
 
 function updateProfile(){
 
-    //Henter ut innholdet i "getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
+    //Henter ut innholdet i "PHP/getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -180,7 +180,7 @@ function updateProfile(){
       }
     };
 
-    xmlhttp.open("GET", "getProfile.php?q=", true);
+    xmlhttp.open("GET", "PHP/getProfile.php?q=", true);
     xmlhttp.send();
 }
 
@@ -193,7 +193,7 @@ function postQuestion(){
 
     $.ajax({
         type: "POST",
-        url: "insertPost.php",
+        url: "PHP/insertPost.php",
         data: dataString,
         success: function(text){
             console.log(text);
@@ -299,7 +299,7 @@ function insertPost(input){
           }
       }
     };
-    xmlhttp.open("GET", "getPostsSortedByTime.php", true);
+    xmlhttp.open("GET", "PHP/getPostsSortedByTime.php", true);
     xmlhttp.send();
 }
 
@@ -310,7 +310,7 @@ function upvotePost(event){
     var dataString = "ID="+ button.getAttribute("name");
     $.ajax({
         type: "GET",
-        url: "studentUpvote.php",
+        url: "PHP/studentUpvote.php",
         data: dataString,
         success: function(responseText){
             var post = JSON.parse(responseText);
@@ -354,7 +354,7 @@ function openHighscore(){
 
 function updateHighscore(){
 
-      //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
+      //Henter ut innholdet i "PHP/getHighscore.php", splitter det opp og legger det inn i forskjellige id
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -389,7 +389,7 @@ function updateHighscore(){
         }
       };
 
-      xmlhttp.open("GET", "getAllStudents.php", true);
+      xmlhttp.open("GET", "PHP/getAllStudents.php", true);
       xmlhttp.send();
 }
 
@@ -407,7 +407,7 @@ function insertPoints(orginFunction){
       }
     };
 
-    xmlhttp.open("GET", "getProfile.php", true);
+    xmlhttp.open("GET", "PHP/getProfile.php", true);
     xmlhttp.send();
 }
 
@@ -415,7 +415,7 @@ function addPoints(points){
     var dataString = "points=" + points;
     $.ajax({
         type: "POST",
-        url: "addPoints.php",
+        url: "PHP/addPoints.php",
         data: dataString,
         success: function(responseText){
             console.log(responseText);

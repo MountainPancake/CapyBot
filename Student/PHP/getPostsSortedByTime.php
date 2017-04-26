@@ -1,6 +1,6 @@
 <?php
   session_start();
-  require '../Database.php';
+  require '../../Database.php';
   $db = new Database();
   $posts = $db->getPostsByLectureID($_SESSION["lecturePin"]);
   usort($posts, function($a,$b){
