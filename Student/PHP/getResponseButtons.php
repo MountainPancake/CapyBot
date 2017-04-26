@@ -1,9 +1,9 @@
 <?php
     session_start();
     include '../../Database.php';
-    $lecture_ID = $_SESSION["lecturePin"];
+    $lectureID = $_SESSION["lecturePin"];
     $db = new Database();
-    $success = $db->getResponseTypesByLectureID($lecture_ID);
+    $success = $db->getResponseTypesByLectureID($lectureID);
     $data = json_encode($success);
     echo $data;
 ?>
