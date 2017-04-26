@@ -58,16 +58,16 @@ body {
   border-top: 1px solid #142952;
 }
 
-#profile_body {
+#profileBody {
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-#highscore_body {
+#highscoreBody {
   padding-bottom: 30px;
 }
 
-#questions_body {
+#questionsBody {
   padding-bottom: 30px;
 }
 
@@ -76,14 +76,14 @@ body {
   .container {
     max-width: 730px;
   }
-  #profile_body {
+  #profileBody {
     padding-top: 0px;
     padding-bottom: 30px;
   }
-  #highscore_body {
+  #highscoreBody {
     padding-bottom: 30px;
   }
-  #questions_body {
+  #questionsBody {
     padding-bottom: 30px;
   }
 
@@ -186,7 +186,7 @@ body {
 }
 
 /*Headers in student*/
-.student_headers {
+.studentHeaders {
   text-align: center;
 }
 
@@ -247,7 +247,7 @@ background-color: #e7e7e7;
     text-align: center;
 }
 
-#profile_body {
+#profileBody {
   text-align: center;
 }
 
