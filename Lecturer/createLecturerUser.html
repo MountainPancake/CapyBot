@@ -34,7 +34,7 @@
                         </button>
 
                         <div id="navbar" class="navbar-collapse collapse navbar-right">
-                            <form class="navbar-form" action="lecturerLogin.php" method="post">
+                            <form form class="navbar-form" onsubmit="lecturerLogin()" method="post">
                                 <div class="form-group">
                                     <input type="text" name="email" placeholder="Email" class="form-control">
                                 </div>
@@ -53,7 +53,7 @@
                 <div class="inner cover" id="inner">
                     <div class="col-md-5">
 
-                        <form action="createLecturerUser.php" method="POST">
+                        <form action="PHP_scripts/createLecturerUser.php" method="POST">
                             <p class="formText">First name:</p>
                             <input type="text" placeholder="First name" name="firstName" class="form-control" required><br/>
                             <p class="formText">Last name:</p>
@@ -92,7 +92,7 @@
 
                 <div class="mastfoot">
                     <div class="inner">
-                        <p class="footerp">Student? Sign in <a href="../index.php" class="switch-link">HERE</a></p>
+                        <p class="footerp">Student? Sign in <a href="../index.html" class="switch-link">HERE</a></p>
                     </div>
                 </div>
 
@@ -104,7 +104,7 @@
 
     <!-- Bootstrap core JavaScript -->
 
-    <script src="JavaScript/lecturer.js"></script>
+    <script src="JavaScript/notLoggedIn.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../bootstrap.min.js"></script>
  </body>
