@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require '../Database.php';
+    require '../../Database.php';
     $lecture_ID = $_SESSION["lecturePin"];
     $posted_by_email = $_SESSION["email"];
     $text = $_POST["question"];

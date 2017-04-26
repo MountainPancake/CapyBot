@@ -6,14 +6,14 @@ function openSignIn(){
     activeSignIn.className = "active";
     activeProfile_notLoggedIn.className = "";
 
-    //Henter ut innholdet i "student_notLoggedIn.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/signIntoLecture.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "student_notLoggedIn.html", true);
+    xhttp.open("GET", "AJAX_html/signIntoLecture.html", true);
     xhttp.send();
 }
 
@@ -26,7 +26,7 @@ function openProfile_notLoggedIn() {
     activeProfile_notLoggedIn.className = "active";
     activeSignIn.className = "";
 
-    //Henter ut innholdet i "profile.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/profile.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -34,7 +34,7 @@ function openProfile_notLoggedIn() {
             updateProfile();
         }
     };
-    xhttp.open("GET", "profile.html", true);
+    xhttp.open("GET", "AJAX_html/profile.html", true);
     xhttp.send();
 }
 
@@ -49,7 +49,7 @@ function openLecture(){
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "student.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/student.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -60,7 +60,7 @@ function openLecture(){
             insertPost(question_page);
         }
     };
-    xhttp.open("GET", "student.html", true);
+    xhttp.open("GET", "AJAX_html/student.html", true);
     xhttp.send();
 }
 
@@ -75,7 +75,7 @@ function updateLecture(){
       }
     };
 
-    xmlhttp.open("GET", "getLecture.php?q=", true);
+    xmlhttp.open("GET", "PHP/getLecture.php?q=", true);
     xmlhttp.send();
 }
 
@@ -115,7 +115,7 @@ function updateResponses(){
       }
     };
 
-    xmlhttp.open("GET", "getResponseButtons.php?q=", true);
+    xmlhttp.open("GET", "PHP/getResponseButtons.php?q=", true);
     xmlhttp.send();
 }
 
@@ -124,7 +124,7 @@ function giveResponse(text){
     var dataString = "responseType=" + text;
     $.ajax({
         type: "POST",
-        url: "insertResponse.php",
+        url: "PHP/insertResponse.php",
         data: dataString,
         success: function(responseText){
             console.log(responseText);
@@ -150,7 +150,7 @@ function openProfile() {
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "profile.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/profile.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -159,13 +159,13 @@ function openProfile() {
             updateProfile();
         }
     };
-    xhttp.open("GET", "profile.html", true);
+    xhttp.open("GET", "AJAX_html/profile.html", true);
     xhttp.send();
 }
 
 function updateProfile(){
 
-    //Henter ut innholdet i "getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
+    //Henter ut innholdet i "PHP/getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -180,7 +180,7 @@ function updateProfile(){
       }
     };
 
-    xmlhttp.open("GET", "getProfile.php?q=", true);
+    xmlhttp.open("GET", "PHP/getProfile.php?q=", true);
     xmlhttp.send();
 }
 
@@ -193,7 +193,7 @@ function postQuestion(){
 
     $.ajax({
         type: "POST",
-        url: "insertPost.php",
+        url: "PHP/insertPost.php",
         data: dataString,
         success: function(text){
             console.log(text);
@@ -218,7 +218,7 @@ function openQuestions(){
     activeLecture.className ="";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "questions.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/questions.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -228,7 +228,7 @@ function openQuestions(){
             insertPost(question_page);
         }
     };
-    xhttp.open("POST", "questions.html", true);
+    xhttp.open("POST", "AJAX_html/questions.html", true);
     xhttp.send();
 }
 
@@ -299,7 +299,7 @@ function insertPost(input){
           }
       }
     };
-    xmlhttp.open("GET", "getPostsSortedByTime.php", true);
+    xmlhttp.open("GET", "PHP/getPostsSortedByTime.php", true);
     xmlhttp.send();
 }
 
@@ -310,7 +310,7 @@ function upvotePost(event){
     var dataString = "ID="+ button.getAttribute("name");
     $.ajax({
         type: "GET",
-        url: "studentUpvote.php",
+        url: "PHP/studentUpvote.php",
         data: dataString,
         success: function(responseText){
             var post = JSON.parse(responseText);
@@ -338,7 +338,7 @@ function openHighscore(){
     activeProfile.className = "";
     activeLecture.className ="";
 
-    //Henter ut innholdet i "highscore.html" og legger det inn i student_body
+    //Henter ut innholdet i "AJAX_html/highscore.html" og legger det inn i student_body
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -346,7 +346,7 @@ function openHighscore(){
             updateHighscore();
         }
     };
-    xhttp.open("GET", "highscore.html", true);
+    xhttp.open("GET", "AJAX_html/highscore.html", true);
     xhttp.send();
 
     //Kaller oppdateringene fra database
@@ -354,7 +354,7 @@ function openHighscore(){
 
 function updateHighscore(){
 
-      //Henter ut innholdet i "getHighscore.php", splitter det opp og legger det inn i forskjellige id
+      //Henter ut innholdet i "PHP/getHighscore.php", splitter det opp og legger det inn i forskjellige id
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -389,7 +389,7 @@ function updateHighscore(){
         }
       };
 
-      xmlhttp.open("GET", "getAllStudents.php", true);
+      xmlhttp.open("GET", "PHP/getAllStudents.php", true);
       xmlhttp.send();
 }
 
@@ -407,7 +407,7 @@ function insertPoints(orginFunction){
       }
     };
 
-    xmlhttp.open("GET", "getProfile.php", true);
+    xmlhttp.open("GET", "PHP/getProfile.php", true);
     xmlhttp.send();
 }
 
@@ -415,7 +415,7 @@ function addPoints(points){
     var dataString = "points=" + points;
     $.ajax({
         type: "POST",
-        url: "addPoints.php",
+        url: "PHP/addPoints.php",
         data: dataString,
         success: function(responseText){
             console.log(responseText);
