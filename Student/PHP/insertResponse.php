@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../Database.php';
+require '../../Database.php';
 
 $lectureID = $_SESSION["lecturePin"];
 $responseType = $_POST["responseType"];

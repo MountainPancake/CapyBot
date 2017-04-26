@@ -1,12 +1,12 @@
 <?php
 session_start();
-require '../Database.php';
+require '../../Database.php';
 $db = new Database();
 $lecture = $db->getLectureByID($_GET["lecturePin"]);
 if($lecture && $lecture["date"]){
   $_SESSION["lecturePin"] = $lecture["ID"];
-  header("Location: student.php");
+  header("Location: ../student.html");
 }else{
-  header("Location: student_notLoggedIn.html");
+  header("Location: ../studentNotInLecture.html");
 }
 ?>

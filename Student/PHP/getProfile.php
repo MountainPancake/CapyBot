@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require '../Database.php';
+    require '../../Database.php';
     $email = $_SESSION["email"];
     $db = new Database();
     $success = $db->getUserByEmail($email);
