@@ -56,8 +56,8 @@ function openLecture(){
             document.getElementById("studentBody").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
             updateLecture();
-            var questionPage = 0;
-            insertPost(questionPage);
+            var orginFunction = "openLecture";
+            insertPost(orginFunction);
         }
     };
     xhttp.open("GET", "AJAXhtml/student.html", true);
@@ -224,8 +224,8 @@ function openQuestions(){
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("studentBody").innerHTML = this.responseText;
             //Kaller oppdateringene fra database
-            var questionPage = 1;
-            insertPost(questionPage);
+            var orginFunction = "openQuestions";
+            insertPost(orginFunction);
         }
     };
     xhttp.open("POST", "AJAXhtml/questions.html", true);
@@ -233,7 +233,7 @@ function openQuestions(){
 }
 
 //Viderefører til questions-siden til student, med nye spørsmål
-function insertPost(input){
+function insertPost(orginFunction){
     var obj, dbParam, xmlhttp;
     // *** Grab the parent element just once, no need to keep looking it up in the loop
     obj = { "table":"text", "limit":15 };
@@ -263,7 +263,7 @@ function insertPost(input){
               +'</div>';
 
               if(myObj){
-                  if(input === 1){
+                  if(orginFunction === "openQuestions"){
                       Object.keys(myObj).forEach(function(key) {
                           var entry = myObj[key];
                           // Get the first .questbox and clone it
