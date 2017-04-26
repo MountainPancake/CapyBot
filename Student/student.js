@@ -49,7 +49,7 @@ function openLecture(){
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/student.html" og legger det inn i "studentBody"
+    //Henter ut innholdet i "AJAXhtml/lecture.html" og legger det inn i "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -60,7 +60,7 @@ function openLecture(){
             insertPost(questionPage);
         }
     };
-    xhttp.open("GET", "AJAXhtml/student.html", true);
+    xhttp.open("GET", "AJAXhtml/lecture.html", true);
     xhttp.send();
 }
 
