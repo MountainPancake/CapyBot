@@ -6,14 +6,14 @@ function openSignIn(){
     activeSignIn.className = "active";
     activeProfile_notLoggedIn.className = "";
 
-    //Henter ut innholdet i "student_notLoggedIn.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/signIntoLecture.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("student_body").innerHTML = this.responseText;
         }
     };
-    xhttp.open("GET", "student_notLoggedIn.html", true);
+    xhttp.open("GET", "AJAX_html/signIntoLecture.html", true);
     xhttp.send();
 }
 
@@ -26,7 +26,7 @@ function openProfile_notLoggedIn() {
     activeProfile_notLoggedIn.className = "active";
     activeSignIn.className = "";
 
-    //Henter ut innholdet i "profile.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/profile.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -34,7 +34,7 @@ function openProfile_notLoggedIn() {
             updateProfile();
         }
     };
-    xhttp.open("GET", "profile.html", true);
+    xhttp.open("GET", "AJAX_html/profile.html", true);
     xhttp.send();
 }
 
@@ -49,7 +49,7 @@ function openLecture(){
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "student.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/student.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -60,7 +60,7 @@ function openLecture(){
             insertPost(question_page);
         }
     };
-    xhttp.open("GET", "student.html", true);
+    xhttp.open("GET", "AJAX_html/student.html", true);
     xhttp.send();
 }
 
@@ -150,7 +150,7 @@ function openProfile() {
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "profile.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/profile.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -159,7 +159,7 @@ function openProfile() {
             updateProfile();
         }
     };
-    xhttp.open("GET", "profile.html", true);
+    xhttp.open("GET", "AJAX_html/profile.html", true);
     xhttp.send();
 }
 
@@ -218,7 +218,7 @@ function openQuestions(){
     activeLecture.className ="";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "questions.html" og legger det inn i "student_body"
+    //Henter ut innholdet i "AJAX_html/questions.html" og legger det inn i "student_body"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -228,7 +228,7 @@ function openQuestions(){
             insertPost(question_page);
         }
     };
-    xhttp.open("POST", "questions.html", true);
+    xhttp.open("POST", "AJAX_html/questions.html", true);
     xhttp.send();
 }
 
@@ -338,7 +338,7 @@ function openHighscore(){
     activeProfile.className = "";
     activeLecture.className ="";
 
-    //Henter ut innholdet i "highscore.html" og legger det inn i student_body
+    //Henter ut innholdet i "AJAX_html/highscore.html" og legger det inn i student_body
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -346,7 +346,7 @@ function openHighscore(){
             updateHighscore();
         }
     };
-    xhttp.open("GET", "highscore.html", true);
+    xhttp.open("GET", "AJAX_html/highscore.html", true);
     xhttp.send();
 
     //Kaller oppdateringene fra database
