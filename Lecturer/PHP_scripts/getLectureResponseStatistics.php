@@ -1,9 +1,9 @@
 <?php
 session_start();
-require '../Database.php';
+require '../../Database.php';
 $db = new Database();
 
-$lecture_ID = $_GET["lecture_ID"];
+$lecture_ID = $_POST["lectureID"];
 
 $responseCountArray = $db->getResponseTypesAndCountByLectureID($lecture_ID);
 

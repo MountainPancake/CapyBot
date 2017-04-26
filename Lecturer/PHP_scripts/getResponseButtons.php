@@ -2,7 +2,7 @@
 
 session_start();
 
-include '../Database.php';
+include '../../Database.php';
 
 $lecture_ID = $_POST["lectureID"];
 

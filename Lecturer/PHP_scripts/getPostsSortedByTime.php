@@ -1,8 +1,7 @@
 <?php
-  session_start();
-  require '../Database.php';
+  require '../../Database.php';
   $db = new Database();
-  $posts = $db->getPostsByLectureID($_GET["lecturePin"]);
+  $posts = $db->getPostsByLectureID($_POST["lectureID"]);
   usort($posts, function($a,$b){
     return $b["time_posted"] <=> $a["time_posted"];
   });

@@ -1,9 +1,13 @@
 <?php
     session_start();
     require '../Database.php';
-    $email = $_SESSION["email"];
     $db = new Database();
-    $success = $db->getUserByEmail($email);
+    $success = $db->getAllStudents();
+
+    usort($success, function($a,$b){
+      return $b["points"] <=> $a["points"];
+    });
+
     $data = json_encode($success);
     echo $data;
 ?>

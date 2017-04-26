@@ -54,17 +54,17 @@
 
                         <form onsubmit="createStudentUser()" method = "POST">
 
-                            <p class="signInText">Email:</p>
+                            <p class="signInText">Email: *</p>
                             <input type="email" id="newEmail" placeholder="name@domain.com" name="email" class="form-control signInForm" required><br/>
                             <p class="signInText">Password:</p>
                             <input type="password" id="newPassword" placeholder="*******" name="password" class="form-control signInForm" required>
                             <br/>
+                            <p class="helpText">* Your email will be visible to other users</p>
                             <button type="submit" class="btn btn-success btn-lg">Create user!</button>
                             <br /><br />
                         </form>
 
-                        <button onclick="signInClick()" class="btn btn-primary btn-sm" style="float:left; margin-left:20px;">Already have an account?</button>
-                        <p class="helpText">* Your email will be visible to other users?</p>
+                        <button onclick="signInClick()" class="btn btn-primary btn-sm">Already have an account?</button>
 
                     </div>
 

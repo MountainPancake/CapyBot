@@ -2,14 +2,13 @@
 
 session_start();
 
-include '../Database.php';
+include '../../Database.php';
 
 $email = $_SESSION["email"];
-$category = $_POST["category"];
 
 $db = new Database();
 
-$success = $db->getLecturesByEmailAndCategory($email, $category);
+$success = $db->getCategoriesByEmail($email);
 
 $data = json_encode($success);
 

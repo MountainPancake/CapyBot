@@ -22,29 +22,18 @@
           <!--hentes fra database?-->
           <div id="highscore">
               <h1 class="student_headers">Highscore</h1>
-              <br />
-              <table style="width:100%">
-                  <tr>
-                      <th>Rank</th>
-                      <th>Name</th>
-                      <th>Points</th>
-                  </tr>
-                  <tr>
-                      <th id="place"></th>
-                      <th id="nickname"></th>
-                      <th id="points"></th>
-                  </tr>
-                  <tr>
-                      <th>2</th>
-                      <th>Kristiane</th>
-                      <th>400</th>
-                  </tr>
-                  <tr>
-                      <th>2</th>
-                      <th>Kristiane</th>
-                      <th>400</th>
-                  </tr>
+
+              <table id="highscoreTable" class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Points</th>
+                      </tr>
+                  </thead>
+                  <tbody id="tableRows">
+                  </tbody>
               </table>
+
           </div>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
