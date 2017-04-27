@@ -203,11 +203,13 @@ function renderStudentQuestions(){
             //Constructs the template for questions-elements
             var questBox = document.createElement("div");
             questBox.innerHTML =
-            '<div class="quest">'
-                +'<h5 class="question"></h5>'
-            +'</div>'
-            +'<div>'
-                +'<h5 class="upvotes"></h5>'
+            '<div class="well">'
+ +              +'<div class="quest">'
+ +                  +'<p class="question"></p>'
+ +              +'</div>'
+ +              +'<div class="vote">'
+ +                  +'<p class="upvotes"></p>'
+ +              +'</div>';
             +'</div>';
             //Parsing post-data from the database
             var myObj = JSON.parse(this.responseText);
