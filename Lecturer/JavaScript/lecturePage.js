@@ -204,12 +204,12 @@ function renderStudentQuestions(){
             var questBox = document.createElement("div");
             questBox.innerHTML =
             '<div class="well">'
- +              +'<div class="quest">'
- +                  +'<p class="question"></p>'
- +              +'</div>'
- +              +'<div class="vote">'
- +                  +'<p class="upvotes"></p>'
- +              +'</div>';
+               +'<div class="quest">'
+                   +'<p class="question"></p>'
+               +'</div>'
+               +'<div class="vote">'
+                   +'<p class="upvotes"></p>'
+               +'</div>';
             +'</div>';
             //Parsing post-data from the database
             var myObj = JSON.parse(this.responseText);
