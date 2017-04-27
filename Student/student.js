@@ -1,12 +1,12 @@
-//Åpner siden Sign In
+//Opens the site signIntoLecture
 function openSignIn(){
     var activeSignIn = document.getElementById("activeSignIn");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    //Set the right class to the class "active"
     activeSignIn.className = "active";
     activeProfileNotLoggedIn.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/signIntoLecture.html" og legger det inn i "studentBody"
+    //Fetches the "AJAXhtml/signIntoLecture.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -18,15 +18,15 @@ function openSignIn(){
 }
 
 
-//Åpner siden ProfileNotLoggedIn og oppdaterer den onclick!
+//Opens the site ProfileNotLoggedIn
 function openProfileNotLoggedIn() {
     var activeProfileNotLoggedIn = document.getElementById("activeProfileNotLoggedIn");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    //Set the right class to the class "active"
     activeProfileNotLoggedIn.className = "active";
     activeSignIn.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/profile.html" og legger det inn i "studentBody"
+    //Fetches the "AJAXhtml/profile.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -39,22 +39,23 @@ function openProfileNotLoggedIn() {
 }
 
 
-//Åpner siden Lecture og oppdaterer den onclick!
+//Opens the site Lecture
 function openLecture(){
     var activeLecture = document.getElementById("activeLecture");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    //Set the right class to the class "active"
     activeLecture.className = "active";
     activeProfile.className = "";
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/student.html" og legger det inn i "studentBody"
+    //Fetches the "AJAXhtml/student.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("studentBody").innerHTML = this.responseText;
-            //Kaller oppdateringene fra database
+
+            //Calling functions thats needed to update data displayd from database
             updateLecture();
             var orginFunction = "openLecture";
             insertPost(orginFunction);
@@ -79,6 +80,8 @@ function updateLecture(){
     xmlhttp.send();
 }
 
+
+//Updates what responses to display on site
 function updateResponses(){
 
     var xmlhttp = new XMLHttpRequest();
@@ -119,6 +122,7 @@ function updateResponses(){
     xmlhttp.send();
 }
 
+//Update database with new count of responses given.
 function giveResponse(text){
     //button.disabled = true;
     var dataString = "responseType=" + text;
@@ -140,22 +144,23 @@ function giveResponse(text){
 }
 
 
-//Åpner siden Profile og oppdaterer den onclick!
+//Opens the site Profile
 function openProfile() {
     var activeProfile = document.getElementById("activeProfile");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    //Set the right class to the class "active"
     activeProfile.className = "active" + "collapsed";
     activeLecture.className = "";
     activeQuestions.className = "";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/profile.html" og legger det inn i "studentBody"
+    //Fetches the "AJAXhtml/profile.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("studentBody").innerHTML = this.responseText;
-            //Kaller oppdateringene fra database
+
+            //Calling function thats needed to update data displayd from database
             updateProfile();
         }
     };
@@ -163,18 +168,19 @@ function openProfile() {
     xhttp.send();
 }
 
+//Fetches data from "PHP/getProfile.php"
 function updateProfile(){
 
-    //Henter ut innholdet i "PHP/getProfile.php", splitter det opp i variabler og legger det inn i forskjellige id-tagger
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
           var myObj = JSON.parse(this.responseText);
-          console.log(myObj);
           var username = myObj.email.split("@", 1);
+
           document.getElementById("name").innerHTML = username;
           document.getElementById("email").innerHTML = myObj.email;
 
+          //Calling function thats needed to update data displayd from database
           var orginFunction = "updateProfile";
           insertPoints(orginFunction);
       }
@@ -184,7 +190,7 @@ function updateProfile(){
     xmlhttp.send();
 }
 
-//Kjører insertPost.php og sender deg videre til questions med input fra form
+//Inserting post and sends you to the site questions.
 function postQuestion(){
     var questionData = document.getElementById("question").value;
 
@@ -208,22 +214,24 @@ function postQuestion(){
 
 }
 
-//Åpner siden Questions og oppdaterer den onclick!
+//Opens the site Questions
 function openQuestions(){
     var activeQuestions = document.getElementById("activeQuestions");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    //Set the right class to the class "active"
     activeQuestions.className = "active";
     activeProfile.className = "";
     activeLecture.className ="";
     activeHighscore.className = "";
 
-    //Henter ut innholdet i "AJAXhtml/questions.html" og legger det inn i "studentBody"
+    //Fetches the "AJAXhtml/questions.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+
             document.getElementById("studentBody").innerHTML = this.responseText;
-            //Kaller oppdateringene fra database
+
+            //Calling function thats needed to update data displayd from database
             var orginFunction = "openQuestions";
             insertPost(orginFunction);
         }
@@ -232,10 +240,9 @@ function openQuestions(){
     xhttp.send();
 }
 
-//Viderefører til questions-siden til student, med nye spørsmål
+//Insering questions at the question site
 function insertPost(orginFunction){
     var obj, dbParam, xmlhttp;
-    // *** Grab the parent element just once, no need to keep looking it up in the loop
     obj = { "table":"text", "limit":15 };
     dbParam = JSON.stringify(obj);
     xmlhttp = new XMLHttpRequest();
@@ -245,10 +252,13 @@ function insertPost(orginFunction){
           var myObj = JSON.parse(this.responseText);
 
           if(this.responseText=="[]"){
+
               document.getElementById("topQuest").innerHTML = "There are no questions yet!";
               document.getElementById("newQuest").innerHTML = "There are no questions yet!";
+
           }
           else{
+
               var questBox = document.createElement("div");
               questBox.className = "questbox";
               questBox.innerHTML =
@@ -263,37 +273,39 @@ function insertPost(orginFunction){
               +'</div>';
 
               if(myObj){
+
                   if(orginFunction === "openQuestions"){
+
                       Object.keys(myObj).forEach(function(key) {
                           var entry = myObj[key];
-                          // Get the first .questbox and clone it
                           var clone = questBox.cloneNode(true);
-                          // Set the question and upvotes
+
                           clone.querySelector(".question").innerHTML = entry.text;
                           clone.querySelector(".upvotes").innerHTML = entry.upvotes;
-
                           clone.querySelector(".knapp").setAttribute('name', entry.ID);
 
-                          // Append the clone at the top
                           newQuest.appendChild(clone);
 
                       });
                   }
+
                   myObj.sort(function(a,b){
                       return parseInt(b.upvotes) - parseInt(a.upvotes);
                   });
+
                   myObj = myObj.slice(0,5);
                   var topQuest = document.getElementById("topQuest");
+
                   myObj.forEach(function(entry){
-                      // Get the first .questbox and clone it
+
                       var clone = questBox.cloneNode(true);
-                      // Set the question and upvotes
+
                       clone.querySelector(".question").innerHTML = entry.text;
                       clone.querySelector(".upvotes").innerHTML = entry.upvotes;
 
                       clone.querySelector(".knapp").setAttribute('name', entry.ID);
-                      // Append the clone at the top
                       topQuest.appendChild(clone);
+
                   });
               }
           }
@@ -303,7 +315,7 @@ function insertPost(orginFunction){
     xmlhttp.send();
 }
 
-//Oppdatere upvotes når knappene klikkes
+//Update the upvote count on posts
 function upvotePost(event){
     var button = event.srcElement;
     button.disabled = true;
@@ -314,6 +326,7 @@ function upvotePost(event){
         data: dataString,
         success: function(responseText){
             var post = JSON.parse(responseText);
+
             button.parentElement.querySelector(".upvotes").innerHTML = post.upvotes;
         },
         error: function(jqXHR, exception){
@@ -327,42 +340,40 @@ function upvotePost(event){
 }
 
 
-
-//Åpner siden Highscore og oppdaterer den onclick!
+//Opens the site  Highscore
 function openHighscore(){
     var activeHighscore = document.getElementById("activeHighscore");
 
-    //setter klassen "active" aktiv hos gjeldene funksjon
+    ///Set the right class to the class "active"
     activeHighscore.className = "active";
     activeQuestions.className = "";
     activeProfile.className = "";
     activeLecture.className ="";
 
-    //Henter ut innholdet i "AJAXhtml/highscore.html" og legger det inn i studentBody
+    //Fetches the "AJAXhtml/highscore.html" file and og insert it into "studentBody"
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById("studentBody").innerHTML = this.responseText;
+
+            //Calling function thats needed to update data displayd from database
             updateHighscore();
         }
     };
     xhttp.open("GET", "AJAXhtml/highscore.html", true);
     xhttp.send();
 
-    //Kaller oppdateringene fra database
 }
 
+//Fetches data from "PHP/getHighscore.php" and displays it in a table
 function updateHighscore(){
 
-      //Henter ut innholdet i "PHP/getHighscore.php", splitter det opp og legger det inn i forskjellige id
       var xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             myObj = JSON.parse(this.responseText);
 
             var highsoreTable = document.getElementById("highscoreTable");
-
-            console.log(myObj);
 
             for (x in myObj){
 
@@ -411,6 +422,7 @@ function insertPoints(orginFunction){
     xmlhttp.send();
 }
 
+//Insert the updatet points in database.
 function addPoints(points){
     var dataString = "points=" + points;
     $.ajax({
@@ -429,12 +441,10 @@ function addPoints(points){
 }
 
 
-
-//Kollapser Navigationbar når man klikker på linkene i menyen
+//Collapses Navigationbar when clicking linke in the menu
 collapseNavbar();
 function collapseNavbar(){
 
-    //Gjemmer og viser menyen igjen ettersom hvor man klikker
     $(window).on("click", function(){
         $("#navbar").on("click", function(){
             $("#navbar").collapse('hide');
