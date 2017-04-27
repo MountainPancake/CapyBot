@@ -50,6 +50,7 @@ function openLecture(){
     activeHighscore.className = "";
 
     //Fetches the "AJAXhtml/student.html" file and og insert it into "studentBody"
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -61,7 +62,7 @@ function openLecture(){
             insertPost(orginFunction);
         }
     };
-    xhttp.open("GET", "AJAXhtml/student.html", true);
+    xhttp.open("GET", "AJAXhtml/lecture.html", true);
     xhttp.send();
 }
 
